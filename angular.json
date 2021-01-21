@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "BeneciDD"
+  "defaultProject": "BeneciDD",
+  "cli": {
+    "analytics": "7e1135a1-56b1-416d-b8dd-b6cd18325ecb"
+  }
 }
