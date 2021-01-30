@@ -1,1 +1,18 @@
+<div class="top-bar bg_beneci">
+  <div class="col-8 col-sm-6 float-right menu-button">
+    Cart {{cartTotal | currency}}
+  </div>
+  <div class="col-14 col-sm-12 col-md-6 float-left menu-bar" (click) = "dropShown = !dropShown">{{showLocation}}</div>
+</div>
+<div class="col-14 col-sm-12 col-md-6 drop-box" [hidden] = "!dropShown">
+  <div class="locationItem" (click) = "setLocation('East')">
+    East (Lorry Greenburg)
+  </div>
+  <div class="locationItem" (click) = "setLocation('West')">
+    West (Cobdon Road)
+  </div>
+  <div class="locationItem last" (click) = "setLocation('Vanier')">
+    Vanier (Montreal Road)
+  </div>
+</div>
 <router-outlet></router-outlet>

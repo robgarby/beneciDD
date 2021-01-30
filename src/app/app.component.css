@@ -1,0 +1,61 @@
+.menu-bar {
+    position: relative;
+    text-indent: 10px;
+    cursor: pointer;
+}
+
+.menu-bar:before {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #f00;
+}
+
+.menu-bar:after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #333;
+}
+
+.drop-box{
+    background-color: white;
+    border-radius: 0px 0px 6px 0px;
+    border: 2px solid black;
+    z-index: 1000;
+    position: absolute;
+}
+
+.locationItem {
+    height: 35px;
+    line-height: 35px;
+    text-transform: uppercase;
+    font-size: x-small;
+    background-color: white;
+    border-bottom: 2px solid black;
+    cursor: pointer;
+    text-indent: 10px;
+}
+
+.locationItem:hover {
+    height: 35px;
+    line-height: 35px;
+    text-transform: uppercase;
+    font-size: x-small;
+    background-color: green;
+    border-bottom: 2px solid black;
+
+}
+
+.locationItem.last {
+    border-bottom: 0px;
+}

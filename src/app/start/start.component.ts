@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-start',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private global : DataService) { }
 
   ngOnInit(): void {
+    this.global.cartEmitter.subscribe(
+      (response:boolean) => {
+        this.global.theCart = response;
+      }
+    )
   }
 
 }

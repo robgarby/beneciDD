@@ -1,0 +1,109 @@
+<div class="col-24 float-left button-bar">
+    <div class="navigation-button" (click)="goHome()">HOME</div>
+    <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="resetItem(i)">{{detail}}
+    </div>
+</div>
+<div class="container" [hidden]="currentPizza.length !== 0">
+    <div class="col-24 mt-3">
+        <div class="col-24 col-sm-18 col-md-8" (click)="buildYourOwn()">
+            <div class="special-pizza-box">
+                <div class="pizza-title-special">
+                    Build Your Own
+                </div>
+                <div class="pizza-price-special">
+                    $11.60 and Up.
+                </div>
+            </div>
+        </div>
+        <div class="col-24 col-sm-18 col-md-8" *ngFor="let thePizza of pizza; let i = index">
+            <div class="pizza-box" (click)="clickPizza(thePizza.title,i)">
+                <div class="pizza-title">
+                    {{thePizza.title}}
+                </div>
+                <div class="pizza-price">
+                    {{thePizza.PSM | currency}} to {{thePizza.PXL | currency}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" [hidden]="currentPizza.length === 0">
+    <div class="col-24 mt-3">
+        <div class="col-24 highlight-box mb-3">
+            <div class="float-left pizza-title2 col-24">
+                {{currentPizza.title}}
+            </div>
+            <div class="col-24">
+                <div class="float-left pizza-description">
+                    {{currentPizza.description}}
+                </div>
+                <div class="float-right pizza-title2 text-right">
+                    {{itemCost |currency}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24" [hidden]="whatStep !== 1">
+        <div class="col-24 float-right mt-1 mb-1" *ngFor="let price of priceArray; let i = index"
+            (click)="clickSize(i)">
+            <div class="col-18 col-sm-12 price-box float-right">
+                <div class="col-18 float-right text-right">{{setSize(i)}} {{price | currency}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24" [hidden]="whatStep !== 2">
+        <div class="col-24 float-right mt-1 mb-1" *ngFor="let crust of crustArray; let i = index"
+            (click)="clickCrust(i)">
+            <div class="col-12 price-box float-right">
+                <div class="col-18 float-right text-right">{{crust.crust}} Crust {{displayCost(crust.cost)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24" [hidden]="whatStep !== 3">
+        <div class="col-24 float-right mt-1 mb-1" *ngFor="let sauce of sauceArray; let i = index"
+            (click)="clickSauce(i)">
+            <div class="col-12 price-box float-right">
+                <div class="col-18 float-right text-right">{{sauce.sauce}} Sauce</div>
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="col-12 alert-warning float-right p-3 font-small text-center"
+                [hidden]="currentSauce !== 'Garlic'">
+                <div class="col-24">this is not a side Garlic Sauce. This is replacing Tomato Sauce with Garlic Sauce on
+                    the Pizza</div>
+                <div class="col-24 mt-1 font-x-small">
+                    <div class="col-24 float-left success-button" (click)="yesGarlicSauce()">Yes, Use Garlic Sauce</div>
+                    <div class="col-24 float-left warning-button mt-2" (click)="noGarlicSauce()">No, Do not use Garlic
+                        Sauce</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24" [hidden]="whatStep !== 4">
+        <div class="col-24">
+            <div class="col-24 float-right mt-1 mb-1 explain-box">Please Confirm the information below. To change any
+                item, press on the item in the list, or in the Bar above - To Modify the Ingredients press on Yellow
+                Modify Ingredients button</div>
+        </div>
+        <div class="col-24">
+            <div class="price-box-confirm text-right" *ngFor="let detail of detailArray; let i = index"
+                (click)="resetItem(i)">
+                {{detail}}
+            </div>
+            <div class="col-24">
+                <div class="float-right">Pizza Cost {{itemCost | currency}}</div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-12 col-sm-8 col-md-5 float-right">
+                    <div class="success-button col-24" (click)="addToCart()">Add to Cart</div>
+                </div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-12 col-sm-8 col-md-5 float-right">
+                    <div class="warning-button col-24" (click) = "buildIt()">Modify Ingredients</div>
+                </div>
+            </div>
+
+        </div>
+    </div>

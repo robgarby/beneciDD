@@ -1,0 +1,134 @@
+.pizza-box{
+    border: 2px solid darkgreen;
+    background-color: white;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: x-small;
+    text-transform: uppercase;
+}
+
+.pizza-box:hover{
+    background-color: lightslategray;
+}
+
+.pizza-price {
+    text-transform: uppercase;
+    font-size: xx-small;
+}
+
+.pizza-price-special {
+    text-transform: uppercase;
+    font-size: xx-small;
+    color: white;
+}
+
+.pizza-price-special:hover{
+    color: black;
+}
+
+.pizza-title{
+    text-transform: uppercase;
+    font-size: x-small;
+    font-weight: bolder;
+    color: darkgreen;
+}
+
+.pizza-title-special{
+    text-transform: uppercase;
+    font-size: x-small;
+    font-weight: bolder;
+    color: orange;
+}
+
+.pizza-title2{
+    text-transform: uppercase;
+    font-size: small;
+    font-weight: bolder;
+    color: darkgreen;
+}
+
+.pizza-description{
+    text-transform: uppercase;
+    font-size: x-small;
+    color: black;
+}
+
+.special-pizza-box{
+    border: 2px solid olive;
+    color:white;
+    background-color: olive;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: x-small;
+    text-transform: uppercase;
+}
+
+.special-pizza-box:hover{
+    background-color: lightgray;
+}
+
+.modInfo{
+    border: 2px solid darkolivegreen;
+    padding: 5px;
+    font-size: small;
+}
+
+.modInfo:hover{
+    background-color: darkolivegreen;
+    color: white;
+    cursor : pointer;
+}
+
+.none {
+    background-color: none;
+}
+
+.one {
+    background-color: lightgreen;
+    border: 2px solid black;
+}
+
+.two {
+    background-color: lightsalmon;
+    border: 2px solid black;
+}
+.three {
+    background-color: lightpink;
+    border: 2px solid black;
+}
+
+.define{    
+    padding: 5px;
+    text-align: center;
+    font-size: x-small;
+}
+
+.modDrop{
+    z-index: 1000;
+    position: absolute;
+    background-color: white;
+    border: 2px solid darkolivegreen;
+    padding: 5px;
+}
+
+.modItem{
+    border: 1px solid black;
+    padding: 4px;
+    text-align: center;
+    font-size: small;
+}
+
+.modItem:hover{
+    background-color: darkslategray;
+    color: white;
+}
+
+.premium {
+    border: 2px solid red;
+}

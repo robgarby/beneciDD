@@ -1,1 +1,10 @@
-<p>menu works!</p>
+<div class="col-24">
+    <div class="col-24 detail_item mt-3">
+        Please Choose from the Catagories below.
+    </div>
+    <div class="container" [hidden] = "whichMenu !== 'All'">
+        <div class="item-box col-24 col-sm-12 col-lg-6 mt-3" (click) = "setMenu(item)" *ngFor = "let item of theCats; let i = index">
+            {{item}} Menu
+        </div>
+    </div>
+</div>

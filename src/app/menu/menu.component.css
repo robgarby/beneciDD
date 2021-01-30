@@ -1,0 +1,39 @@
+.detail_item{
+    text-transform: uppercase;
+    font-size: small;
+    text-align: center;
+}
+
+.item-box{
+    border: 2px solid darkgreen;
+    background-color: white;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.item-box:hover{
+    background-color: lightgrey;
+}
+
+.link-line{
+    font-size: x-small;
+    text-transform: uppercase;
+    color: black;
+    background-color: lightblue;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 20px;
+
+}
+
+.is-nav-link {
+    color: blue;
+    cursor: pointer;
+}
+
+.is-nav-link:last-child{
+    color: black;
+    cursor: none;
+}

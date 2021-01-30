@@ -1,0 +1,40 @@
+<div class="col-24 float-left button-bar">
+    <div class="navigation-button" (click)="resetItem(-2)">HOME</div>
+    <div class="navigation-button" (click)="resetItem(-1)">PIZZA</div>
+    <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="resetItem(i)">{{detail}}
+</div>
+<div class="container">
+    <div class="col-24 mt-3">
+        <div class="col-24 highlight-box mb-3">
+            <div class="float-left pizza-title2 col-24">
+                {{currentPizza.title}}
+            </div>
+            <div class="col-24">
+                <div class="float-left pizza-description">
+                    {{currentPizza.description}}
+                </div>
+                <div class="float-right pizza-title2 text-right">
+                    {{itemCost |currency}}
+                </div>
+            </div>
+    </div>
+    <div class="container" [hidden] = "whatStep !== 0">  <!-- Ingredients -->
+        <div class="col-24">
+            <div class="col-24 mb-2">
+                <div class="col-12 col-sm-6 one define">Single Item</div>
+                <div class="col-12 col-sm-6 two define">Double Item</div>
+                <div class="col-12 col-sm-6 three define">Triple Item</div>
+                <div class="col-6 premium define">Premium Item</div>
+            </div>
+            <div class="col-24 col-sm-12 col-md-6 mb-1" *ngFor = "let mod of modDataBase; let i = index">
+                <div class="modInfo" (click) = "setMod(mod.ID)" [ngClass] = "colorMod(mod.code)">{{mod.modifier}}</div>
+                <div class="col-24 modDrop" [hidden] = "whichMod !== mod.ID">
+                    <div class="modItem" (click) = modifyItem(0,mod.code)>No Item</div>
+                    <div class="modItem" (click) = modifyItem(1,mod.code)>Single Item</div>
+                    <div class="modItem" (click) = modifyItem(2,mod.code)>Double Item</div>
+                    <div class="modItem" (click) = modifyItem(3,mod.code)>Triple Item</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

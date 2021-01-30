@@ -1,1 +1,156 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/bootstrap4_24_ip.css';
+
+body{
+    background-color: white;
+}
+
+.top-bar {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-size: small;
+    color: white;
+}
+
+.bg_beneci{
+    background-color: #ccc;
+}
+
+.menu-bar{
+    height: 100%;
+    background-color: black;
+    text-align: left;
+}
+
+.page-middle{
+    text-transform: uppercase;
+    font-size: medium;
+    top: 50%;
+    position: absolute;
+
+}
+
+.button-bar{
+    height: 30px;
+    width: 100%;
+    background-color: gainsboro;
+}
+
+.navigation-button{
+    font-size: x-small;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: darkolivegreen;
+    color: white;
+    display: inline-block;
+    padding: .25rem .5rem;
+    cursor: pointer;
+    top: 0;
+    position: relative;
+    clear: both;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.navigation-button:hover{
+    background-color: lightslategray;
+    color: black;
+}
+
+.price-text{
+    text-transform: uppercase;
+    color: darkgreen;
+    font-size: small;
+}
+
+.price-box{
+    padding: 8px;
+    border: 2px solid darkgreen;
+    text-align: right;
+    cursor: pointer;
+    font-size: small;
+}
+
+.price-box:hover{
+    background-color: lightslategray;
+}
+
+.price-box-confirm{
+    font-size: x-small;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: darkolivegreen;
+    color: white;
+    display: inline-block;
+    padding: .25rem .5rem;
+    cursor: pointer;
+    top: 0;
+    position: relative;
+    clear: both;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.highlight-box {
+    padding: 10px;
+    background-color: lightgrey;
+    border: 2px solid darkgreen;
+}
+
+.price-display {
+    padding: 5px;
+    background-color:green;
+    border: 2px solid darkgreen;
+    color: yellow;
+    font-size: medium;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.explain-box {
+    font-size: small;
+    text-transform: uppercase;
+}
+
+.success-button{
+    font-size: x-small;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: darkolivegreen;
+    color: white;
+    display: inline-block;
+    padding: .45rem .5rem;
+    cursor: pointer;
+    top: 0;
+    position: relative;
+    clear: both;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.warning-button{
+    font-size: x-small;
+    text-transform: uppercase;
+    text-align: center;
+    background-color:orange;
+    color: black;
+    display: inline-block;
+    padding: .45rem .5rem;
+    cursor: pointer;
+    top: 0;
+    position: relative;
+    clear: both;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.font-small{
+    font-size: small;
+}
+
+.font-x-small{
+    font-size: x-small;
+}
