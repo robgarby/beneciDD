@@ -89,18 +89,36 @@
     background-color: none;
 }
 
-.one {
-    background-color: lightgreen;
+.one-black {
+    background-color: #c2b17873;
     border: 2px solid black;
 }
 
-.two {
-    background-color: lightsalmon;
+.two-black {
+    background-color: rgba(148, 130, 123, 0.555);
     border: 2px solid black;
 }
-.three {
-    background-color: lightpink;
+.three-black {
+    background-color:  rgba(132, 148, 123, 0.555);
     border: 2px solid black;
+}
+
+.no-red {
+    border: 2px solid var(--premium-item);
+}
+
+.one-red {
+    background-color: #c2b17873;
+    border: 2px solid var(--premium-item);
+}
+
+.two-red {
+    background-color: rgba(148, 130, 123, 0.555);
+    border: 2px solid var(--premium-item);
+}
+.three-red {
+    background-color:  rgba(132, 148, 123, 0.555);
+    border: 2px solid var(--premium-item);
 }
 
 .define{    
@@ -125,10 +143,6 @@
 }
 
 .modItem:hover{
-    background-color: darkslategray;
+    background-color: rgb(60, 82, 82);
     color: white;
-}
-
-.premium {
-    border: 2px solid red;
 }

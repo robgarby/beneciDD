@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService implements OnInit{
+export class DataService{
 
   cartEmitter = new EventEmitter();
   cartTotalEmitter = new EventEmitter();
@@ -17,16 +17,19 @@ export class DataService implements OnInit{
   buildPrices : any = [];
 
   // build pizza data
-  currentSize : string = 'Medium';
-  currentSauce : string = 'Regular';
-  currentCrust : string = 'Gluten';
-  modData : any = ["110",'101','113',"120",'100','115','110'];
+  currentSize : string = '';
+  currentSauce : string = '';
+  currentCrust : string = '';
+  modData : any = [];
+  dataImported : boolean = false;
+
+  sauceArray : any = [
+    {"sauce":'Regular'},
+    {"sauce":'No'},
+    {"sauce":'Garlic'}
+  ];
 
   constructor(private http:HttpClient) { }
-
-  ngOnInit(){
-
-  }
 
   changeCart(inval:any){
     this.theCart = inval;
@@ -48,6 +51,11 @@ export class DataService implements OnInit{
   }
 
   addToCart(title:string,details:any){
+    this.currentSauce = '';
+    this.modDataBase = '';
+    this.currentCrust = '';
+    this.currentSize = 'Small';
+    this.modData = [];
     this.theCart.push(details);
     this.theCartTotal = this.theCartTotal + details[2];
     this.cartEmitter.emit(this.theCart);

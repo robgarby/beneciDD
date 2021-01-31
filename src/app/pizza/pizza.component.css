@@ -59,7 +59,7 @@
 .special-pizza-box{
     border: 2px solid olive;
     color:white;
-    background-color: olive;
+    background-color: var(--beneci);
     border-radius: 6px;
     padding: 10px;
     text-align: center;
@@ -70,5 +70,5 @@
 }
 
 .special-pizza-box:hover{
-    background-color: lightgray;
+    background-color:var(--beneci-over);
 }

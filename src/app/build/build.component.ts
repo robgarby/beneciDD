@@ -27,13 +27,29 @@ export class BuildComponent implements OnInit {
   displayArray:any = [];
   modified : boolean = false;
   whichMod : number = -1;
+  smallPrice : number = 0;
+  mediumPrice : number = 0;
+  largePrice : number = 0;
+  xLargePrice : number = 0;
+  buildPriceArray : any = [];
 
   async ngOnInit() {
+    if (this.global.theLocation === 'select location') {
+      this.router.navigateByUrl('START');
+      return;
+    } 
     this.detailArray = [];
     this.currentSize = this.global.currentSize;
     this.currentSauce = this.global.currentSauce;
     this.currentCrust = this.global.currentCrust;
     this.modData = this.global.modData;
+    switch (this.currentSize){
+      case 'Small' : this.currentPizza.title = 'SM Build Your Own'; break;
+      case 'Medium' :  this.currentPizza.title = 'Med Build Your Own'; break;
+      case 'Large' :  this.currentPizza.title = 'LG Build Your Own'; break;
+      case 'X-Large' :  this.currentPizza.title = 'XL Build Your Own'; break;
+      default :   this.currentPizza.title = 'SM Build Your Own'; this.currentSize = 'Small'; this.global.currentSize = 'Small'; break;
+    }
     this.detailArray.push('Build Your Own');
     this.detailArray.push('Ingredients');
     this.currentSize !== '' && this.detailArray.push(this.currentSize);
@@ -104,7 +120,7 @@ export class BuildComponent implements OnInit {
    this.modString= this.modString.slice(0,-2);
    this.currentPizza.description = this.modString;
    await this.modPrice(this.modDataBase, this.modData);
-   this.itemCost = this.calcPrice(this.currentSize, this.regMods, this.premiumMods);
+   this.itemCost = this.calcPrice(this.currentSize,this.regMods, this.premiumMods);
   };
 
   
@@ -115,16 +131,14 @@ export class BuildComponent implements OnInit {
     await this.http.get('https://www.beneci.com/DATA/getMods.php').subscribe(
       (response) => {
         temp = Object.values(response);
-        console.log(temp);
         this.global.modDataBase = temp;
         mods = this.global.modData;
-        console.log(mods);
         this.buildPizza(temp, mods);
       }
     )
   }
 
-  colorMod(inval: number) {
+  colorMod(inval: number,premium:string) {
     var occurs: number = 0;
     var returnVal = 'none';
     this.modData.forEach((element: number) => {
@@ -133,10 +147,14 @@ export class BuildComponent implements OnInit {
       }
     });
     switch (occurs) {
-      case 0: return 'none'; break;
-      case 1: return 'one'; break;
-      case 2: return 'two'; break;
-      case 3: return 'three'; break;
+      case 0: 
+        return premium === 'No' ?  'none' : 'no-red'; break;
+      case 1: 
+        return premium === 'No' ?  'one-black' : 'one-red'; break;
+      case 2: 
+        return premium === 'No' ?  'two-black' : 'two-red'; break;
+      case 3: 
+        return premium === 'No' ?  'three-black' : 'three-red'; break;
       default: return 'none'; break;
     }
   }
@@ -148,7 +166,6 @@ export class BuildComponent implements OnInit {
     var premiumAdd: number = 0;
     var glutenAdd: number = 0;
     var sendBack: number = 0;
-    console.log(this.global.currentCrust);
     switch (size) {
       case 'Small':
         this.global.buildPrices.forEach((element: any) => {
@@ -235,24 +252,42 @@ export class BuildComponent implements OnInit {
     switch (i) {
       case -1: this.router.navigateByUrl('PIZZA'); this.resetFullBuild(4); break;
       case -2: this.router.navigateByUrl('MENU'); this.resetFullBuild(4); break;
-      case 0: this.resetFullBuild(4); break;
-      case 1: this.resetFullBuild(3); break;
-
+      case 0: this.resetFullBuild(4); this.whatStep = 0; break;
+      case 1: this.resetFullBuild(3); this.whatStep = 0; break;
+      case 2: this.resetFullBuild(2); this.whatStep = 1; break;
     }
   }
 
-  resetFullBuild(inval: number) {
+  async resetFullBuild(inval: number) {
     switch (inval) {
+      case 2:
+        this.global.currentCrust = '';
+        this.global.currentSauce = '';
+        this.global.currentSize = '';
+        this.smallPrice = await this.calcPrice('Small',this.regMods,this.premiumMods);
+        this.mediumPrice = await this.calcPrice('Medium',this.regMods,this.premiumMods);
+        this.largePrice = await this.calcPrice('Large',this.regMods,this.premiumMods);
+        this.xLargePrice = await this.calcPrice('X-Large',this.regMods,this.premiumMods);
+        this.buildPriceArray = [];
+        this.buildPriceArray.push({"short":"SM","size":"Small","cost":this.smallPrice});
+        this.buildPriceArray.push({"short":"MD","size":"Medium","cost":this.mediumPrice});
+        this.buildPriceArray.push({"short":"LG","size":"Large","cost":this.largePrice});
+        this.buildPriceArray.push({"short":"XL","size":"X-Large","cost":this.xLargePrice});
+        break;
       case 3:
         this.global.currentCrust = '';
         this.global.currentSauce = '';
+        this.modString = '';
         this.global.modData = [];
+        this.displayArray.splice(0,2);
         break;
       case 4:
         this.global.currentCrust = '';
         this.global.currentSauce = '';
         this.global.currentSize = '';
         this.global.modData = [];
+        this.modString = '';
+        this.displayArray.splice(0,2);
         break;
       default:
         this.global.currentCrust = '';
@@ -262,6 +297,104 @@ export class BuildComponent implements OnInit {
         break;
     }
     this.ngOnInit();
+  }
+
+  async clickSize(i:number){
+    this.displayArray = [];
+    this.itemCost = this.buildPriceArray[i].cost;
+    this.global.currentSize = this.buildPriceArray[i].size;
+    this.currentPizza.title = this.buildPriceArray[i].short+' Build Your Own';
+    this.currentPizza.cost = this.itemCost;
+    this.currentSize = this.buildPriceArray[i].size;
+    await this.showCrusts();
+    console.log(this.crustArray);
+    this.whatStep = 2;
+    this.ngOnInit();
+  }
+
+  crustArray : any = [];
+
+  showCrusts() {
+    this.crustArray = [];
+    if (this.currentSize === 'Small') {
+      this.crustArray = [
+        { "crust": "Regular", "cost": "0" },
+        { "crust": "Thin", "cost": "0" },
+        { "crust": "Thick", "cost": "0" },
+        { "crust": "Gluten Free", "cost": "2.95" },
+      ]
+    }
+    if (this.currentSize === 'Medium') {
+      this.crustArray = [
+        { "crust": "Regular", "cost": "0" },
+        { "crust": "Thin", "cost": "0" },
+        { "crust": "Thick", "cost": "0" },
+        { "crust": "Gluten Free", "cost": "3.95" },
+      ]
+    }
+    if ((this.currentSize === 'Large') || (this.currentSize === 'X-Large')) {
+      this.crustArray = [
+        { "crust": "Regular", "cost": "0" },
+        { "crust": "Thin", "cost": "0" },
+        { "crust": "Thick", "cost": "0" }
+      ]
+    }
+  }
+
+  displayCost(inval:number){
+    if (inval.toString() === '0'){
+      return '';
+    } else {
+      return 'Add $'+parseFloat(inval.toString());
+    }
+   
+  }
+
+  sauceArray : any = [];
+
+  clickCrust(index: number) {
+    this.sauceArray = this.global.sauceArray;
+    var item : number = parseFloat(this.itemCost.toString());
+    var theCost :number = parseFloat(this.crustArray[index].cost);
+    var newTotal : number = parseFloat(this.itemCost.toString()) + theCost;
+    this.itemCost = newTotal;
+    this.detailArray.push(this.crustArray[index].crust + ' Crust');
+    this.currentCrust = this.crustArray[index].crust;
+    this.whatStep = 3;
+    this.currentSauce = '';
+  }
+
+  clickSauce(index: number) {
+    this.detailArray.push(this.sauceArray[index].sauce + ' Sauce');
+    this.currentSauce = this.sauceArray[index].sauce;
+    if (this.currentSauce !== 'Garlic'){
+      this.whatStep = 4;
+      this.global.currentSauce = this.currentSauce;
+    }
+  }
+
+  yesGarlicSauce() {
+    this.currentSauce = 'Garlic';
+    this.whatStep = 4;
+  }
+
+  noGarlicSauce() {
+    this.detailArray.pop();
+    this.currentSauce = '';
+    this.whatStep = 3;
+  }
+
+  addToCart(){
+    var itemName = this.currentSize + ' '+this.currentPizza.title;
+    var extraDetail : any = [];
+    extraDetail.push(itemName);
+    extraDetail.push('Pizza');
+    extraDetail.push(this.itemCost);
+    extraDetail.push(this.currentSauce);
+    extraDetail.push(this.currentCrust);
+    extraDetail.push(this.currentPizza.modHold);
+    this.global.addToCart(itemName,extraDetail);
+    this.router.navigateByUrl('MENU');
   }
 
 }

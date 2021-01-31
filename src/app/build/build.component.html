@@ -19,20 +19,90 @@
             </div>
     </div>
     <div class="container" [hidden] = "whatStep !== 0">  <!-- Ingredients -->
-        <div class="col-24">
-            <div class="col-24 mb-2">
-                <div class="col-12 col-sm-6 one define">Single Item</div>
-                <div class="col-12 col-sm-6 two define">Double Item</div>
-                <div class="col-12 col-sm-6 three define">Triple Item</div>
-                <div class="col-6 premium define">Premium Item</div>
+        <div class="col-24 mb-2">
+            <div class="mb-2">
+                <div class="col-12 col-sm-6">
+                    <div class="col-24 one-black define">Single Item</div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="col-24 two-black define">Double Item</div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="col-24 three-black define">Triple Item</div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="col-24 no-red define">Premium Item</div>
+                </div>
+            </div>
+            <div class="col-24 mb-2 mt-1">
+                    <div class="float-right col-6">
+                        <div class="col-24 navigation-button-fat" (click) = "resetItem(2)">Next Step</div>
+                    </div>
+
             </div>
             <div class="col-24 col-sm-12 col-md-6 mb-1" *ngFor = "let mod of modDataBase; let i = index">
-                <div class="modInfo" (click) = "setMod(mod.ID)" [ngClass] = "colorMod(mod.code)">{{mod.modifier}}</div>
+                <div class="modInfo" (click) = "setMod(mod.ID)" [ngClass] = "colorMod(mod.code,mod.premium)">{{mod.modifier}}</div>
                 <div class="col-24 modDrop" [hidden] = "whichMod !== mod.ID">
                     <div class="modItem" (click) = modifyItem(0,mod.code)>No Item</div>
                     <div class="modItem" (click) = modifyItem(1,mod.code)>Single Item</div>
                     <div class="modItem" (click) = modifyItem(2,mod.code)>Double Item</div>
                     <div class="modItem" (click) = modifyItem(3,mod.code)>Triple Item</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" [hidden] = "whatStep !== 1">
+        <div class="col-24 float-right mt-1 mb-1" *ngFor="let price of buildPriceArray; let i = index"
+            (click)="clickSize(i)">
+            <div class="col-18 col-sm-12 price-box float-right">
+                <div class="col-18 float-right text-right">{{price.size}} {{price.cost | currency}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24" [hidden]="whatStep !== 2">
+        <div class="col-24 float-right mt-1 mb-1" *ngFor="let crust of crustArray; let i = index">
+            <div class="col-12 price-box float-right" (click) = "clickCrust(i)">
+                <div class="col-18 float-right text-right">{{crust.crust}} Crust {{displayCost(crust.cost)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24" [hidden]="whatStep !== 3">
+        <div class="col-24 float-right mt-1 mb-1" *ngFor="let sauce of sauceArray; let i = index"
+            (click)="clickSauce(i)">
+            <div class="col-12 price-box float-right">
+                <div class="col-18 float-right text-right">{{sauce.sauce}} Sauce</div>
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="col-12 alert-warning float-right p-3 font-small text-center"
+                [hidden]="currentSauce !== 'Garlic'">
+                <div class="col-24">this is not a side Garlic Sauce. This is replacing Tomato Sauce with Garlic Sauce on
+                    the Pizza</div>
+                <div class="col-24 mt-1 font-x-small">
+                    <div class="col-24 float-left success-button" (click)="yesGarlicSauce()">Yes, Use Garlic Sauce</div>
+                    <div class="col-24 float-left warning-button mt-2" (click)="noGarlicSauce()">No, Do not use Garlic
+                        Sauce</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24" [hidden]="whatStep !== 4">
+        <div class="col-24">
+            <div class="col-24 float-right mt-1 mb-1 explain-box">Please Confirm the information below. To change any
+                item, press on the item in the list, or in the Bar above</div>
+        </div>
+        <div class="col-24">
+            <div class="price-box-confirm text-right" *ngFor="let detail of detailArray; let i = index"
+                (click)="resetItem(i)">
+                {{detail}}
+            </div>
+            <div class="col-24">
+                <div class="float-right">Pizza Cost {{itemCost | currency}}</div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-12 col-sm-8 col-md-5 float-right">
+                    <div class="success-button col-24" (click)="addToCart()">Add to Cart</div>
                 </div>
             </div>
         </div>

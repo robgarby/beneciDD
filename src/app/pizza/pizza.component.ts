@@ -23,14 +23,15 @@ export class PizzaComponent implements OnInit {
   whatStep: number = -1;
   crustArray: any = [];
   modOut :any = [];
-  sauceArray : any = [
-    {"sauce":'Regular'},
-    {"sauce":'No'},
-    {"sauce":'Garlic'}
-  ];
   buildPrice : any = [];
+  sauceArray : any = [];
 
   async ngOnInit() {
+    if (this.global.theLocation === 'select location') {
+      this.router.navigateByUrl('START');
+      return;
+    } 
+    this.sauceArray = this.global.sauceArray;
     var temp = this.global.theMenu;
     this.pizza = temp.filter((data: any) => data.category === 'Pizza');
     if (this.global.buildPrices.length === 0) {

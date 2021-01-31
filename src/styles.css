@@ -1,5 +1,11 @@
 @import './assets/bootstrap4_24_ip.css';
 
+:root {
+     --beneci:rgb(67, 112, 56);
+     --beneci-over: rgb(60, 82, 82);
+     --premium-item : rgb(67, 110, 252);
+   }
+
 body{
     background-color: white;
 }
@@ -41,7 +47,7 @@ body{
     font-size: x-small;
     text-transform: uppercase;
     text-align: center;
-    background-color: darkolivegreen;
+    background-color: var(--beneci);
     color: white;
     display: inline-block;
     padding: .25rem .5rem;
@@ -53,9 +59,30 @@ body{
     margin-right: 2px;
 }
 
+.navigation-button-fat{
+    font-size: x-small;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: var(--beneci);
+    color: white;
+    display: inline-block;
+    padding: .5rem .5rem;
+    cursor: pointer;
+    top: 0;
+    position: relative;
+    clear: both;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.navigation-button-fat:hover{
+    background-color: var(--beneci-over);
+    color: white;
+}
+
 .navigation-button:hover{
-    background-color: lightslategray;
-    color: black;
+    background-color: var(--beneci-over);
+    color: white;
 }
 
 .price-text{
@@ -153,4 +180,20 @@ body{
 
 .font-x-small{
     font-size: x-small;
+}
+
+.menu-button {
+	background-color : var(--beneci);
+	padding-left: 25px;
+	padding-right: 25px;
+	text-transform: uppercase;
+	font-size: small;
+	cursor: pointer;
+  height: 100%;
+  text-align: center;
+}
+
+.menu-button:hover {
+	background-color:var(--beneci-over);
+	color: #fff;
 }

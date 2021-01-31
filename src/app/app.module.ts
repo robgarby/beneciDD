@@ -11,12 +11,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { CartComponent } from './cart/cart.component';
 import { PizzaComponent } from './pizza/pizza.component';
 import { BuildComponent } from './build/build.component';
+import { SubsComponent } from './subs/subs.component';
+import { SandwichComponent } from './sandwich/sandwich.component';
+import { PastaComponent } from './pasta/pasta.component';
+import { ChickenComponent } from './chicken/chicken.component';
 
 const appRoutes : Routes = [
   {path: 'START', component: StartComponent},
   {path: 'MENU', component: MenuComponent},
   {path: 'CART', component: CartComponent},
   {path: 'PIZZA', component: PizzaComponent},
+  {path: 'CHICKEN', component: ChickenComponent},
+  {path: 'PASTA', component: PastaComponent},
+  {path: 'SANDWICH', component: SandwichComponent},
+  {path: 'SUBS', component: SubsComponent},
   {path: 'BUILD', component: BuildComponent},
   {path: '**', component: StartComponent},
 ]
@@ -28,7 +36,11 @@ const appRoutes : Routes = [
     MenuComponent,
     CartComponent,
     PizzaComponent,
-    BuildComponent
+    BuildComponent,
+    SubsComponent,
+    SandwichComponent,
+    PastaComponent,
+    ChickenComponent
   ],
   imports: [
     BrowserModule,
