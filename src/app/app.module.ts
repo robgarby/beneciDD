@@ -15,6 +15,7 @@ import { SubsComponent } from './subs/subs.component';
 import { SandwichComponent } from './sandwich/sandwich.component';
 import { PastaComponent } from './pasta/pasta.component';
 import { ChickenComponent } from './chicken/chicken.component';
+import { HalfNhalfComponent } from './half-nhalf/half-nhalf.component';
 
 const appRoutes : Routes = [
   {path: 'START', component: StartComponent},
@@ -26,6 +27,7 @@ const appRoutes : Routes = [
   {path: 'SANDWICH', component: SandwichComponent},
   {path: 'SUBS', component: SubsComponent},
   {path: 'BUILD', component: BuildComponent},
+  {path: 'HALF', component: HalfNhalfComponent},
   {path: '**', component: StartComponent},
 ]
 
@@ -40,7 +42,8 @@ const appRoutes : Routes = [
     SubsComponent,
     SandwichComponent,
     PastaComponent,
-    ChickenComponent
+    ChickenComponent,
+    HalfNhalfComponent
   ],
   imports: [
     BrowserModule,

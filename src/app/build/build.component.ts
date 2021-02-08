@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
 import { DataService } from '../data.service';
 
 @Component({
@@ -24,31 +25,31 @@ export class BuildComponent implements OnInit {
   premiumMods: number = 0;
   detailArray: any = [];
   whatStep: number = 0;
-  displayArray:any = [];
-  modified : boolean = false;
-  whichMod : number = -1;
-  smallPrice : number = 0;
-  mediumPrice : number = 0;
-  largePrice : number = 0;
-  xLargePrice : number = 0;
-  buildPriceArray : any = [];
+  displayArray: any = [];
+  modified: boolean = false;
+  whichMod: number = -1;
+  smallPrice: number = 0;
+  mediumPrice: number = 0;
+  largePrice: number = 0;
+  xLargePrice: number = 0;
+  buildPriceArray: any = [];
 
   async ngOnInit() {
     if (this.global.theLocation === 'select location') {
       this.router.navigateByUrl('START');
       return;
-    } 
+    }
     this.detailArray = [];
     this.currentSize = this.global.currentSize;
     this.currentSauce = this.global.currentSauce;
     this.currentCrust = this.global.currentCrust;
     this.modData = this.global.modData;
-    switch (this.currentSize){
-      case 'Small' : this.currentPizza.title = 'SM Build Your Own'; break;
-      case 'Medium' :  this.currentPizza.title = 'Med Build Your Own'; break;
-      case 'Large' :  this.currentPizza.title = 'LG Build Your Own'; break;
-      case 'X-Large' :  this.currentPizza.title = 'XL Build Your Own'; break;
-      default :   this.currentPizza.title = 'SM Build Your Own'; this.currentSize = 'Small'; this.global.currentSize = 'Small'; break;
+    switch (this.currentSize) {
+      case 'Small': this.currentPizza.title = 'SM Build Your Own'; break;
+      case 'Medium': this.currentPizza.title = 'Med Build Your Own'; break;
+      case 'Large': this.currentPizza.title = 'LG Build Your Own'; break;
+      case 'X-Large': this.currentPizza.title = 'XL Build Your Own'; break;
+      default: this.currentPizza.title = 'SM Build Your Own'; this.currentSize = 'Small'; this.global.currentSize = 'Small'; break;
     }
     this.detailArray.push('Build Your Own');
     this.detailArray.push('Ingredients');
@@ -63,14 +64,14 @@ export class BuildComponent implements OnInit {
     }
   }
 
-  modifyItem(value:number,mod:string){
-    var newModString : any = [];
-    this.modData.forEach((element:string) => {
+  modifyItem(value: number, mod: string) {
+    var newModString: any = [];
+    this.modData.forEach((element: string) => {
       if (element.toString() !== mod.toString()) {
         newModString.push(element);
       }
     });
-    for (var a=0; a < value; a++){
+    for (var a = 0; a < value; a++) {
       newModString.push(mod);
     }
     this.global.modData = newModString;
@@ -78,8 +79,8 @@ export class BuildComponent implements OnInit {
     this.ngOnInit();
   }
 
-  setMod(inval:number){
-    if (inval === this.whichMod){
+  setMod(inval: number) {
+    if (inval === this.whichMod) {
       this.whichMod = -1;
     } else {
       this.whichMod = inval;
@@ -97,33 +98,33 @@ export class BuildComponent implements OnInit {
     this.displayArray = [];
     mods.forEach((element: any) => {
       var found = false;
-      var foundAt :number = -1;
-      this.displayArray.forEach((indy:any, i:number) => {
-         if (indy.code === element){
-            found = true;
-            foundAt = i;
-         }
+      var foundAt: number = -1;
+      this.displayArray.forEach((indy: any, i: number) => {
+        if (indy.code === element) {
+          found = true;
+          foundAt = i;
+        }
       });
       if (found) {
         this.displayArray[foundAt].count += 1;
       } else {
-        this.displayArray.push({"code":element,"count":1,"modifier": this.translate(element)})
+        this.displayArray.push({ "code": element, "count": 1, "modifier": this.translate(element) })
       }
     })
-   this.displayArray.forEach((item:any) => {
-     if (item.count > 1) {
-       this.modString += item.count+'X '+item.modifier+', ';
-     } else {
-      this.modString += item.modifier+', ';
-     }
-   });
-   this.modString= this.modString.slice(0,-2);
-   this.currentPizza.description = this.modString;
-   await this.modPrice(this.modDataBase, this.modData);
-   this.itemCost = this.calcPrice(this.currentSize,this.regMods, this.premiumMods);
+    this.displayArray.forEach((item: any) => {
+      if (item.count > 1) {
+        this.modString += item.count + 'X ' + item.modifier + ', ';
+      } else {
+        this.modString += item.modifier + ', ';
+      }
+    });
+    this.modString = this.modString.slice(0, -2);
+    this.currentPizza.description = this.modString;
+    await this.modPrice(this.modDataBase, this.modData);
+    this.itemCost = this.calcPrice(this.currentSize, this.regMods, this.premiumMods);
   };
 
-  
+
   async getMods() {
     var temp: any = [];
     var mods: any = [];
@@ -138,7 +139,7 @@ export class BuildComponent implements OnInit {
     )
   }
 
-  colorMod(inval: number,premium:string) {
+  colorMod(inval: number, premium: string) {
     var occurs: number = 0;
     var returnVal = 'none';
     this.modData.forEach((element: number) => {
@@ -147,14 +148,14 @@ export class BuildComponent implements OnInit {
       }
     });
     switch (occurs) {
-      case 0: 
-        return premium === 'No' ?  'none' : 'no-red'; break;
-      case 1: 
-        return premium === 'No' ?  'one-black' : 'one-red'; break;
-      case 2: 
-        return premium === 'No' ?  'two-black' : 'two-red'; break;
-      case 3: 
-        return premium === 'No' ?  'three-black' : 'three-red'; break;
+      case 0:
+        return premium === 'No' ? 'none' : 'no-red'; break;
+      case 1:
+        return premium === 'No' ? 'one-black' : 'one-red'; break;
+      case 2:
+        return premium === 'No' ? 'two-black' : 'two-red'; break;
+      case 3:
+        return premium === 'No' ? 'three-black' : 'three-red'; break;
       default: return 'none'; break;
     }
   }
@@ -247,74 +248,57 @@ export class BuildComponent implements OnInit {
     this.router.navigateByUrl(inval);
   }
 
-  resetItem(i: number) {
-    console.log(i);
+  async resetItem(i: number) {
     switch (i) {
-      case -1: this.router.navigateByUrl('PIZZA'); this.resetFullBuild(4); break;
-      case -2: this.router.navigateByUrl('MENU'); this.resetFullBuild(4); break;
-      case 0: this.resetFullBuild(4); this.whatStep = 0; break;
-      case 1: this.resetFullBuild(3); this.whatStep = 0; break;
-      case 2: this.resetFullBuild(2); this.whatStep = 1; break;
-    }
-  }
-
-  async resetFullBuild(inval: number) {
-    switch (inval) {
+      case -1: this.router.navigateByUrl('PIZZA'); break;
+      case -2: this.router.navigateByUrl('MENU');  break;
+      case 0:
+        this.whatStep = 0;
+        this.detailArray.length = 1;
+        break;
+      case 1:
+        this.whatStep = 0;
+        this.detailArray.length = 1; break;
       case 2:
-        this.global.currentCrust = '';
-        this.global.currentSauce = '';
-        this.global.currentSize = '';
-        this.smallPrice = await this.calcPrice('Small',this.regMods,this.premiumMods);
-        this.mediumPrice = await this.calcPrice('Medium',this.regMods,this.premiumMods);
-        this.largePrice = await this.calcPrice('Large',this.regMods,this.premiumMods);
-        this.xLargePrice = await this.calcPrice('X-Large',this.regMods,this.premiumMods);
+        this.smallPrice = await this.calcPrice('Small', this.regMods, this.premiumMods);
+        this.mediumPrice = await this.calcPrice('Medium', this.regMods, this.premiumMods);
+        this.largePrice = await this.calcPrice('Large', this.regMods, this.premiumMods);
+        this.xLargePrice = await this.calcPrice('X-Large', this.regMods, this.premiumMods);
         this.buildPriceArray = [];
-        this.buildPriceArray.push({"short":"SM","size":"Small","cost":this.smallPrice});
-        this.buildPriceArray.push({"short":"MD","size":"Medium","cost":this.mediumPrice});
-        this.buildPriceArray.push({"short":"LG","size":"Large","cost":this.largePrice});
-        this.buildPriceArray.push({"short":"XL","size":"X-Large","cost":this.xLargePrice});
+        this.buildPriceArray.push({ "short": "SM", "size": "Small", "cost": this.smallPrice });
+        this.buildPriceArray.push({ "short": "MD", "size": "Medium", "cost": this.mediumPrice });
+        this.buildPriceArray.push({ "short": "LG", "size": "Large", "cost": this.largePrice });
+        this.buildPriceArray.push({ "short": "XL", "size": "X-Large", "cost": this.xLargePrice });
+        this.whatStep = 1;
+        this.detailArray.length = 2;
         break;
-      case 3:
-        this.global.currentCrust = '';
-        this.global.currentSauce = '';
-        this.modString = '';
-        this.global.modData = [];
-        this.displayArray.splice(0,2);
+        case 3:
+          this.detailArray.length = 3;
+          this.whatStep = 2;
         break;
-      case 4:
-        this.global.currentCrust = '';
-        this.global.currentSauce = '';
-        this.global.currentSize = '';
-        this.global.modData = [];
-        this.modString = '';
-        this.displayArray.splice(0,2);
-        break;
-      default:
-        this.global.currentCrust = '';
-        this.global.currentSauce = '';
-        this.global.currentSize = '';
-        this.global.modData = [];
+        case 4:
+          this.detailArray.length = 4;
+          this.whatStep = 3;
         break;
     }
-    this.ngOnInit();
   }
 
-  async clickSize(i:number){
+
+
+  async clickSize(i: number) {
     this.displayArray = [];
     this.itemCost = this.buildPriceArray[i].cost;
     this.global.currentSize = this.buildPriceArray[i].size;
-    this.currentPizza.title = this.buildPriceArray[i].short+' Build Your Own';
+    this.currentPizza.title = this.buildPriceArray[i].short + ' Build Your Own';
     this.currentPizza.cost = this.itemCost;
-    this.currentSize = this.buildPriceArray[i].size;
     await this.showCrusts();
-    console.log(this.crustArray);
     this.whatStep = 2;
     this.ngOnInit();
   }
 
-  crustArray : any = [];
+  crustArray: any = [];
 
-  showCrusts() {
+  async showCrusts() {
     this.crustArray = [];
     if (this.currentSize === 'Small') {
       this.crustArray = [
@@ -341,22 +325,22 @@ export class BuildComponent implements OnInit {
     }
   }
 
-  displayCost(inval:number){
-    if (inval.toString() === '0'){
+  displayCost(inval: number) {
+    if (inval.toString() === '0') {
       return '';
     } else {
-      return 'Add $'+parseFloat(inval.toString());
+      return 'Add $' + parseFloat(inval.toString());
     }
-   
+
   }
 
-  sauceArray : any = [];
+  sauceArray: any = [];
 
   clickCrust(index: number) {
     this.sauceArray = this.global.sauceArray;
-    var item : number = parseFloat(this.itemCost.toString());
-    var theCost :number = parseFloat(this.crustArray[index].cost);
-    var newTotal : number = parseFloat(this.itemCost.toString()) + theCost;
+    var item: number = parseFloat(this.itemCost.toString());
+    var theCost: number = parseFloat(this.crustArray[index].cost);
+    var newTotal: number = parseFloat(this.itemCost.toString()) + theCost;
     this.itemCost = newTotal;
     this.detailArray.push(this.crustArray[index].crust + ' Crust');
     this.currentCrust = this.crustArray[index].crust;
@@ -367,7 +351,7 @@ export class BuildComponent implements OnInit {
   clickSauce(index: number) {
     this.detailArray.push(this.sauceArray[index].sauce + ' Sauce');
     this.currentSauce = this.sauceArray[index].sauce;
-    if (this.currentSauce !== 'Garlic'){
+    if (this.currentSauce !== 'Garlic') {
       this.whatStep = 4;
       this.global.currentSauce = this.currentSauce;
     }
@@ -384,17 +368,36 @@ export class BuildComponent implements OnInit {
     this.whatStep = 3;
   }
 
-  addToCart(){
-    var itemName = this.currentSize + ' '+this.currentPizza.title;
-    var extraDetail : any = [];
+  addToCart() {
+    var itemName = this.currentSize + ' ' + this.currentPizza.title;
+    var extraDetail: any = [];
     extraDetail.push(itemName);
     extraDetail.push('Pizza');
     extraDetail.push(this.itemCost);
     extraDetail.push(this.currentSauce);
     extraDetail.push(this.currentCrust);
     extraDetail.push(this.currentPizza.modHold);
-    this.global.addToCart(itemName,extraDetail);
+    this.global.addToCart(itemName, extraDetail);
     this.router.navigateByUrl('MENU');
+  }
+
+  resetIngredients() {
+    console.log('reset');
+    this.global.modData = [];
+    this.global.currentSize = 'Small';
+    this.ngOnInit();
+  }
+
+  checkModsAmount() {
+    if (this.modData.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  checkTransfer() {
+    return this.currentSauce !== '' ? false : true;
   }
 
 }

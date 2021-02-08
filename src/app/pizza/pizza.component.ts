@@ -56,6 +56,14 @@ export class PizzaComponent implements OnInit {
     this.router.navigateByUrl('BUILD');
   }
 
+  halfNhalf(){
+    this.global.currentCrust = '';
+    this.global.currentSauce = '';
+    this.global.currentSize = 'Small';
+    this.global.modData = [];
+    this.router.navigateByUrl('HALF');
+  }
+
   clickPizza(title: string, index: number) {
     this.detailArray.push(title);
     this.currentPizza = this.pizza[index];

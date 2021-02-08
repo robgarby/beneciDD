@@ -1,0 +1,209 @@
+.pizza-box{
+    border: 2px solid darkgreen;
+    background-color: white;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: x-small;
+    text-transform: uppercase;
+}
+
+.pizza-box:hover{
+    background-color: lightslategray;
+}
+
+.pizza-price {
+    text-transform: uppercase;
+    font-size: xx-small;
+}
+
+.pizza-price-special {
+    text-transform: uppercase;
+    font-size: xx-small;
+    color: white;
+}
+
+.pizza-price-special:hover{
+    color: black;
+}
+
+.pizza-title{
+    text-transform: uppercase;
+    font-size: x-small;
+    font-weight: bolder;
+    color: darkgreen;
+}
+
+.pizza-title-special{
+    text-transform: uppercase;
+    font-size: x-small;
+    font-weight: bolder;
+    color: orange;
+}
+
+.pizza-title2{
+    text-transform: uppercase;
+    font-size: small;
+    font-weight: bolder;
+    color: darkgreen;
+}
+
+.pizza-description{
+    text-transform: uppercase;
+    font-size: x-small;
+    color: black;
+}
+
+.special-pizza-box{
+    border: var(--beneci-border);
+    color:white;
+    background-color: var(--beneci-subtle);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: x-small;
+    text-transform: uppercase;
+}
+
+.special-pizza-box:hover{
+    background-color: lightgray;
+}
+
+.modInfo{
+    border: 2px solid darkolivegreen;
+    padding: 5px;
+    font-size: small;
+    text-align: center;
+}
+
+.modInfo:hover{
+    background-color: darkolivegreen;
+    color: white;
+    cursor : pointer;
+}
+
+.none {
+    background-color: none;
+}
+
+.one-black {
+    background-color: #c2b17873;
+    border: 2px solid black;
+}
+
+.two-black {
+    background-color: rgba(148, 130, 123, 0.555);
+    border: 2px solid black;
+}
+.three-black {
+    background-color:  rgba(132, 148, 123, 0.555);
+    border: 2px solid black;
+}
+
+.no-red {
+    border: 2px solid var(--premium-item);
+}
+
+.one-red {
+    background-color: #c2b17873;
+    border: 2px solid var(--premium-item);
+}
+
+.two-red {
+    background-color: rgba(148, 130, 123, 0.555);
+    border: 2px solid var(--premium-item);
+}
+.three-red {
+    background-color:  rgba(132, 148, 123, 0.555);
+    border: 2px solid var(--premium-item);
+}
+
+.define{    
+    padding: 5px;
+    text-align: center;
+    font-size: x-small;
+}
+
+.modDrop{
+    z-index: 1000;
+    position: absolute;
+    background-color: white;
+    border: 2px solid darkolivegreen;
+    padding: 5px;
+}
+
+.modItem{
+    border: 1px solid black;
+    padding: 4px;
+    text-align: center;
+    font-size: small;
+}
+
+.modItem:hover{
+    background-color: rgb(60, 82, 82);
+    color: white;
+}
+
+.bg-black{
+    background-color: black;
+}
+
+.subInfo{
+    border: 2px solid var(--beneci-border);
+    padding: 5px;
+    font-size: small;
+    text-align: center;
+    cursor: pointer;
+}
+
+.subInfo:hover{
+    opacity: .7;
+}
+
+.product-box{
+    border: 2px solid var(--beneci-border);
+    background-color: white;
+    border-radius: 6px;
+    padding: 15px 10px 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: x-small;
+    text-transform: uppercase;
+}
+
+.product-box:hover{
+    background-color: var(--beneci-over);
+}
+
+.product-title {
+    font-size: small;
+    color: var(--beneci);
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: small;
+    color: black;
+}
+
+.highlight-bold{
+    font-size: large;
+    font-weight: bold;
+    color: var(--beneci);
+}
+
+.highlight-regular{
+    font-size: medium;
+    font-weight: lighter;
+    color: var(--beneci-alert);
+}
+
+.line-height-35{
+    height: 35px;
+    line-height: 35px;
+}

@@ -17,17 +17,34 @@ export class DataService{
   buildPrices : any = [];
 
   // build pizza data
+  halfOne : any = [];
+  halfTwo : any = [];
   currentSize : string = '';
   currentSauce : string = '';
   currentCrust : string = '';
   modData : any = [];
   dataImported : boolean = false;
+  premiumPrices : any =  { "SM": "2.5", "MD": "3.6", "LG": "4.45", "XL": "5" };
+  glutenPrices : any =   { "SM": "2.95", "MD": "3.95", "LG": "0", "XL": "0" };
+  allMods : any = [];
+
 
   sauceArray : any = [
     {"sauce":'Regular'},
     {"sauce":'No'},
-    {"sauce":'Garlic'}
+    {"sauce":'Garlic'},
+    {"sauce":'Pesto'},
+
   ];
+
+  extraPlaterItems : any = [
+    {"ID" : "1", "product": "Fries", "Cost": "0"},
+    {"ID" : "2", "product": "Onion Rings", "Cost": "0"},
+    {"ID" : "3", "product": "Coleslaw", "Cost": "0"},
+  ];
+
+  subArray : any = [];
+  sandwichArray : any = [];
 
   constructor(private http:HttpClient) { }
 
@@ -61,5 +78,13 @@ export class DataService{
     this.cartEmitter.emit(this.theCart);
     this.cartTotalEmitter.emit(this.theCartTotal);
 
+  }
+
+  async getAllMods() {
+    await this.http.get('https://www.beneci.com/DATA/getMods.php').subscribe(
+      (response) => {
+        this.allMods = Object.values(response);
+      }
+    )
   }
 }

@@ -1,0 +1,10 @@
+.alert-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.alert-text{
+    text-align: center;
+    font-size: small;
+}

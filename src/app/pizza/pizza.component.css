@@ -1,5 +1,5 @@
 .pizza-box{
-    border: 2px solid darkgreen;
+    border: 2px solid var(--beneci-border);
     background-color: white;
     border-radius: 6px;
     padding: 10px;
@@ -11,7 +11,7 @@
 }
 
 .pizza-box:hover{
-    background-color: lightslategray;
+    background-color: var(--beneci-over);
 }
 
 .pizza-price {
@@ -57,7 +57,33 @@
 }
 
 .special-pizza-box{
-    border: 2px solid olive;
+    border: 2px solid var(--beneci-border);
+    color:white;
+    background-color: var(--beneci-subtle);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: x-small;
+    text-transform: uppercase;
+}
+
+.special-pizza-box-alt{
+    border: 2px solid var(--beneci-border);
+    color:black;
+    background-color: var(--beneci-subtle);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: x-small;
+    text-transform: uppercase;
+}
+
+.special-pizza-box{
+    border: 2px solid var(--beneci-border);
     color:white;
     background-color: var(--beneci);
     border-radius: 6px;

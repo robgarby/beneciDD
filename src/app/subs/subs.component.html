@@ -1,1 +1,57 @@
-<p>Subs Not Yet Unlocked</p>
+<div class="col-24 float-left button-bar">
+    <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="resetItem(i)">{{detail}}
+    </div>
+</div>
+<div class="col-24" [hidden]="whatStep !== 0">
+    <div class="col-24 mt-3">
+        <div class="col-24 col-sm-18 col-md-8" *ngFor="let sub of localSubArray; let i = index">
+            <div class="product-box" (click)="subDetail(i)">
+                <div class="product-title">
+                    {{sub.title}}
+                </div>
+                <div class="pizza-price">
+                    {{sub.TWOSM | currency}} to {{sub.TWOLG | currency}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-24" [hidden]="whatStep === 0">
+    <div class="col-24 mt-3">
+        <div class="col-24 highlight-box mb-3">
+            <div class="float-left pizza-title2 col-24">
+                {{returnSize()}} {{currentSub.title}}
+            </div>
+            <div class="col-24">
+                <div class="float-left pizza-description">
+                    {{currentSub.description}}
+                </div>
+                <div class="float-right pizza-title2 text-right">
+                    {{itemCost |currency}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24 line-height-35" [hidden]='whatStep !== 1'>
+        <div class="highlight-bold float-left col-8 col-sm-12 text-right">Pick a Size </div>
+        <div class="col-16 col-sm-12 float-right">
+            <div class="col-10 float-right blank-button text-white" [ngClass]="whatButtonColor('Large')"
+                (click)="sizeClick('Large',currentSub.TWOLG)">{{currentSub.TWOLG | currency}} Large</div>
+            <div class="col-10 float-right blank-button text-white" [ngClass]="whatButtonColor('Small')"
+                (click)="sizeClick('Small',currentSub.TWOSM)">{{currentSub.TWOSM | currency}} Small</div>
+        </div>
+    </div>
+    <div class="col-24 line-height-35" [hidden]="whatStep !== 2">
+        <div class="highlight-bold col-24">Blue Items are Selected (Click Item to remove/Add) </div>
+        <div class="col-24">
+            <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let mod of subModArray; let i = index">
+                <div class="subInfo text-white" [ngClass] = "modSelected(mod.code)" (click) = "modifyMods(mod.code)">
+                    {{displayModData(mod.modifier)}}
+                </div>
+            </div>
+        </div>
+        <div class="col-24 mt-3">
+            <div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-success float-right" (click) = "addToOrder()">Add to Order</div>
+        </div>
+    </div>
+</div>

@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
         this.cartTotal = response;
       }
     )
+    this.global.getAllMods();
   }
 
   setLocation(inval:string){

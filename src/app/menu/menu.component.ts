@@ -47,7 +47,6 @@ async splitCats(inval:any){
       }
     });
     this.theCats = cats;
-    console.log(this.theCats);
   }
 
   setMenu(inval:string){
@@ -55,10 +54,10 @@ async splitCats(inval:any){
     console.log(this.whichMenu);
     switch (inval) {
       case 'Pizza' : this.router.navigateByUrl('PIZZA'); break;
-      case 'chicken' : this.router.navigateByUrl('CHICKEN'); break;
-      case 'pasta' : this.router.navigateByUrl('PASTA'); break;
-      case 'subs' : this.router.navigateByUrl('SUBS'); break;
-      case 'sandwich' : this.router.navigateByUrl('SANDWICH'); break;
+      case 'Chicken' : this.router.navigateByUrl('CHICKEN'); break;
+      case 'Pasta' : this.router.navigateByUrl('PASTA'); break;
+      case 'Sub' : this.router.navigateByUrl('SUBS'); break;
+      case 'Sandwich' : this.router.navigateByUrl('SANDWICH'); break;
     }
   }
 
