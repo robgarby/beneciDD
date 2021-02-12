@@ -24,6 +24,18 @@ export class SandwichComponent implements OnInit {
   extraPlatterArray: any = [];
   halfSize: boolean = false;
 
+  gravyArray : any = [
+    { "count": "1", "ID": "1", "title": "Gravy", "cost": "0", "choice": "3" },
+  ]
+
+  clubArray : any = [
+    { "count": "1", "ID": "1", "title": "Tomato", "cost": "0", "choice": "1" },
+    { "count": "1", "ID": "2", "title": "chicken", "cost": "0", "choice": "1" },
+    { "count": "1", "ID": "3", "title": "lettuce", "cost": "0", "choice": "1" },
+    { "count": "1", "ID": "4", "title": "bacon", "cost": "0", "choice": "1" },
+    { "count": "1", "ID": "5", "title": "mayo", "cost": "0", "choice": "1" },
+  ]
+
 
   async ngOnInit() {
     this.theCurrentID = -1;
@@ -35,6 +47,17 @@ export class SandwichComponent implements OnInit {
     if (this.global.sandwichArray.length === 0) {
       this.localSandwichArray = this.global.theMenu.filter((data: any) => data.category === 'Sandwich');
     }
+    this.localSandwichArray.forEach((element: any, i: number) => {
+      this.localSandwichArray[i].extraSauce = '';
+      if (element.title === 'Hamburger Steak Platter') {
+        this.localSandwichArray[i].extraSauce = '1';
+        this.localSandwichArray[i].modHold = '102';
+      }
+      if (element.title === 'Club Sandwich Platter') {
+        this.localSandwichArray[i].modHold = '100';
+        this.localSandwichArray[i].extra = "1,2,3,4,5";
+      }
+    });
     this.detailArray.push("home");
     this.detailArray.push("sandwich");
     this.sandwichModArray = this.global.allMods.filter((data: any) => data.product === 'Sandwich');
@@ -200,6 +223,85 @@ export class SandwichComponent implements OnInit {
       } else {
         this.halfSize = false;
       }
+    }
+  }
+
+  checkIf(inval: string) {
+    return this.currentSandwich.title === inval ? true : false;
+  }
+
+  ss(i: number) {
+    var found: boolean = false;
+    if (this.currentSandwich.title === 'Hamburger Steak Platter') {
+      var specialExtra: any = this.currentSandwich.extraSauce.split(',');
+      specialExtra.forEach((element: number) => {
+        if (i.toString() === element.toString()) {
+          found = true;
+        }
+      });
+    }
+    return found ? 'bg-primary' : 'bg-secondary';
+  }
+
+  modifySS(i: number) { //ID
+    var found: boolean = false;
+    var foundAt = -1;
+    if (this.currentSandwich.title === 'Hamburger Steak Platter') {
+      var specialExtra: any = this.currentSandwich.extraSauce.split(',');
+      specialExtra.forEach((element: number,id:number) => {
+        if (i.toString() === element.toString()) {
+          found = true;
+          foundAt = id;
+        }
+      });
+      if (found){
+        specialExtra.splice(foundAt,1);
+      } else {
+        specialExtra.push(i);
+      }
+      var theString = '';
+      specialExtra.forEach((n:number) => {
+          theString += n+',';
+      });
+      theString = theString.slice(0,-1);
+      this.currentSandwich.extraSauce = theString;
+    }
+  }
+  ssc(i: number) {
+    var found: boolean = false;
+    if (this.currentSandwich.title === 'Club Sandwich Platter') {
+      var specialExtra: any = this.currentSandwich.extra.split(',');
+      specialExtra.forEach((element: number) => {
+        if (i.toString() === element.toString()) {
+          found = true;
+        }
+      });
+    }
+    return found ? 'bg-primary' : 'bg-secondary';
+  }
+
+  modifySSc(i: number) { //ID
+    var found: boolean = false;
+    var foundAt = -1;
+    if (this.currentSandwich.title === 'Club Sandwich Platter') {
+      var specialExtra: any = this.currentSandwich.extra.split(',');
+      specialExtra.forEach((element: number,id:number) => {
+        if (i.toString() === element.toString()) {
+          found = true;
+          foundAt = id;
+        }
+      });
+      if (found){
+        specialExtra.splice(foundAt,1);
+      } else {
+        specialExtra.push(i);
+      }
+      var theString = '';
+      specialExtra.forEach((n:number) => {
+          theString += n+',';
+      });
+      theString = theString.slice(0,-1);
+      this.currentSandwich.extra = theString;
     }
   }
 }

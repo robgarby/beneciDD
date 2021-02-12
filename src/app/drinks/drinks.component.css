@@ -1,0 +1,16 @@
+.alert-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.alert-text{
+    text-align: center;
+    font-size: small;
+}
+
+.indi-price{
+    text-align: center;
+    font-size: x-large;
+    color: var(--beneci);
+}

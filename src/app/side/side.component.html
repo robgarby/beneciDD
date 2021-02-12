@@ -1,0 +1,88 @@
+<div class="col-24 float-left button-bar">
+    <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="resetItem(i)">{{detail}}
+    </div>
+</div>
+<div class="col-24" [hidden]="whatStep !== 0">
+    <div class="col-24 mt-3">
+        <div class="col-24 col-sm-18 col-md-8" *ngFor="let sub of localSideArray; let i = index">
+            <div class="product-box" (click)="sideDetail(i)">
+                <div class="product-title">
+                    {{sub.title}}
+                </div>
+                <div class="product-price" [hidden] = "whichPrice(i)">
+                    {{sub.ONE | currency}}
+                </div>
+                <div class="product-price" [hidden] = "!whichPrice(i)">
+                    {{sub.TWOSM | currency}} to {{sub.TWOLG | currency}} 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-24" [hidden] = "whatStep !== 1">
+    <div class="col-24 mt-3">
+        <div class="col-24 highlight-box mb-3">
+            <div class="float-left pizza-title2 col-24">
+                 {{currentSide.title}}
+            </div>
+            <div class="col-24">
+                <div class="float-left pizza-description">
+                    {{currentSide.description}}
+                </div>
+                <div class="float-right pizza-title2 text-right">
+                    {{itemCost |currency}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24 line-height-35 mb-5" [hidden]='!twoSize'>
+        <div class="highlight-bold float-left col-8 col-sm-12 text-right">Pick a Size </div>
+        <div class="col-16 col-sm-12 float-right">
+            <div class="col-10 float-right blank-button text-white" [ngClass]="whatButtonColor('Large')"
+                (click)="sizeClick('Large',currentSide.TWOLG)">{{currentSide.TWOLG | currency}} Large</div>
+            <div class="col-10 float-right blank-button text-white" [ngClass]="whatButtonColor('Small')"
+                (click)="sizeClick('Small',currentSide.TWOSM)">{{currentSide.TWOSM | currency}} Small</div>
+        </div>
+    </div>
+    <div class="col-24 mt-2" [hidden] = "!checkIf('Super Snack')">
+        <div class="col-24">
+            <div class="highlight-bold">Verify Items (Remove or Add Back by Pressing on Button)</div>
+        </div>
+        <div class="col-24">
+            <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let extra of superSnackArray; let i = index">
+                <div class="subInfo text-white" [ngClass] = "ss(extra.ID)" (click) = "modifySS(extra.ID)">
+                    {{extra.title}}
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="col-24 mt-2" [hidden] = "!checkIf('Super Snack')">
+        <div class="col-24">
+            <div class="highlight-bold">Verify Sauces (Comes with All three unless you remove it)</div>
+        </div>
+        <div class="col-24">
+            <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let extra of superSnackSauceArray; let i = index">
+                <div class="subInfo text-white" [ngClass] = "ss1(extra.ID)" (click) = "modifySS1(extra.ID)">
+                    {{extra.title}}
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <div class="col-24 mt-2" [hidden] = "!checkIf('Zucchini')">
+        <div class="col-24">
+            <div class="highlight-bold">Pick Sauces (Comes with Both Unless you uncheck one)</div>
+        </div>
+        <div class="col-24">
+            <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let extra of zuchArray; let i = index">
+                <div class="subInfo text-white" [ngClass] = "ssz(extra.ID)" (click) = "modifySSz(extra.ID)">
+                    {{extra.title}}
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="col-24 mt-3">
+        <div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-success float-right" (click) = "addToOrder()">Add to Order</div>
+    </div>
+</div>

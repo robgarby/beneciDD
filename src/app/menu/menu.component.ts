@@ -58,6 +58,9 @@ async splitCats(inval:any){
       case 'Pasta' : this.router.navigateByUrl('PASTA'); break;
       case 'Sub' : this.router.navigateByUrl('SUBS'); break;
       case 'Sandwich' : this.router.navigateByUrl('SANDWICH'); break;
+      case 'Salad' : this.router.navigateByUrl('SALAD'); break;
+      case 'Side' : this.router.navigateByUrl('SIDE'); break;
+      case 'Drinks' : this.router.navigateByUrl('DRINK'); break;
     }
   }
 

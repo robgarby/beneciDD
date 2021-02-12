@@ -45,6 +45,9 @@ export class DataService{
 
   subArray : any = [];
   sandwichArray : any = [];
+  saladArray : any = [];
+  sideArray : any = [];
+  chickenArray : any = [];
 
   constructor(private http:HttpClient) { }
 
@@ -68,13 +71,19 @@ export class DataService{
   }
 
   addToCart(title:string,details:any){
+    var addTo : number;
+    var wasTotal : number;
+    addTo = details[2];
+    wasTotal = this.theCartTotal;
+    var newTotal : number;
+    newTotal = parseFloat(wasTotal.toString()) + parseFloat(addTo.toString());
     this.currentSauce = '';
     this.modDataBase = '';
     this.currentCrust = '';
     this.currentSize = 'Small';
     this.modData = [];
     this.theCart.push(details);
-    this.theCartTotal = this.theCartTotal + details[2];
+    this.theCartTotal = newTotal;
     this.cartEmitter.emit(this.theCart);
     this.cartTotalEmitter.emit(this.theCartTotal);
 
