@@ -1,88 +1,110 @@
+<div class="mask" [hidden]="!mask"></div>
 <div class="col-24 float-left button-bar">
     <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="resetItem(i)">{{detail}}
     </div>
 </div>
 <div class="col-24" [hidden]="whatStep !== 0">
     <div class="col-24 mt-3">
-        <div class="col-24 col-sm-18 col-md-8" *ngFor="let sub of localSideArray; let i = index">
-            <div class="product-box" (click)="sideDetail(i)">
+        <div class="col-24 col-sm-18 col-md-8" *ngFor="let sub of currentItemArray; let i = index">
+            <div class="product-box" (click)="setItem(sub)">
                 <div class="product-title">
                     {{sub.title}}
                 </div>
-                <div class="product-price" [hidden] = "whichPrice(i)">
-                    {{sub.ONE | currency}}
+                <div class="pizza-price" [hidden]="!checkPriceSystem(sub)">
+                    {{sub.SM2 | currency}} to {{sub.LG2 | currency}}
                 </div>
-                <div class="product-price" [hidden] = "!whichPrice(i)">
-                    {{sub.TWOSM | currency}} to {{sub.TWOLG | currency}} 
+                <div class="pizza-price" [hidden]="checkPriceSystem(sub)">
+                    {{sub.ONE | currency}}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="col-24" [hidden] = "whatStep !== 1">
-    <div class="col-24 mt-3">
-        <div class="col-24 highlight-box mb-3">
-            <div class="float-left pizza-title2 col-24">
-                 {{currentSide.title}}
+<div class="col-24 mt-3" [hidden]="whatStep === 0">
+    <div class="col-24 highlight-box mb-3">
+        <div class="float-left pizza-title2 col-24">
+            {{currentTitle}}
+        </div>
+        <div class="col-24">
+            <div class="float-left pizza-description">
+                {{buildDescription(currentItem)}}
             </div>
-            <div class="col-24">
-                <div class="float-left pizza-description">
-                    {{currentSide.description}}
-                </div>
-                <div class="float-right pizza-title2 text-right">
-                    {{itemCost |currency}}
-                </div>
+            <div class="float-right pizza-title2 text-right">
+                {{itemCost |currency}}
             </div>
         </div>
     </div>
-    <div class="col-24 line-height-35 mb-5" [hidden]='!twoSize'>
-        <div class="highlight-bold float-left col-8 col-sm-12 text-right">Pick a Size </div>
-        <div class="col-16 col-sm-12 float-right">
-            <div class="col-10 float-right blank-button text-white" [ngClass]="whatButtonColor('Large')"
-                (click)="sizeClick('Large',currentSide.TWOLG)">{{currentSide.TWOLG | currency}} Large</div>
-            <div class="col-10 float-right blank-button text-white" [ngClass]="whatButtonColor('Small')"
-                (click)="sizeClick('Small',currentSide.TWOSM)">{{currentSide.TWOSM | currency}} Small</div>
-        </div>
+</div>
+<div class="col-24 line-height-35" [hidden]='whatStep !== 1'>
+    <div class="highlight-bold float-left col-8 col-sm-12 text-right">Pick a Size </div>
+    <div class="col-16 col-sm-12 float-right">
+        <div class="col-10 float-right blank-button text-white ml-1" (click)="setSize('Large',currentItem.LG2)"
+            [ngClass]="whatButtonColor('Large')"> Large {{currentItem.LG2 | currency}}</div>
+        <div class="col-10 float-right blank-button text-white" (click)="setSize('Small',currentItem.SM2)"
+            [ngClass]="whatButtonColor('Small')"> Small {{currentItem.SM2 | currency}}</div>
     </div>
-    <div class="col-24 mt-2" [hidden] = "!checkIf('Super Snack')">
-        <div class="col-24">
-            <div class="highlight-bold">Verify Items (Remove or Add Back by Pressing on Button)</div>
-        </div>
-        <div class="col-24">
-            <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let extra of superSnackArray; let i = index">
-                <div class="subInfo text-white" [ngClass] = "ss(extra.ID)" (click) = "modifySS(extra.ID)">
-                    {{extra.title}}
-                </div> 
+</div>
+<div class="col-24 float-left" [hidden]="whatStep !== 2">
+    <div class="highlight-bold col-24 line-height-35">Blue Items are Selected (Click Item to remove/Add) </div>
+    <div class="col-24">
+        <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let mod of modArray; let i = index">
+            <div class="subInfo text-white" [ngClass]="isSelected(mod.title)" (click)="changeItem(mod.title)">
+                {{displayModCost(mod)}}
             </div>
         </div>
     </div>
-    <div class="col-24 mt-2" [hidden] = "!checkIf('Super Snack')">
-        <div class="col-24">
-            <div class="highlight-bold">Verify Sauces (Comes with All three unless you remove it)</div>
-        </div>
-        <div class="col-24">
-            <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let extra of superSnackSauceArray; let i = index">
-                <div class="subInfo text-white" [ngClass] = "ss1(extra.ID)" (click) = "modifySS1(extra.ID)">
-                    {{extra.title}}
-                </div> 
+    <div class="col-24 mt-3" [hidden] = "!hasSauce">
+        <div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-next float-right"
+            (click)="moveToSauce()">Pick Dressing</div>
+    </div>
+    <div class="col-24 mt-3" [hidden] = "checkSkipSauce()">
+        <div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-next float-right"
+            (click)="moveToPlatter()">Pick Sides</div>
+    </div>
+</div>
+<div class="col-24 float-left" [hidden]="whatStep !== 3">
+    <div class="highlight-bold col-24">Pick One Sauce/Dressing </div>
+    <div class="col-24">
+        <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let sauce of sauceItems; let i = index">
+            <div class="subInfo text-white" (click) = "selectSauce(sauce)" [ngClass] = "whichSauceSelected(sauce)">
+                {{sauce}}
             </div>
         </div>
     </div>
-
-    <div class="col-24 mt-2" [hidden] = "!checkIf('Zucchini')">
-        <div class="col-24">
-            <div class="highlight-bold">Pick Sauces (Comes with Both Unless you uncheck one)</div>
-        </div>
-        <div class="col-24">
-            <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let extra of zuchArray; let i = index">
-                <div class="subInfo text-white" [ngClass] = "ssz(extra.ID)" (click) = "modifySSz(extra.ID)">
-                    {{extra.title}}
-                </div> 
+    <div class="col-24 mt-3" [hidden] = "!isPlatter">
+        <div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-next float-right"
+            (click)="moveToPlatter()">Pick Sides</div>
+    </div>
+</div>
+<div class="col-24 float-left" [hidden]="whatStep !== 4">
+    <div class="highlight-bold col-24"> Choose {{currentItem.maxSelected}} items from the list below </div>
+    <div class="col-22 col-sm-12 alert-warning pop-box center-pop p-2 text-center border-black" [hidden] = "!isWarningBox">
+        <div class="col-24 text-center h4">Maximum Ingredients Reached of {{currentItem.maxSelected}}</div>
+        <p class = "small-font">You are only permitted to choose {{currentItem.maxSelected}} Items in this Area. <br>We will unselected all of them allowing you to choose {{currentItem.maxSelected}}</p>
+        <div class="col-24 float-left">
+            <div class="col-12 offset-6">
+                <div class="btn btn-success col-24" (click)="resetWarning()">OK</div>
             </div>
         </div>
     </div>
-    <div class="col-24 mt-3">
-        <div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-success float-right" (click) = "addToOrder()">Add to Order</div>
+    <div class="col-24">
+        <div class="col-12 col-md-8 col-lg-6 mt-2" *ngFor="let platter of platterItems; let i = index">
+            <div class="subInfo text-white" (click) = "selectPlatter(platter)" [ngClass] = "whichPlatterSelected(platter)">
+                {{platter}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-24 mt-3 float-left" [hidden] = "!checkOut">
+    <div class="col-24"><div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-success float-right"
+        (click)="addToOrder(currentItem)">Add to Order</div></div>
+</div>
+<div class="col-22 col-sm-12 alert-warning pop-box center-pop p-2 text-center border-black" [hidden] = "!isLastItemBox">
+    <div class="col-24 text-center h4">Cannot Remove the Last Item</div>
+    <p class = "small-font">You cannot remove all Items on this product.</p>
+    <div class="col-24 float-left">
+        <div class="col-12 offset-6">
+            <div class="btn btn-success col-24" (click)="isLastItemBox = !isLastItemBox; mask = !mask;">OK</div>
+        </div>
     </div>
 </div>

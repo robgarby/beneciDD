@@ -25,6 +25,8 @@ export class PizzaComponent implements OnInit {
   modOut :any = [];
   buildPrice : any = [];
   sauceArray : any = [];
+  modDataBase: any = [];
+  modData : any = [];
 
   async ngOnInit() {
     if (this.global.theLocation === 'select location') {
@@ -38,6 +40,8 @@ export class PizzaComponent implements OnInit {
         this.getPrice();
     }
   }
+
+  
 
   async getPrice(){
     await this.http.get('https://www.beneci.com/DATA/getBuild.php').subscribe(
@@ -167,7 +171,6 @@ export class PizzaComponent implements OnInit {
   }
 
   resetItem(inval:number){
-    console.log(inval);
     if (inval === 0){
       this.currentPizza = [];
       this.crustArray = [];
@@ -187,16 +190,41 @@ export class PizzaComponent implements OnInit {
 
   addToCart(){
     var itemName = this.currentSize + ' '+this.currentPizza.title;
-    var extraDetail : any = [];
-    extraDetail.push(itemName);
-    extraDetail.push('Pizza');
-    extraDetail.push(this.itemCost);
-    extraDetail.push(this.currentSauce);
-    extraDetail.push(this.currentCrust);
-    extraDetail.push(this.currentPizza.modHold);
-    this.global.addToCart(itemName,extraDetail);
+    var theCost = this.itemCost;
+    var buildArray: any = this.readyToPrint(this.currentCrust,this.currentSauce);
+    this.global.addToCartPrint(itemName, buildArray, itemName, this.itemCost);
+    this.router.navigateByUrl('MENU');
+
+    // extraDetail.push(this.currentSauce);
+    // extraDetail.push(this.currentCrust);
+    // extraDetail.push(this.currentPizza.modHold);
+
     this.router.navigateByUrl('MENU');
   }
+
+  readyToPrint(crust:string,sauce:string){
+    var theObject : any = {};
+    var translate : any = [];
+    if (crust !== 'Regular') {
+      theObject = {};
+      theObject.title = "Crust : "+crust + " Crust";
+      translate.push(theObject);
+    }
+    if (sauce !== 'Regular') {
+      theObject = {};
+      theObject.title = "Sauce : "+sauce+ " Sauce";
+      translate.push(theObject);
+    }
+    return translate;
+  }
+
+
+  // addToOrder(currentItem: any) {
+  //   var itemName = this.currentTitle;
+  //   var buildArray: any = this.readyToPrint(this.itemsPicked,this.sauceSelected,this.platterSelected);
+  //   this.global.addToCartPrint(itemName, buildArray, this.currentTitle, this.itemCost);
+  //   this.router.navigateByUrl('MENU');
+  // }
 
   goHome(){
     this.router.navigateByUrl('MENU');
@@ -205,5 +233,4 @@ export class PizzaComponent implements OnInit {
   buildYourOwn(){
     this.router.navigateByUrl('BUILD');
   }
-
 }

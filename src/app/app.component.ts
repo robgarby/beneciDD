@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
       }
     )
     this.global.getAllMods();
+    this.global.getFullBase();
   }
 
   setLocation(inval:string){
@@ -37,5 +38,9 @@ export class AppComponent implements OnInit {
     this.dropShown = !this.dropShown;
     this.router.navigateByUrl('MENU');
 
+  }
+
+  showCart(){
+    this.router.navigateByUrl('CART');
   }
 }

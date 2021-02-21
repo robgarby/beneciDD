@@ -4,7 +4,7 @@
 :root {
      --beneci:rgb(67, 112, 56);
      --beneci-alt:rgb(92, 82, 36);
-     --beneci-over: rgb(60, 82, 82);
+     --beneci-over: rgb(231, 241, 231);
      --beneci-border : rgb(0, 0, 0);
      --beneci-subtle : rgba(148, 130, 123, 0.555);
      --premium-item : rgb(67, 110, 252);
@@ -100,7 +100,6 @@ body{
     display: inline-block;
     padding: .5rem .5rem;
     cursor: pointer;
-    top: 0;
     position: relative;
     clear: both;
     margin-left: 2px;
@@ -311,4 +310,21 @@ body{
 
 .text-white{
     color: white;
+}
+
+.bg-next{
+    background-color: black;
+}
+
+.small-font{
+    font-size: x-small;
+}
+
+.border-black{
+    border: 2px solid black;
+}
+
+.alert-warning{
+    z-index: 2000;
+    
 }

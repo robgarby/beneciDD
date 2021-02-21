@@ -1,12 +1,13 @@
 <div class="mask" [hidden]="!mask"></div>
 <div class="col-24 float-left button-bar">
-    <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="resetItem(i)">{{detail}}
+    <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="reset(i)">{{detail}}
     </div>
+
 </div>
 <div class="col-24 mt-2">
     <div class="col-24 highlight-box mb-3">
         <div class="float-left pizza-title col-24">
-            {{currentPizza.title}}
+            {{itemName}}
         </div>
         <div>
             <div class="col-24">
@@ -30,6 +31,158 @@
         </div>
     </div>
 </div>
+
+<div [hidden]="whatStep !== 1">
+    <div class="col-24 bg-black p-2">
+        <div class="float-right col-16 col-sm-12">
+            <div class="col-8 float-left">
+                <div class="big-nav" [ngClass]=whatSide(1) (click)=setSide(1)>Side 1</div>
+            </div>
+            <div class="col-8 float-left" [hidden]="!showSideButton()">
+                <div class="big-nav" [ngClass]=whatSide(2) (click)=setSide(2)>Side 2</div>
+            </div>
+            <div class="col-8 float-left" [hidden]=readyForCrust()>
+                <div class="big-nav bg-success text-white" (click)="switchToSize()">Pick Size</div>
+            </div>
+        </div>
+        <div class="float-left col-6">
+            <div class="big-nav" [ngClass]="isPlain(1)" (click)=activatePlain(activeSide) [hidden]="activeSide === 2">
+                Side
+                {{activeSide}} is Plain</div>
+            <div class="big-nav" [ngClass]="isPlain(2)" (click)=activatePlain(activeSide) [hidden]="activeSide === 1">
+                Plain
+                Side {{activeSide}}</div>
+        </div>
+    </div>
+    <div class="col-24 mt-1">
+        <div class="text-center font-medium">Select Items for Side {{activeSide}}</div>
+    </div>
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-2" *ngFor="let mod of localS1Mods; let i = index"
+        [hidden]="activeSide !== 1">
+        <div class="col-24">
+            <div class="col-24 modChoice" [ngClass]="quantityCheck(mod.count)" [hidden]="currentMod === mod.title"
+                (click)="setModView(mod.title)">
+                <div>{{showCount(mod.count)}} {{mod.title}}</div>
+            </div>
+            <div class="col-24 border-from-modChoice" [hidden]="currentMod !== mod.title">
+                <div (click)="setModCount1(0,mod.title)" class="choice-item float-left col-6 bg-none">0</div>
+                <div (click)="setModCount1(1,mod.title)" class="choice-item float-left col-6 bg-one">1X</div>
+                <div (click)="setModCount1(2,mod.title)" class="choice-item float-left col-6 bg-two">2X</div>
+                <div (click)="setModCount1(3,mod.title)" class="choice-item float-left col-6 bg-three">3X</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-2" *ngFor="let mod of modDataTwo; let i = index"
+        [hidden]="activeSide !== 2">
+        <div class="col-24">
+            <div class="col-24 modChoice" [ngClass]="quantityCheck(mod.count)" [hidden]="currentMod === mod.title"
+                (click)="setModView(mod.title)">
+                <div>{{showCount(mod.count)}} {{mod.title}}</div>
+            </div>
+            <div class="col-24 border-from-modChoice" [hidden]="currentMod !== mod.title">
+                <div (click)="setModCount2(0,mod.title)" class="choice-item float-left col-6 bg-none">0</div>
+                <div (click)="setModCount2(1,mod.title)" class="choice-item float-left col-6 bg-one">1X</div>
+                <div (click)="setModCount2(2,mod.title)" class="choice-item float-left col-6 bg-two">2X</div>
+                <div (click)="setModCount2(3,mod.title)" class="choice-item float-left col-6 bg-three">3X</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-24" [hidden]="whatStep !== 2">
+    <div class="col-24 float-right mt-1 mb-1" *ngFor="let price of priceArray; let i = index">
+        <div class="col-18 col-sm-12 price-box float-right" (click)=setSize(i)>
+            <div class="col-18 float-right text-right">{{price.title}} {{price.cost | currency}}</div>
+        </div>
+    </div>
+</div>
+<div class="col-24" [hidden]="whatStep !== 3">
+    <div class="col-24 float-right mt-1 mb-1" *ngFor="let crust of crustArray; let i = index">
+        <div class="col-12 price-box float-right" (click)="clickCrust(i)">
+            <div class="col-18 float-right text-right">{{crust.crust}} Crust {{displayCost(crust.cost)}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-24" [hidden]="whatStep !== 4">
+    <div class="col-24 float-right mt-1 mb-1" *ngFor="let sauce of sauceArray; let i = index" (click)="clickSauce(i)">
+        <div class="col-12 price-box float-right">
+            <div class="col-18 float-right text-right">{{sauce.sauce}} Sauce</div>
+        </div>
+    </div>
+</div>
+<div class="alert-warning pop-box col-22 col-sm-12 center-pop" [hidden]="!explainGarlic">
+    <div class="alert-title">Garlic Pizza Sauce</div>
+    <div class="alert-text">Quite often there is confusion with this item. Garlic Pizza Sauce replaces the regular Pizza
+        sauce with Garlic Sauce.
+        <br><br>
+        If you were looking to order a side garlic Sauce, Please add this using the Sides Part of our site.
+    </div>
+    <div class="col-24 mt-4">
+        <div class="col-24 col-sm-12" (click)="mask = !mask; explainGarlic = !explainGarlic">
+            <div class="btn btn-warning col-24 font-small">No, Let me change Sauce</div>
+        </div>
+        <div class="col-24 col-sm-12" (click)="setGarlic()">
+            <div class="btn btn-success col-24 font-small">Yes, Use Garlic Pizza Sauce</div>
+        </div>
+    </div>
+</div>
+<div class="col-24" [hidden]="whatStep !== 5">
+    <div class="col-24 h4 text-center">Review Half and Half Pizza</div>
+    <div class="col-24 font-medium text-center mb-3">
+        {{currentSize}} Half/Half Pizza with {{currentCrust}} Crust and {{currentSauce}} Pizza Sauce
+    </div>
+    <div class="col-24 col-sm-12">
+        <div class="col-24 h4 text-center">Side 1 Items</div>
+        <div class="col-24 font-small text-red text-center" *ngFor="let one of sideOneList; let i = index">
+            {{one}}
+        </div>
+    </div>
+    <div class="col-24 col-sm-12">
+        <div class="col-24 h4 text-center">Side 2 Items</div>
+        <div class="col-24 font-small text-red text-center" *ngFor="let one of sideTwoList; let i = index">
+            {{one}}
+        </div>
+    </div>
+
+    <div class="col-24 mt-3 float-left">
+        <div class="col-24 mt-2">
+            <div class="col-12 text-center">
+                <div class="blank-button bg-success text-white cente" (click)="addToCart()">Add To Cart</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- <div id="sideOne" [hidden] = "whatStep > 2">
+    <div class="col-24 bg-black p-2">
+        <div class="float-right col-8">
+            <div class="col-24 nav-button-clean-fat bg-success" (click)="resetItem(4)" [hidden] = "whatStep !== 1">Pick Side Two</div>
+            <div class="col-24 nav-button-clean-fat bg-success" (click)="resetItem(5)" [hidden] = "whatStep !== 2">Pick Pizza Size</div>
+        </div>
+        <div class="float-left col-6">
+            <div class="col-24 nav-button-clean-fat bg-danger" [hidden]="checkModsAmount()" (click) = "clearMods()">Clear Pizza Items</div>
+        </div>
+    </div>
+    <div class="col-24 mt-2">
+        <div class="col-24 text-danger" [hidden] = "whatStep !== 1">
+            Pick ingredients for side 1
+        </div>
+        <div class="col-24 text-success" [hidden] = "whatStep !== 2">
+            Pick ingredients for side 2
+        </div>
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-2" *ngFor="let mod of localS1Mods; let i = index">
+            <div class="modInfo" (click)="setMod(mod.ID)" [ngClass]="colorMod(mod.code,mod.premium)">
+                {{mod.modifier}}</div>
+            <div class="col-24 modDrop" [hidden]="whichMod !== mod.ID">
+                <div class="modItem" (click)=modifyItemOne(0,mod.code,1)>No Item</div>
+                <div class="modItem" (click)=modifyItemOne(1,mod.code,1)>Single Item</div>
+                <div class="modItem" (click)=modifyItemOne(2,mod.code,1)>Double Item</div>
+                <div class="modItem" (click)=modifyItemOne(3,mod.code,1)>Triple Item</div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- 
 <div id="sideOne" [hidden] = "whatStep > 2">
     <div class="col-24 bg-black p-2">
         <div class="float-right col-8">
@@ -79,7 +232,7 @@
     <div class="col-24 float-right mt-1 mb-1" *ngFor="let sauce of sauceArray; let i = index"
         (click)="clickSauce(i)">
         <div class="col-12 price-box float-right">
-            <div class="col-18 float-right text-right">{{sauce.sauce}} Sauce</div>
+            <div class="col-18 float-right text-right">{{sauce.sauce}} Pizza Sauce</div>
         </div>
     </div>
     <div class="col-24">
@@ -118,19 +271,21 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <!-- this is a popup-->
 <div class="alert-warning pop-box col-22 col-sm-12 center-pop" [hidden]="!showDescription">
     <div class="alert-title">Half and Half Pizza</div>
-    <div class="alert-text">A Half and Half Pizza is split in two with different ingredients are each side of the Pizza.
+    <div class="alert-text">A Half and Half Pizza is split in two with different ingredients are each side of the
+        Pizza.
         <br><br>
         You build one Side and then the Second. You can review them by pressiong on Side One, Side Two in the Green
         Buttons above<br><br>
         The Pizza is priced by the most expensive side of the pizza
     </div>
     <div class="col-24 mt-4">
-        <div class="col-12 offset-6 btn btn-primary" (click)="mask = !mask; showDescription = !showDescription">OK</div>
+        <div class="col-12 offset-6 btn btn-primary" (click)="mask = !mask; showDescription = !showDescription">OK
+        </div>
     </div>
 </div>

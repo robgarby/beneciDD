@@ -107,13 +107,25 @@ export class DrinksComponent implements OnInit {
     return this.currentDrink.count;
   }
 
+  readyToPrint(inArray : any){
+    var translated : any = [];
+    var theObject : any = {};
+    inArray.forEach((element:any) => {
+        theObject = {};
+        if (element.count > 0){
+            theObject.title = element.count +'X ' + element.title;
+            theObject.cost = parseFloat(element.count.toString()) * parseFloat(element.cost.toString());
+            translated.push(theObject);
+        }
+    });
+    return translated;
+  }
+
   addToOrder() {
     var itemName = 'Drinks';
     var extraDetail: any = [];
-    extraDetail.push(itemName);
-    extraDetail.push('Sub');
-    extraDetail.push(this.drinksTotal);
-    this.global.addToCart(itemName, extraDetail);
+    var buildArray: any  = this.readyToPrint(this.localDrinkArray);
+    this.global.addToCartPrint(itemName, buildArray, 'Drinkis', this.drinksTotal);
     this.router.navigateByUrl('MENU');
   }
 

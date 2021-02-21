@@ -8,3 +8,76 @@
     text-align: center;
     font-size: small;
 }
+
+.big-nav{
+    font-size: small;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: var(--beneci);
+    display: inline-block;
+    padding: .5rem .5rem;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+}
+
+.big-nav:hover{
+    opacity: .7;
+}
+
+.active-button{
+    background-color: #0275d8;
+    color: white;
+}
+
+.not-active-button{
+    background-color: #aaaaaa;
+    color: black;
+}
+
+.modChoice {
+    height: 40px;
+    line-height: 40px;
+    border: 2px solid var(--beneci-border);
+    text-align: center;
+    font-size: small;
+    cursor: pointer;
+}
+
+.choice-item{
+    line-height: 35px;
+    height: 35px;
+    text-align: center;
+    font-size: small;
+    background-color: blanchedalmond;
+    cursor: pointer;
+}
+
+.border-from-modChoice {
+    border: 2px solid var(--beneci-border);
+    z-index: 1000;
+}
+.choice-item:hover{
+    background-color: black;
+    color: blanchedalmond;
+}
+
+.bg-none{
+    background-color: rgba(211, 211, 211, 0.25);
+}
+
+.bg-one{
+    background-color: rgba(211, 211, 211, 0.50);
+}
+
+.bg-two{
+    background-color: rgba(211, 211, 211, 0.75);
+}
+
+.bg-three{
+    background-color: rgba(211, 211, 211, 1);
+}
+
+.text-red{
+    color: red;
+}

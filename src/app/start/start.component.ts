@@ -10,7 +10,9 @@ export class StartComponent implements OnInit {
 
   constructor(private global : DataService) { }
 
-  ngOnInit(): void {
+  fullData : any = [];
+
+  async ngOnInit() {
     this.global.cartEmitter.subscribe(
       (response:boolean) => {
         this.global.theCart = response;

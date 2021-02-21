@@ -33,6 +33,7 @@ export class BuildComponent implements OnInit {
   largePrice: number = 0;
   xLargePrice: number = 0;
   buildPriceArray: any = [];
+  modTranslated : any = [];
 
   async ngOnInit() {
     if (this.global.theLocation === 'select location') {
@@ -88,6 +89,7 @@ export class BuildComponent implements OnInit {
   }
 
   async buildPizza(temp: any, mods: any) {
+    var theObject: any = {};
     var filtered: any = [];
     this.modString = '';
     filtered = temp.filter((data: any) => {
@@ -111,11 +113,18 @@ export class BuildComponent implements OnInit {
         this.displayArray.push({ "code": element, "count": 1, "modifier": this.translate(element) })
       }
     })
+    this.modTranslated = [];
     this.displayArray.forEach((item: any) => {
       if (item.count > 1) {
         this.modString += item.count + 'X ' + item.modifier + ', ';
+        theObject = {};
+        theObject.title = "Add "+item.count + 'X ' + item.modifier;
+        this.modTranslated.push(theObject);
       } else {
         this.modString += item.modifier + ', ';
+        theObject = {};
+        theObject.title = "Add "+item.modifier;
+        this.modTranslated.push(theObject);
       }
     });
     this.modString = this.modString.slice(0, -2);
@@ -369,20 +378,33 @@ export class BuildComponent implements OnInit {
   }
 
   addToCart() {
-    var itemName = this.currentSize + ' ' + this.currentPizza.title;
-    var extraDetail: any = [];
-    extraDetail.push(itemName);
-    extraDetail.push('Pizza');
-    extraDetail.push(this.itemCost);
-    extraDetail.push(this.currentSauce);
-    extraDetail.push(this.currentCrust);
-    extraDetail.push(this.currentPizza.modHold);
-    this.global.addToCart(itemName, extraDetail);
+    var itemName = this.currentSize + ' '+this.currentPizza.title;
+    var buildArray: any = this.readyToPrint(this.currentCrust,this.currentSauce);
+    this.modTranslated.forEach((element:any) => {
+        buildArray.push(element);
+    });
+    this.global.addToCartPrint(itemName, buildArray, itemName, this.itemCost);
     this.router.navigateByUrl('MENU');
+    var itemName = this.currentSize + ' ' + this.currentPizza.title;
+  }
+
+  readyToPrint(crust:string,sauce:string,mods:any=[]){
+    var theObject : any = {};
+    var translate : any = [];
+    if (crust !== 'Regular') {
+      theObject = {};
+      theObject.title = "Crust : "+crust + " Crust";
+      translate.push(theObject);
+    }
+    if (sauce !== 'Regular') {
+      theObject = {};
+      theObject.title = "Sauce : "+sauce+ " Sauce";
+      translate.push(theObject);
+    }
+    return translate;
   }
 
   resetIngredients() {
-    console.log('reset');
     this.global.modData = [];
     this.global.currentSize = 'Small';
     this.ngOnInit();
