@@ -29,10 +29,10 @@ export class PizzaComponent implements OnInit {
   modData : any = [];
 
   async ngOnInit() {
-    if (this.global.theLocation === 'select location') {
-      this.router.navigateByUrl('START');
-      return;
-    } 
+    // if (this.global.theLocation === 'select location') {
+    //   this.router.navigateByUrl('START');
+    //   return;
+    // } 
     this.sauceArray = this.global.sauceArray;
     var temp = this.global.theMenu;
     this.pizza = temp.filter((data: any) => data.category === 'Pizza');

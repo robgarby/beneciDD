@@ -44,10 +44,10 @@ export class ChickenComponent implements OnInit {
 
 
   async ngOnInit() {
-    if (this.global.theLocation === 'select location') {
-      this.router.navigateByUrl('START');
-      return;
-    }
+    // if (this.global.theLocation === 'select location') {
+    //   this.router.navigateByUrl('START');
+    //   return;
+    // }
     this.currentItemArray = this.global.fullDatabase.filter((data: any) => data.catagory === this.currentCat);
     this.detailArray = [];
     this.whatStep = 0;

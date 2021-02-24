@@ -1,0 +1,66 @@
+body, html {
+    height: 100%;
+  }
+  
+  .margin-top-100{
+      margin-top: 60px;
+      width: 100%;
+  }
+  
+  .fullBack {
+    background: url("/assets/images/IMG_1219.JPG"); 
+    background-color: rgba(255,255,255,0.5);
+    background-blend-mode: lighten;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .scroll-content{
+      overflow:scroll;
+      height: calc(100% - 65px);
+      height: -o-calc(100% - 65px); /* opera */
+      height: -webkit-calc(100% - 65px); /* google, safari */
+      height: -moz-calc(100% - 65px); /* firefox */
+  }
+
+  .heading-font{
+      font-size: 3vw;
+      font-style: italic;
+  }
+
+  .locationBox{
+      min-height: 240px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.478);
+      border-radius: 6px;
+      border: 2px solid var(--beneci-border);
+  }
+
+  .locationBox .title {
+      font-size: 2vw;
+      color: black;
+  }
+
+  .locationBox .phone {
+    font-size: x-large;
+    color: black;
+}
+
+.locationBox .address {
+    font-size: medium;
+    color: black;
+}
+
+.locationBox .near{
+    font-size: small;
+    color: black;
+}
+
+.locationBox .hours{
+    padding-top: 10px;
+    font-size: x-small;
+    color: black;
+}

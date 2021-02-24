@@ -17,20 +17,21 @@ export class MenuComponent implements OnInit {
   whichMenu = 'All';
   navMenu : any = [];
   pizzaID : Number = 0;
+  showCart : boolean = false;
 
   ngOnInit(): void {
-    if (this.global.theLocation === 'select location') {
-      this.router.navigateByUrl('START');
-      return;
-    } 
+    // if (this.global.theLocation === 'select location') {
+    //   this.router.navigateByUrl('START');
+    //   return;
+    // } 
     this.global.menuEmitter.subscribe(
       (response:any) => {
         this.theMenu = Object.values(response);
-        this.splitCats(this.theMenu);
+        // this.splitCats(this.theMenu);
       }
     )
    this.theMenu = this.global.theMenu;
-   this.splitCats(this.theMenu);
+   this.theCats = this.global.cats;
   }
 
 async splitCats(inval:any){
@@ -50,8 +51,6 @@ async splitCats(inval:any){
   }
 
   setMenu(inval:string){
-    this.whichMenu = inval;
-    console.log(this.whichMenu);
     switch (inval) {
       case 'Pizza' : this.router.navigateByUrl('PIZZA'); break;
       case 'Chicken' : this.router.navigateByUrl('CHICKEN'); break;

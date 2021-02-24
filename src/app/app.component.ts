@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
   dropShown = false;
   showLocation = '';
   cartTotal = 0;
+  showCart : boolean = true;
+  theCart : any = this.global.theCart;
+  showNavBar : boolean = true;
+  siteLink : any = this.global.siteLinks;
 
   ngOnInit(){
     this.showLocation = this.global.theLocation;
@@ -28,8 +32,31 @@ export class AppComponent implements OnInit {
         this.cartTotal = response;
       }
     )
+    this.global.showNavBarEmitter.subscribe(
+      (response:boolean) => {
+        this.showNavBar = response;
+      }
+    )
+    this.global.menuEmitter.subscribe(
+      (response:boolean) => {
+        this.global.theMenu = response;
+      }
+    )
     this.global.getAllMods();
     this.global.getFullBase();
+    this.global.getMenu();
+    this.showCart = this.global.showCart;
+  }
+
+  goToLink(link:string){
+    this.router.navigateByUrl(link);
+  }
+
+  navigateClick(link:string){
+    this.router.navigateByUrl('/');
+  }
+  showCartFunction(){
+    this.global.showHideCart();
   }
 
   setLocation(inval:string){
@@ -38,9 +65,5 @@ export class AppComponent implements OnInit {
     this.dropShown = !this.dropShown;
     this.router.navigateByUrl('MENU');
 
-  }
-
-  showCart(){
-    this.router.navigateByUrl('CART');
   }
 }

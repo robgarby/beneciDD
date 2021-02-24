@@ -1,0 +1,131 @@
+<div class="col-24">
+    <div class="margin-top-100 text-center scroll-content">
+        <div class="col-24">
+            <img class="img-fluid col-6 offset-9" src="/assets/images/Beneci-Logo.png" alt="">
+            <div class="sub2 text-center col-24">Quality ingredients makes Quality products</div>
+        </div>
+        <div class="col-24 alert-warning p-2">
+            <div class="font-small">Please Note not all items are availabe at all locations. To View a Specific
+                Locations Press the buttons below</div>
+                <div class="col-24 col-md-12 offset-md-6">
+                    <div class="col-12">
+                        <div class="beneciButton beneci-green text-white">East Location</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="beneciButton beneci-green text-white">West Location</div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-24 bg-dark">
+            <div class="col-12 offset-6  col-sm-8 offset-sm-8 text-center bg-dark"><img class="img-fluid"
+                    src="../../assets/images/BeneciPizza.png" alt="">
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="line float-left" *ngFor="let pizza of pizzaMenu">
+                <div class="col-12  col-sm-10 item">{{pizza.title}}</div>
+                <div class="col-sm-14 d-none d-md-block float-right">
+                    <div class="col-12 col-sm-6 price float-right">xl {{pizza.PXL | currency}}</div>
+                    <div class="col-12 col-sm-6 price float-right">lg {{pizza.PLG | currency}}</div>
+                    <div class="col-12 col-sm-6 price float-right">md {{pizza.PMD | currency}}</div>
+                    <div class="col-6 price float-right">sm {{pizza.PSM | currency}}</div>
+                </div>
+                <div class="col-12 col-sm-12 d-md-none float-right">
+                    <div class="col-24 text-right float-right">{{pizza.PSM | currency}} to {{pizza.PXL | currency}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 bg-dark">
+            <div class="col-12 offset-6 col-sm-8 offset-sm-8"><img class="img-fluid"
+                    src="../../assets/images/BeneciChicken.png" alt="">
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="line float-left" *ngFor="let item of chickenMenu">
+                <div class="col-12  col-sm-6 item">{{item.title}}</div>
+                <div class="col-12 col-sm-12 float-right">
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.ONE | currency}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 bg-dark">
+            <div class="col-12 offset-6 col-sm-8 offset-sm-8"><img class="img-fluid"
+                    src="../../assets/images/BeneciSub.png" alt="">
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="line float-left" *ngFor="let item of subMenu">
+                <div class="col-12  col-sm-6 item">{{item.title}}</div>
+                <div class="col-12 col-sm-12 float-right">
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.LG2 | currency}}</div>
+                    <div class="col-12 col-sm-6 price float-right">SM {{item.SM2 | currency}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 bg-dark">
+            <div class="col-12 offset-6 col-sm-8 offset-sm-8"><img class="img-fluid"
+                    src="../../assets/images/BeneciPasta.png" alt="">
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="line float-left" *ngFor="let item of pastaMenu">
+                <div class="col-12  col-sm-6 item">{{item.title}}</div>
+                <div class="col-12 col-sm-12 float-right">
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.ONE | currency}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 bg-dark">
+            <div class="col-12 offset-6 col-sm-8 offset-sm-8"><img class="img-fluid"
+                    src="../../assets/images/BeneciSandwich.png" alt="">
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="line float-left" *ngFor="let item of sandwichMenu">
+                <div class="col-12  col-sm-6 item">{{item.title}}</div>
+                <div class="col-12 col-sm-12 float-right" [hidden]=checkCount(2,item.priceSystem)>
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.LG2 | currency}}</div>
+                    <div class="col-12 col-sm-6 price float-right">SM {{item.SM2 | currency}}</div>
+                </div>
+                <div class="col-12 col-sm-12 float-right" [hidden]=!checkCount(2,item.priceSystem)>
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.ONE | currency}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 bg-dark">
+            <div class="col-12 offset-6 col-sm-8 offset-sm-8"><img class="img-fluid"
+                    src="../../assets/images/BeneciSalad.png" alt="">
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="line float-left" *ngFor="let item of saladMenu">
+                <div class="col-12  col-sm-6 item">{{item.title}}</div>
+                <div class="col-12 col-sm-12 float-right" [hidden]=checkCount(2,item.priceSystem)>
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.LG2 | currency}}</div>
+                    <div class="col-12 col-sm-6 price float-right">SM {{item.SM2 | currency}}</div>
+                </div>
+                <div class="col-12 col-sm-12 float-right" [hidden]=!checkCount(2,item.priceSystem)>
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.ONE | currency}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 bg-dark">
+            <div class="col-12 offset-6 col-sm-8 offset-sm-8"><img class="img-fluid"
+                    src="../../assets/images/BeneciSides.png" alt="">
+            </div>
+        </div>
+        <div class="col-24">
+            <div class="line float-left" *ngFor="let item of sideMenu">
+                <div class="col-12  col-sm-6 item">{{item.title}}</div>
+                <div class="col-12 col-sm-12 float-right" [hidden]=checkCount(2,item.priceSystem)>
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.LG2 | currency}}</div>
+                    <div class="col-12 col-sm-6 price float-right">SM {{item.SM2 | currency}}</div>
+                </div>
+                <div class="col-12 col-sm-12 float-right" [hidden]=!checkCount(2,item.priceSystem)>
+                    <div class="col-12 col-sm-6 price float-right">LG {{item.ONE | currency}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

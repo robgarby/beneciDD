@@ -1,0 +1,84 @@
+body, html {
+    height: 100%;
+  }
+  
+  .margin-top-100{
+      margin-top: 60px;
+      width: 100%;
+  }
+  
+  .pizza-bar {
+    background: url("/assets/images/BeneciPizza.png"); 
+    background-color: rgba(255,255,255,0.65);
+    background-blend-mode: lighten;
+    min-height: 120px;;
+  }
+
+  .chicken-bar {
+    background: url("/assets/images/IMG_1234.JPG"); 
+    background-color: rgba(255,255,255,0.65);
+    background-blend-mode: lighten;
+    min-height: 120px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .sub-bar {
+    background: url("/assets/images/IMG_1236.JPG"); 
+    background-color: rgba(255,255,255,0.65);
+    background-blend-mode: lighten;
+    min-height: 120px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .scroll-content{
+      overflow:scroll;
+      height: calc(100% - 65px);
+      height: -o-calc(100% - 65px); /* opera */
+      height: -webkit-calc(100% - 65px); /* google, safari */
+      height: -moz-calc(100% - 65px); /* firefox */
+  }
+
+  .headingFont{
+      font-size: 2vw;
+      color: Black;
+      margin-top: 15px;
+      font-style: italic;
+  }
+
+  .sub1{
+    font-size: 1.vw;
+    text-align: left;
+    line-height: 1.2;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  .sub2{
+    font-size: 1.2vw;
+    text-align: left;
+    line-height: 1.2;
+    padding-left: 25px;
+    padding-right: 10px;
+  }
+
+  .line{
+      height: 30px;
+      line-height: 30px;
+      width: 100%;
+      font-size: small;
+  }
+
+  .item{
+      text-align: right;
+      font-weight: bold;
+  }
+

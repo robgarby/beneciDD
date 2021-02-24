@@ -5,7 +5,7 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
 
@@ -14,9 +14,14 @@ export class CartComponent implements OnInit {
   theCart : any = [];
   theDetails : any = [];
   isUp : number = -1;
+  showCart : boolean= false;
 
   ngOnInit(): void {
-    this.theCart = this.global.theCart;
+    this.global.cartShowEmmiter.subscribe(
+      (response:boolean) => {
+        this.showCart= response;
+      }
+    )
   }
 
 calcTotal(){

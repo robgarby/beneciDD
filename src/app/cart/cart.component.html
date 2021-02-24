@@ -1,5 +1,5 @@
-<div class="col-24 col-sm-18 col-md-12 cartBox">
-    <div class="col-24 text-center mt-1">Cart</div>
+<div class="col-24 cartBox" [hidden] = "!showCart">
+    <div class="col-24 text-center mt-1">Cart Information</div>
     <div class="col-24 cartBottomLine float-left" *ngFor="let cart of theCart; let i = index">
         <div class="col-24">
             <div class="col-2">
@@ -36,9 +36,9 @@
             </div>
         </div>
     </div>
-    <div class="mt-5 col-24">
+    <!-- <div class="mt-5 col-24">
         <div class="col-12 offset-6">
             <div class="btn btn-primary col-24" (click) = 'printIt()'>Print</div>
         </div>
-    </div>
+    </div> -->
 </div>

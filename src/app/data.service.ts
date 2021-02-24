@@ -8,16 +8,19 @@ export class DataService {
 
   cartEmitter = new EventEmitter();
   cartTotalEmitter = new EventEmitter();
+  cartShowEmmiter = new EventEmitter();
+  showNavBarEmitter = new EventEmitter();
   menuEmitter = new EventEmitter();
   // theCart: any = [
   //   { detail: [{ title: "No Lettuce" }, { title: "No Tomatoes" }, { title: "Add Extra Cheese" }], title: "Turkey Sub", catagory: "SM Turkey Sub", cost: 8.9 },
   // ];
   theCart: any = [];
   theCartTotal: number = 0;
-  theLocation = 'select location';
+  theLocation = 'WEST';
   theMenu: any = [];
   modDataBase: any = [];
   buildPrices: any = [];
+  showCart : boolean= false;
 
   // build pizza data
   halfOne: any = [];
@@ -38,6 +41,36 @@ export class DataService {
     { "sauce": 'Garlic' },
     { "sauce": 'Pesto' },
   ];
+
+  storeHours : any = [
+    {"day":"0","title":"Sunday","hours":"3pm to 9pm"},
+    {"day":"1","title":"Monday","hours":"11am to 9pm"},
+    {"day":"2","title":"Tuesday","hours":"11am to 10pm"},
+    {"day":"3","title":"Wednesday","hours":"11am to 10pm"},
+    {"day":"4","title":"Thursday","hours":"11am to 10pm"},
+    {"day":"5","title":"Friday","hours":"11am to 11pm"},
+    {"day":"6","title":"Saturday","hours":"11am to 10pm"},
+  ]
+
+  cats : any = [
+    {"title":"Pizza"},
+    {"title":"Chicken"},
+    {"title":"Subs"},
+    {"title":"Sandwich"},
+  ]
+
+  siteLinks : any = [
+    {"title":"about us","dropDown":"No"},
+    {"title":"menu","dropDown":"Yes"},
+    {"title":"locations","dropDown":"Yes"},
+    {"title":"order online","dropDown":"No"},
+  ]
+
+  showHideCart(){
+    this.showCart = !this.showCart;
+    this.cartShowEmmiter.emit(this.showCart);
+  }
+
 
   crustArray: any = [
     { "cost":"0","crust": 'Regular' },
@@ -97,6 +130,7 @@ export class DataService {
     await this.http.get('https://www.beneci.com/DATA/getMenu.php').subscribe(
       (response) => {
         this.theMenu = Object.values(response);
+        console.log(this.theMenu);
         this.menuEmitter.emit(Object.values(response));
       }
     )

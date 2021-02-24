@@ -1,18 +1,21 @@
-<div class="top-bar bg_beneci_alt">
-  <div class="col-8 col-sm-6 float-right menu-button" (click) = "showCart()">
-    Cart {{cartTotal | currency}}
+<div class="beneciNavBar">
+  <div class="col-12 col-sm-19">
+    <div class="d-none d-md-block" >
+      <div class="siteTitle" (click)="navigateClick('HOME')">Beneci Pizza Website</div>
+      <div class="navLink" *ngFor="let link of siteLink; let i = index" (click)="goToLink(link.title)">{{link.title}}
+      </div>
+    </div>
+    <div class="float-left d-md-none">
+      <i class="iconFont text-white fas fa-bars"></i>
+    </div>
   </div>
-  <div class="col-14 col-sm-12 col-md-6 float-left menu-bar" (click) = "dropShown = !dropShown">{{showLocation}}</div>
-</div>
-<div class="col-14 col-sm-12 col-md-6 drop-box" [hidden] = "!dropShown">
-  <div class="locationItem" (click) = "setLocation('East')">
-    East (Lorry Greenburg)
-  </div>
-  <div class="locationItem" (click) = "setLocation('West')">
-    West (Cobdon Road)
-  </div>
-  <div class="locationItem last" (click) = "setLocation('Vanier')">
-    Vanier (Montreal Road)
+  <div class="col-12 col-sm-5 float-right button beneci-green text-white" (click)="showCartFunction()">
+    Cart {{cartTotal | currency}} [ {{theCart.length}} Items ]
   </div>
 </div>
-<router-outlet></router-outlet>
+<div class="float-right col-12 col-sm-5 bg-success" [hidden]="showCart">
+  <app-cart></app-cart>
+</div>
+<div class="col-24 float-left">
+  <router-outlet></router-outlet>
+</div>

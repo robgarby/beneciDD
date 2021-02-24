@@ -1,5 +1,6 @@
 @import './assets/bootstrap4_24_ip.css';
 @import 'pizza.css';
+@import 'beneci.css';
 
 :root {
      --beneci:rgb(67, 112, 56);
@@ -10,6 +11,7 @@
      --premium-item : rgb(67, 110, 252);
      --beneci-alert : rgb(207, 79, 79);
      --beneci-gold :  rgb(204, 175, 48);
+     --beneci-gold-over :  rgb(201, 191, 146);
    }
 
 body{
@@ -52,7 +54,6 @@ body{
     font-size: medium;
     top: 50%;
     position: absolute;
-
 }
 
 .button-bar{

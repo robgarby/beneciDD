@@ -1,10 +1,7 @@
 <div class="col-24">
-    <div class="col-24 h1 text-center mt-3">
-       All Items are good for testing.
-    </div>
     <div class="col-24" [hidden] = "whichMenu !== 'All'">
-        <div class="col-24 col-sm-12 col-lg-6 mt-3" (click) = "setMenu(item)" *ngFor = "let item of theCats; let i = index">
-            <div class="item-box">{{item}} Menu</div>
+        <div class="col-24 col-sm-12 col-lg-6 mt-3" (click) = "setMenu(item.title)" *ngFor = "let item of theCats; let i = index">
+            <div class="item-box">{{item.title}} Menu</div>
         </div>
     </div>
 </div>

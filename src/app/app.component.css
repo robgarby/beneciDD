@@ -1,61 +1,59 @@
-.menu-bar {
-    position: relative;
-    text-indent: 10px;
+body, html {
+    height: 100%;
+  }
+
+.beneciNavBar {
+    height: 50px;
+    line-height: 50px;
+    background-color: black;
+    top: 0;
+    position: fixed;
+    width: 100%;    
+    z-index: 10;
+}
+
+.beneciNavBar .button{
+    line-height: 40px;
+    text-align: center;
+    font-size: small;
+    height: 40px;
+    cursor: pointer;
+    margin-top: 3px;;
+}
+
+.beneciNavBar .button:hover{
+    opacity: .8;
+}
+
+.beneciNavBar .navLink {
+    color: var(--beneci-gold);
+    float:left;
+    padding: 0px 15px 0px 15px;
+    font-size: small;
     cursor: pointer;
 }
 
-.menu-bar:before {
-    content: "";
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    width: 0; 
-    height: 0; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #f00;
+.beneciNavBar .navLink:hover {
+    color: var(--beneci-gold-over);
 }
 
-.menu-bar:after {
-    content: "";
-    position: absolute;
-    right: 10px;
-    width: 0; 
-    height: 0; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #333;
-}
-
-.drop-box{
-    background-color: white;
-    border-radius: 0px 0px 6px 0px;
-    border: 2px solid black;
-    z-index: 1000;
-    position: absolute;
-}
-
-.locationItem {
-    height: 35px;
-    line-height: 35px;
-    text-transform: uppercase;
-    font-size: x-small;
-    background-color: white;
-    border-bottom: 2px solid black;
+.beneciNavBar .siteTitle {
+    float: left;
+    color: white;
+    font-weight: bolder;
+    padding-right: 10px;
+    text-indent: 5px;
     cursor: pointer;
-    text-indent: 10px;
 }
 
-.locationItem:hover {
-    height: 35px;
-    line-height: 35px;
-    text-transform: uppercase;
-    font-size: x-small;
-    background-color: green;
-    border-bottom: 2px solid black;
-
+.beneciNavBar .siteTitle:hover {
+    color: var(--beneci-gold);
 }
 
-.locationItem.last {
-    border-bottom: 0px;
+.iconFont{
+    font-size: 35px;
+    margin-top: 10px;;
 }
+
+
+
