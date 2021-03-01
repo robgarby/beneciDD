@@ -17,6 +17,7 @@ export class SaladComponent implements OnInit {
   currentItem: any = [];
   currentItemArray: any = [];
   currentCat: string = 'Salad';
+  currentLink: string = 'SALAD';
   currentSize: string = '-';
   itemDescription: string = '';
   detailArray: any = [];
@@ -37,33 +38,67 @@ export class SaladComponent implements OnInit {
   hasSauce: boolean = false;
   sauceItems: any = [];
   sauceSelected: any = [];
-  checkOut: boolean = false;
-  mask : boolean = false;
-  isWarningBox : boolean = false;
+  isWarningBox: boolean = false;
+  mask: boolean = false;
+  isLastItemBox: boolean = false;
+
+  showCart: boolean = false;
+  toDo: any = [];
+  activeWindow = '';
 
 
 
 
   async ngOnInit() {
-    if (this.global.theLocation === 'select location') {
-      this.router.navigateByUrl('START');
-      return;
-    }
     this.currentItemArray = this.global.fullDatabase.filter((data: any) => data.catagory === this.currentCat);
     this.detailArray = [];
     this.whatStep = 0;
-    this.detailArray.push("home");
-    this.detailArray.push("salad");
+    this.activeWindow = '-';
   }
 
+  checkToDoLength() {
+    console.log(this.toDo.length);
+    return this.toDo.length === 1 ? false : true;
+  }
+
+  goTo(inval: number) {
+    if (inval === -1) {
+      this.router.navigateByUrl('MENU');
+    } else {
+      this.whatStep = 0;
+      this.itemCost = 0;
+      this.detailArray = [];
+      this.toDo = [];
+      this.activeWindow = '';
+    }
+  }
+
+  moveToNext() {
+    switch (this.toDo[0]){
+      case 'SIZE' : 
+        this.detailArray.length = 1;
+        this.detailArray.push(this.currentSize); 
+      break;
+    }
+    this.toDo.shift();
+    this.activeWindow = this.toDo[0];
+    console.log(this.toDo);
+  }
   checkPriceSystem(currentItem: any) {
     return currentItem.priceSystem === '2' ? true : false;
   }
 
+  checkShowNext() {
+    console.log(this.toDo);
+    console.log(this.toDo.length);
+    return this.toDo.length > 1 ? false : true;
+  }
+
   setItem(currentItem: any) {
+    this.toDo = [];
     this.modArray = [];
-    this.checkOut = false;
-    this.detailArray.length = 2;
+    this.showCart = false;
+    this.detailArray = [];
     this.currentItem = currentItem;
     this.detailArray.push(currentItem.title);
     this.currentTitle = currentItem.title;
@@ -73,15 +108,35 @@ export class SaladComponent implements OnInit {
     this.costItems = currentItem.costItems.split(',');
     this.isPlatter = false;
     this.hasSauce = false;
+    this.whatStep = -1;
+    switch (currentItem.priceSystem) {
+      case '1':
+        this.itemCost = this.calcCost(currentItem, 'ONE');
+        this.holdBaseCost = this.calcCost(currentItem, 'ONE');
+        if (this.toDo.length === 1) {
+          this.showCart = true;
+        }
+        break;
+      case '2':
+        this.currentSize = 'Small';
+        this.toDo.push('SIZE');
+        this.itemCost = this.calcCost(currentItem, this.currentSize);
+        break
+    }
+    if (this.noCostItems.length > 1) {
+      this.toDo.push("ITEMS");
+    }
     if (currentItem.hasSauce === 'Yes') {
       this.hasSauce = true;
       this.sauceItems = currentItem.sauceItems.split(',');
       this.sauceSelected = currentItem.sauceSelected.split(',');
+      this.toDo.push('SAUCE');
     }
     if (currentItem.isPlatter === 'Yes') {
       this.isPlatter = true;
       this.platterItems = currentItem.platterItems.split(',');
       this.platterSelected = currentItem.platterSelected.split(',');
+      this.toDo.push('PLATTER');
     }
     var pushObject: any = {};
     this.noCostItems.forEach((name: string) => {
@@ -104,21 +159,21 @@ export class SaladComponent implements OnInit {
         this.modArray.push(pushObject);
       });
     }
-    if (currentItem.priceSystem === '2') {
-      this.whatStep = 1;
-      this.itemCost = this.calcCost(currentItem, this.currentSize);
+    this.activeWindow = this.toDo[0];
+  }
+
+  checkStep(inval: number) {
+    console.log(inval);
+    if (this.whatStep === inval) {
+      return true;
     } else {
-      this.whatStep = 2;
-      this.currentSize = '-';
-      this.itemCost = this.calcCost(currentItem, 'ONE');
-      this.holdBaseCost = this.calcCost(currentItem, 'ONE');
-      console.log(this.hasSauce,this.isPlatter);
-      if ((!this.hasSauce) && (!this.isPlatter)){
-        this.checkOut = true;
-      }
+      return false;
     }
   }
 
+  checkSelected(inval: string) {
+    return inval === this.currentItemArray.title ? 'mod-selected' : 'mod-not-selected';
+  }
 
   calcCost(inItem: any, size: string) {
     var returnCost: number = 0;
@@ -143,8 +198,8 @@ export class SaladComponent implements OnInit {
   resetItem(i: number) {
     switch (i) {
       case 0: this.router.navigateByUrl('MENU'); break;
-      case 1: this.router.navigateByUrl('SALAD'); this.ngOnInit(); break;
-      case 2: this.router.navigateByUrl('SALAD'); this.ngOnInit(); break;
+      case 1: this.router.navigateByUrl(this.currentLink); this.ngOnInit(); break;
+      case 2: this.router.navigateByUrl(this.currentLink); this.ngOnInit(); break;
       case 3: this.detailArray.length = 3; this.whatStep = 1; this.currentTitle = this.currentItem.title; this.itemCost = 0; this.currentSize = '-'; break;
     }
   }
@@ -153,8 +208,8 @@ export class SaladComponent implements OnInit {
   }
 
   setSize(inval: string, cost: number) {
+    this.detailArray.length = 1;
     this.currentSize = inval;
-    this.whatStep = 2;
     this.itemCost = cost;
     this.holdBaseCost = cost;
     this.detailArray.push(inval);
@@ -163,12 +218,6 @@ export class SaladComponent implements OnInit {
       case 'Large': this.currentTitle = 'LG ' + this.currentTitle; break;
       default: this.currentTitle = this.currentTitle; break;
     }
-    if ((this.hasSauce) || (this.isPlatter)){
-      this.checkOut = false;
-    } else {
-      this.checkOut = true;
-    }
-
   }
 
   displayModCost(item: any) {
@@ -201,7 +250,12 @@ export class SaladComponent implements OnInit {
       }
     });
     if (found) {
-      this.itemsPicked.splice(foundAt, 1);
+      if (this.itemsPicked.length === 1) {
+        this.isLastItemBox = !this.isLastItemBox;
+        this.mask = !this.mask;
+      } else {
+        this.itemsPicked.splice(foundAt, 1);
+      }
     } else {
       this.itemsPicked.push(title);
     }
@@ -218,15 +272,15 @@ export class SaladComponent implements OnInit {
   }
 
 
-  addToOrder(currentItem: any) {
+  addToOrder() {
     var itemName = this.currentTitle;
-    var buildArray: any = this.readyToPrint(this.itemsPicked,this.sauceSelected,this.platterSelected);
+    var buildArray: any = this.readyToPrint(this.itemsPicked, this.sauceSelected, this.platterSelected);
     this.global.addToCartPrint(itemName, buildArray, this.currentTitle, this.itemCost);
     this.router.navigateByUrl('MENU');
   }
 
 
-  readyToPrint(extraArray: any,sauce:any,side:any) {
+  readyToPrint(extraArray: any, sauce: any, side: any) {
     var translated: any = [];
     var theObject: any = {};
     var found: boolean = false;
@@ -256,16 +310,16 @@ export class SaladComponent implements OnInit {
         theObject = {};
       }
     });
-    if(sauce.length > 0){
+    if (sauce.length > 0) {
       theObject = {};
-      theObject.title = "Sauce/Dressing: "+ sauce;
+      theObject.title = "Sauce/Dressing: " + sauce;
       translated.push(theObject);
     }
-    if (side.length > 0){
-      side.forEach((theSide:string) => {
-          theObject = {};
-          theObject.title = "With "+ theSide;
-          translated.push(theObject);
+    if (side.length > 0) {
+      side.forEach((theSide: string) => {
+        theObject = {};
+        theObject.title = "With " + theSide;
+        translated.push(theObject);
       });
     }
     return translated;
@@ -274,13 +328,14 @@ export class SaladComponent implements OnInit {
   moveToSauce() {
     this.whatStep = 3;
     if (!this.isPlatter) {
-      this.checkOut = true;
+      this.showCart = true;
     }
   }
 
   moveToPlatter() {
+    this.detailArray.push(this.sauceSelected);
     this.whatStep = 4;
-    this.checkOut = true;
+    this.showCart = true;
   }
 
   checkSkipSauce() {
@@ -306,23 +361,27 @@ export class SaladComponent implements OnInit {
     this.sauceSelected.push(sauce);
   }
 
+  showTooMany: boolean = false;
+
   selectPlatter(side: string) {
     var found = false;
     var foundAt = -1;
-    this.platterSelected.forEach((element: string,index:number) => {
+    this.platterSelected.forEach((element: string, index: number) => {
       if (element === side) {
         found = true;
         foundAt = index;
       }
     });
     if (found) {
-      this.platterSelected.splice(foundAt,1);
+      this.platterSelected.splice(foundAt, 1);
     } else {
       this.platterSelected.push(side);
     }
-    if (this.platterSelected.length > this.currentItem.maxSelected){
-      this.mask = !this.mask;
-      this.isWarningBox = !this.isWarningBox;
+    this.showTooMany = false;
+    this.showCart = true;
+    if (this.platterSelected.length > this.currentItem.maxSelected) {
+      this.showTooMany = !this.showTooMany;
+      this.showCart = false;
     }
   }
 
@@ -336,11 +395,11 @@ export class SaladComponent implements OnInit {
     return found ? 'bg-primary' : 'bg-secondary';
   }
 
-  checkSideSize(){
-    return this.platterSelected.length > 2 ? false:true;
+  checkSideSize() {
+    return this.platterSelected.length > 2 ? false : true;
   }
 
-  resetWarning(){
+  resetWarning() {
     this.platterSelected = [];
     this.mask = !this.mask;
     this.isWarningBox = !this.isWarningBox;

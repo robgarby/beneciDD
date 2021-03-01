@@ -1,7 +1,10 @@
-<div class="col-24">
-    <div class="col-24" [hidden] = "whichMenu !== 'All'">
-        <div class="col-24 col-sm-12 col-lg-6 mt-3" (click) = "setMenu(item.title)" *ngFor = "let item of theCats; let i = index">
-            <div class="item-box">{{item.title}} Menu</div>
+<div class="row fullBack">
+    <div class="margin-top-100 text-center scroll-content">
+        <div class="col-24" [hidden]="whichMenu !== 'All'">
+            <div class="col-24 col-sm-12 col-lg-6 mt-3" (click)="setMenu(item.title)"
+                *ngFor="let item of theCats; let i = index">
+                <div class="item-box">{{item.title}} Menu</div>
+            </div>
         </div>
     </div>
 </div>

@@ -22,6 +22,7 @@ export class CartComponent implements OnInit {
         this.showCart= response;
       }
     )
+    console.log(this.global.theCart);
   }
 
 calcTotal(){

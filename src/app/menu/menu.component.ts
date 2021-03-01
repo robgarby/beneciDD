@@ -51,6 +51,7 @@ async splitCats(inval:any){
   }
 
   setMenu(inval:string){
+    console.log(inval);
     switch (inval) {
       case 'Pizza' : this.router.navigateByUrl('PIZZA'); break;
       case 'Chicken' : this.router.navigateByUrl('CHICKEN'); break;

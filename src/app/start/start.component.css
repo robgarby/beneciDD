@@ -64,3 +64,25 @@ body, html {
     font-size: x-small;
     color: black;
 }
+
+.login-box{
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.478);
+      border-radius: 6px;
+      border: 2px solid var(--beneci-border);
+}
+
+.login-box .title {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.login-box p{
+    font-size: small;
+}
+
+.memberBar{
+    background-color: dimgrey;
+    height: 35px;
+    line-height: 35px;
+}

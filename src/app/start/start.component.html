@@ -4,8 +4,19 @@
         <div class="col-24 mb-2">
             <div class="heading-font">Quality you can count on..</div>
         </div>
-        <div class="col-24">
-            <div class="col-24 mb-3">
+        <div class="container">
+            <div class="col-24 col-sm-14 offset-sm-5" [hidden] = "isMember">
+                <div class="col-24 login-box">
+                    <div class="title">Login or Create an Account</div>
+                    <p>To Order Online, you will need an account. You can create this during the checkout process or before.</p>
+                    <p>Having an account will enable you to view your previous orders, speed up placing online orders, and you will receive notifications of promotional items or upcoming discounts</p>
+                    <div class="col-12 offset-6">
+                        <div class="beneciButton bg-primary text-white text-small" (click) = "navToLogIn()">Log In / Create Account</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
                 <div class="col-24 col-md-12 mt-1">
                     <div class="locationBox">
                         <div class="col-24 float-left  title mt-1">Beneci East</div>
@@ -43,7 +54,6 @@
                     </div>
                 </div> -->
             </div>
-        </div>
     </div>
     <!-- <div class="col-24 text-center margin-top-100">
             

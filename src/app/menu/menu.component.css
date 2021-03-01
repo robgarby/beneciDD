@@ -8,14 +8,14 @@
     border: 2px solid var(--beneci-over);
     background-color: white;
     border-radius: 6px;
-    padding: 10px;
+    padding: 20px 10px 20px 10px;
     text-align: center;
     cursor: pointer;
 }
 
 .item-box:hover{
     background-color: var(--beneci-over);
-    color: white;
+    color: black;
 }
 
 .link-line{
@@ -38,3 +38,14 @@
     color: black;
     cursor: none;
 }
+
+.fullBack {
+    background: url("/assets/images/IMG_1218.JPG"); 
+    background-color: rgba(255,255,255,0.5);
+    background-blend-mode: lighten;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+  }

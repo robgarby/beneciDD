@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { DataService } from '../data.service';
 
 @Component({
@@ -9,12 +10,18 @@ import { DataService } from '../data.service';
 })
 export class StartComponent implements OnInit {
 
-  constructor(private global : DataService, private router :Router) { }
+  constructor(private global : DataService, private router :Router, private cookie : CookieService) { }
 
   fullData : any = [];
   theDate : Date = new Date();
   dayOfWeek : number = 0;
   displayTime :string = '';
+  client : any = [];
+  isMember: boolean = false;
+
+  navToLogIn(){
+    this.router.navigateByUrl('LOGIN');
+  }
 
   async ngOnInit() {
     this.global.cartEmitter.subscribe(
@@ -27,9 +34,14 @@ export class StartComponent implements OnInit {
         this.global.theMenu = response;
       }
     )
+    this.global.memberEmitter.subscribe(
+      (response:boolean) => {
+        this.isMember = response;
+      }
+    )
     this.dayOfWeek = this.theDate.getDay();
     this.displayTime = this.global.storeHours[this.dayOfWeek].title + ' '+this.global.storeHours[this.dayOfWeek].hours;
-    console.log(this.displayTime);
+    this.isMember = this.global.isMember;
   }
 
   orderOnline(){

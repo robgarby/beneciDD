@@ -33,6 +33,7 @@ export class DrinksComponent implements OnInit {
   mask : boolean = false;
   indiPrice : number = 0;
   drinksTotal : number = 0;
+  whatStep : number = -1;
 
   ngOnInit(): void {
     this.detailArray.push('HOME');
@@ -44,6 +45,10 @@ export class DrinksComponent implements OnInit {
 
   showCount(count:number){
     return count > 0 ? count: '';
+  }
+
+  goTo(inval:number){
+    this.router.navigateByUrl('MENU');
   }
 
   resetItem(i: number) {
@@ -62,7 +67,7 @@ export class DrinksComponent implements OnInit {
     if (this.localDrinkArray[i].count > 0){
             found = true;
     }
-    return found ? 'bg-primary' : 'bg-secondary';
+    return found ? 'mod-selected' : 'mod-not-selected';
   }
 
 
@@ -95,6 +100,7 @@ export class DrinksComponent implements OnInit {
   }
 
   selectDrink(i:number){
+
     this.currentDrink = this.localDrinkArray[i];
     this.mask = !this.mask;
     this.showDescription = !this.showDescription;

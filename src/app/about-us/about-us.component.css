@@ -9,7 +9,7 @@ body, html {
   
   .fullBack {
     background: url("/assets/images/IMG_1218.JPG"); 
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.5);
     background-blend-mode: lighten;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -27,14 +27,14 @@ body, html {
   }
 
   .headingFont{
-      font-size: 2vw;
+      font-size: large;
       font-style: italic;
   }
 
   .sub1{
-    font-size: 1.vw;
+    font-size: medium;
     text-align: left;
-    line-height: 1.2;
+    line-height: 1.5;
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 5px;
@@ -43,16 +43,16 @@ body, html {
   }
 
   .sub2{
-    font-size: 1.2vw;
+    font-size: small;
     text-align: left;
-    line-height: 1.2;
+    line-height: 1.5;
     padding-left: 25px;
     padding-right: 10px;
   }
 
   .about-us{
       width: 100%;
-      background-color: rgba(215, 216, 200, 0.764);
+      background-color: rgba(218, 216, 216, 0.764);
       min-height: 300px;
       margin-top: 10px;
       padding: 15px;

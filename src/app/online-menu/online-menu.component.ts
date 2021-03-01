@@ -10,7 +10,8 @@ export class OnlineMenuComponent implements OnInit {
 
   constructor(private global : DataService) { }
 
-  pizzaMenu :any = [];
+  pizzaMenuFULL :any = [];
+  pizzaMenu : any = [];
   chickenMenu : any = [];
   subMenu : any = [];
   theMenu : any = [];
@@ -18,9 +19,12 @@ export class OnlineMenuComponent implements OnInit {
   sandwichMenu : any = [];
   saladMenu : any = [];
   sideMenu : any = [];
+  currentLocation : string = 'WEST';
+  locations : any = this.global.locations;
 
   async ngOnInit() {
-    this.pizzaMenu = await this.global.theMenu.filter((data: any) => data.category === 'Pizza');
+    this.pizzaMenuFULL = await this.global.theMenu.filter((data: any) => data.category === 'Pizza');
+    this.pizzaMenu = await this.pizzaMenuFULL.filter((data: any) => data.menuLocation === this.currentLocation);
     this.chickenMenu = await this.global.fullDatabase.filter((data: any) => data.catagory === 'Chicken');
     this.subMenu = await this.global.fullDatabase.filter((data: any) => data.catagory === 'Sub');
     this.pastaMenu = await this.global.fullDatabase.filter((data: any) => data.catagory === 'Pasta');
@@ -33,6 +37,16 @@ export class OnlineMenuComponent implements OnInit {
   checkCount(num:number,count:number){
     console.log(num,count);
     return num === parseFloat(count.toString()) ? false : true;
+  }
+
+  checkLocation(inval:string){
+    return inval === this.currentLocation ? 'active-button' : 'not-active-button';
+  }
+
+  async setMenu(location:string){
+    this.currentLocation = location;
+    console.log(location);
+    this.pizzaMenu = await this.pizzaMenuFULL.filter((data: any) => data.menuLocation === this.currentLocation);
   }
 
 }

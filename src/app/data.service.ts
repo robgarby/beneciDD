@@ -11,6 +11,7 @@ export class DataService {
   cartShowEmmiter = new EventEmitter();
   showNavBarEmitter = new EventEmitter();
   menuEmitter = new EventEmitter();
+  memberEmitter = new EventEmitter();
   // theCart: any = [
   //   { detail: [{ title: "No Lettuce" }, { title: "No Tomatoes" }, { title: "Add Extra Cheese" }], title: "Turkey Sub", catagory: "SM Turkey Sub", cost: 8.9 },
   // ];
@@ -33,6 +34,7 @@ export class DataService {
   premiumPrices: any = { "SM": "2.5", "MD": "3.6", "LG": "4.45", "XL": "5" };
   glutenPrices: any = { "SM": "2.95", "MD": "3.95", "LG": "0", "XL": "0" };
   allMods: any = [];
+  isLoggedIn:boolean = false;
 
 
   sauceArray: any = [
@@ -52,23 +54,36 @@ export class DataService {
     {"day":"6","title":"Saturday","hours":"11am to 10pm"},
   ]
 
+  locations = [
+    {"location": 'West', "menuFilter" : "WEST", "phone":"613-828-2828"},
+    {"location": 'East', "menuFilter" : "EAST", "phone":"613-739-7777"},
+  ]
+
   cats : any = [
     {"title":"Pizza"},
     {"title":"Chicken"},
-    {"title":"Subs"},
+    {"title":"Sub"},
+    {"title":"Pasta"},
     {"title":"Sandwich"},
+    {"title":"Salad"},
+    {"title":"Side"},
+    {"title":"Drinks"},
   ]
 
   siteLinks : any = [
     {"title":"about us","dropDown":"No"},
     {"title":"menu","dropDown":"Yes"},
-    {"title":"locations","dropDown":"Yes"},
     {"title":"order online","dropDown":"No"},
   ]
 
   showHideCart(){
     this.showCart = !this.showCart;
     this.cartShowEmmiter.emit(this.showCart);
+  }
+
+  changeMember(boo:boolean){
+    this.isMember = boo;
+    this.memberEmitter.emit(boo);
   }
 
 
@@ -113,6 +128,8 @@ export class DataService {
   saladArray: any = [];
   sideArray: any = [];
   chickenArray: any = [];
+  client : any = [];
+  isMember : boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -130,7 +147,6 @@ export class DataService {
     await this.http.get('https://www.beneci.com/DATA/getMenu.php').subscribe(
       (response) => {
         this.theMenu = Object.values(response);
-        console.log(this.theMenu);
         this.menuEmitter.emit(Object.values(response));
       }
     )
@@ -194,7 +210,6 @@ export class DataService {
     this.http.get('https://www.beneci.com/DATA/getFullMenu.php').subscribe(
       (response) => {
         this.fullDatabase = Object.values(response);
-        console.log(this.fullDatabase);
       }
     )
   }

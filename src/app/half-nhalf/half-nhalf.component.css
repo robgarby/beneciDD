@@ -25,15 +25,6 @@
     opacity: .7;
 }
 
-.active-button{
-    background-color: #0275d8;
-    color: white;
-}
-
-.not-active-button{
-    background-color: #aaaaaa;
-    color: black;
-}
 
 .modChoice {
     height: 40px;

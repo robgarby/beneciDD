@@ -1,36 +1,46 @@
-<div class="mask" [hidden]="!mask"></div>
-<div class="col-24 float-left button-bar">
-    <div class="navigation-button" *ngFor="let detail of detailArray; let i = index" (click)="resetItem(i)">{{detail}}
-    </div>
-</div>
-<div class="col-24 line-height-35">
-    <div class="float-right mr-3">Drink Total {{drinksTotal | currency}}</div>
-</div>
-<div class="col-24">
-    <div class="col-12 col-md-8 product-box" *ngFor="let product of localDrinkArray; let i = index" (click) = "selectDrink(i)" [ngClass] = "isSelected(i)">
-        <div class="product-title text-white">{{showCount(product.count)}} {{product.title}} {{calcPrice(i) | currency}} </div>
-    </div>
-</div>
-<div class="bg-white pop-box col-22 col-sm-12 center-pop" [hidden]="!showDescription">
-    <div class="alert-title">{{currentDrink.title}}</div>
-    <div class="alert-text">
-        How many {{currentDrink.title}} would you like to add to Order?
-    </div>
-    <div class="col-24 text-center mt-2">
-        <div class="col-12 offset-6  no-gutter">
-            <ngx-number-spinner [value]="getCount()" (change)="changeCount($event)" [min]="0">
-            </ngx-number-spinner>
+<div class="row fullBack">
+    <div class="margin-top-100 text-center scroll-content">
+        <div class="mask" [hidden]="!mask"></div>
+        <div class="col-24 float-left progress-bar">
+            <div class="float-left col-4 col-md-2 beneciButtonThin bg-success" [hidden]="whatStep === -1"
+                (click)="goTo(-1)">Back</div>
+            <div class="col-12 col-sm-8 ml-3 float-right beneciButtonThin add-to-cart" [hidden] = "drinksTotal === 0" (click)="addToOrder()">
+                Add Drinks to Cart {{drinksTotal | currency}} 
+            </div>
+
+
+            <!-- <div class="col-12 col-sm-5 float-right button beneci-green text-white">Add to cart
+            </div> -->
+            <!--div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-success float-right" (click)="addToOrder()">
+                Add to Order</div> -->
         </div>
-        <div class="col-24 mt-3">
-            <div class="col-12 offset-6 indi-price">
-                {{indiPrice | currency}}
+        <div class="col-24">
+            <div *ngFor="let product of localDrinkArray; let i = index">
+                <div class="col-24 col-sm-12 col-md-8">
+                    <div class="product-box" (click)="selectDrink(i)" [ngClass]="isSelected(i)">
+                        {{showCount(product.count)}} {{product.title}} {{calcPrice(i) |currency}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white pop-box col-22 col-sm-12 center-pop" [hidden]="!showDescription">
+            <div class="alert-title">{{currentDrink.title}}</div>
+            <div class="alert-text">
+                How many {{currentDrink.title}} would you like to add to Order?
+            </div>
+            <div class="col-24 text-center mt-2">
+                <div class="col-12 offset-6  no-gutter">
+                    <ngx-number-spinner [value]="getCount()" (change)="changeCount($event)" [min]="0">
+                    </ngx-number-spinner>
+                </div>
+                <div class="col-24 mt-3">
+                    <div class="col-12 offset-6 indi-price">
+                        {{indiPrice | currency}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-24 mt-4">
+                <div class="col-12 offset-6 btn btn-primary" (click)="saveDrink()">OK</div>
             </div>
         </div>
     </div>
-    <div class="col-24 mt-4">
-        <div class="col-12 offset-6 btn btn-primary" (click)="saveDrink()">OK</div>
-    </div>
-</div>
-<div class="col-24 mt-3">
-    <div class="col-12 col-sm-8 col-md-6 blank-button text-white bg-success float-right" (click) = "addToOrder()">Add to Order</div>
 </div>

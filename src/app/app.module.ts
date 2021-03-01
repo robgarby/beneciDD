@@ -21,6 +21,8 @@ import { SideComponent } from './side/side.component';
 import { DrinksComponent } from './drinks/drinks.component';
 import { OnlineMenuComponent } from './online-menu/online-menu.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { LoginComponent } from './login/login.component';
+import {CookieService} from 'ngx-cookie-service';
 
 // const appRoutes : Routes = [
 //   {path: 'START', component: StartComponent},
@@ -56,7 +58,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     SideComponent,
     DrinksComponent,
     OnlineMenuComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,9 @@ import { AboutUsComponent } from './about-us/about-us.component';
     NgxNumberSpinnerModule,
     // RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

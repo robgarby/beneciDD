@@ -4,15 +4,12 @@
             <img class="img-fluid col-6 offset-9" src="/assets/images/Beneci-Logo.png" alt="">
             <div class="sub2 text-center col-24">Quality ingredients makes Quality products</div>
         </div>
-        <div class="col-24 alert-warning p-2">
+        <div class="col-24 p-2">
             <div class="font-small">Please Note not all items are availabe at all locations. To View a Specific
                 Locations Press the buttons below</div>
                 <div class="col-24 col-md-12 offset-md-6">
-                    <div class="col-12">
-                        <div class="beneciButton beneci-green text-white">East Location</div>
-                    </div>
-                    <div class="col-12">
-                        <div class="beneciButton beneci-green text-white">West Location</div>
+                    <div class="col-12" *ngFor = "let location of locations">
+                        <div class="beneciButton text-white" (click) = setMenu(location.menuFilter) [ngClass] = "checkLocation(location.menuFilter)">{{location.location}} Location</div>
                     </div>
                 </div>
         </div>

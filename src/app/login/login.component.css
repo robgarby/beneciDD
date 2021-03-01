@@ -1,0 +1,92 @@
+.fullBack {
+    background: url("/assets/images/IMG_1246.JPG"); 
+    background-color: rgba(255,255,255,0.5);
+    background-blend-mode: lighten;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .sign-in-box{
+      min-height: 350px;
+      padding: 10px;
+      border-radius: 6px;
+  }
+
+  .sign-in-box .title{
+      font-size: medium;
+      font-weight: bold;
+      
+  }
+
+  .sign-in-box .details{
+    font-size: small;
+    font-weight:lighter;
+}
+
+
+.font-xsmall{
+    font-size: x-small;
+}
+
+.loginTitle{
+    font-size: x-small;
+    color: blue;
+    text-align: left;
+}
+
+.formRight{
+    display: block;
+    width: 100%;
+    padding: 0.15rem 0.15rem;
+    line-height: 1.5;
+    color: #495057;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.eyeButtonHide{
+    color: red;
+}
+
+.eyeButtonShow{
+    color: green;
+}
+
+.smallLink{
+    color: blue;
+    font-size: xx-small;
+    line-height: 35px;
+    cursor: pointer;
+}
+
+.text-small{
+    font-size: small;
+}
+
+.label{
+    font-size: x-small;
+    color: darkgreen;
+}
+
+.bg-rose{
+    background-color: lightpink;
+}
+
+.red-marker-line{
+    margin-top: 3px;
+    font-size: small;
+    color: red;
+}
+
+.line-35{
+    line-height: 45px;
+    height: 45px;
+}
+
+.pointer {
+    cursor: pointer;
+}

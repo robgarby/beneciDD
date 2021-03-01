@@ -28,10 +28,11 @@ body, html {
 .beneciNavBar .navLink {
     color: var(--beneci-gold);
     float:left;
-    padding: 0px 15px 0px 15px;
+    padding: 0px 10px 0px 10px;
     font-size: small;
     cursor: pointer;
 }
+
 
 .beneciNavBar .navLink:hover {
     color: var(--beneci-gold-over);
@@ -52,8 +53,80 @@ body, html {
 
 .iconFont{
     font-size: 35px;
-    margin-top: 10px;;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
+.burgerDiv{
+    background-color: black;
+    z-index: 1000;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
+
+.burgerLink{
+    color: var(--beneci-gold);
+    float:left;
+    padding: 0px 15px 0px 15px;
+    font-size: small;
+    cursor: pointer;
+    width: 100%;
+}
+
+.burgerLink:hover{
+    background-color: darkgray;
+    color: black;
+}
+
+.cartBox{
+    background-color: lightgray;
+    position: absolute;
+    top: 50px;
+    height: 100vh;
+    z-index: 2000;
+    right: 0;
+    border-left: 2px solid var(--beneci-border);;
+}
+
+.cartBottomLine{
+    border-bottom: 2px solid var(--beneci-border);
+    margin-bottom: 5px;
+    font-size: small;
+    min-height: 35px;
+    padding-bottom: 5px; 
+}
+
+.small-button{
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    font-size: small;
+    border-radius: 6px;
+    margin-top: 2px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.small-button:hover{
+    opacity: .6;
+    cursor: pointer;
+}
+
+.total-box{
+    line-height: 35px;
+    height: 35px;
+    background-color: var(--beneci-subtle);
+    margin-bottom: 5px;
+    font-size: medium;
+}
+
+.extraItems{
+    line-height: 25px;
+    height: 25px;
+    font-size: xx-small;
+    float: left;
+}
 
 
