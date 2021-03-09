@@ -1,61 +1,225 @@
 <div class="beneciNavBar">
-  <div class="col-12 col-sm-19">
-    <div class="d-none d-md-block">
-      <div class="siteTitle" (click)="navigateClick('HOME')">Beneci Pizza</div>
-      <div class="navLink" *ngFor="let link of siteLink; let i = index" (click)="goToLink(link.title)">{{link.title}}</div>
-      <div class="button col-3 float-right mt-2" [ngClass] = "checkColorLogin()" (click) = "navToLogIn()">Member</div>
-    </div>
-    <div class="float-left offset-1 d-md-none">
-      <i class="iconFont text-white fas fa-bars" [ngClass] = "showMenuClicked()" (click)="showMenu()"></i>
-      <div class="col-24 burgerDiv" [hidden] = "hideMenu">
-        <div class="burgerLink" *ngFor="let link of siteLink; let i = index" (click)="goToLinkBurger(link.title)">{{link.title}}
+    <div class="col-4 col-sm-6 col-md-13">
+        <div class="d-none d-md-block">
+            <div class="siteTitle" (click)="navigateClick('HOME')">Beneci Pizza</div>
+            <div class="navLink" *ngFor="let link of siteLink; let i = index" (click)="goToLink(link.title)">
+                {{link.title}}
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-sm-5 mt-2 float-right button beneci-green text-white" [hidden] = "theCart.length === 0" (click)="showCartFunction()">
-    Cart {{cartTotal | currency}} [ {{theCart.length}} Items ]
-  </div>
-</div>
-<div class="col-22 col-md-14 cartBox" [hidden] = "!showCart">
-  <div class="col-24 text-center mt-1">Cart Information</div>
-    <div class="col-24 cartBottomLine float-left" *ngFor="let cart of theCart; let i = index">
-        <div class="col-24">
-            <div class="col-2">
-                <div class="small-button bg-danger text-white" (click)="removeItem(i)"><i class="fas fa-trash-alt"></i>
+        <div class="float-left offset-1 d-md-none">
+            <i class="iconFont text-white fas fa-bars" [ngClass]="showMenuClicked()" (click)="showMenu()"></i>
+            <div class="col-24 burgerDiv" [hidden]="hideMenu">
+                <div class="burgerLink" *ngFor="let link of siteLink; let i = index"
+                    (click)="goToLinkBurger(link.title)">
+                    {{link.title}}
                 </div>
             </div>
-            <div class="col-17 left-box">{{cart.title}} </div>
-            <div class="col-2 small-button bg-dark text-white" (click)="inspectItem(i)" [hidden] = "checkExtra(i)">
-                <i class="fas fa-arrow-circle-down"></i>
-            </div>
-            <!-- <div class="col-2 small-button bg-success text-white" (click)="inspectItem(i)">
-                <i class="fas fa-arrow-circle-up"></i>
-            </div> -->
-            <div class="col-3 right-box text-right">{{cart.cost | currency}}</div>
-        </div>
-        <div class="col-24 float-left" [hidden] = "whatItem !== i">
-            <div class="col-20 float-right extraItems"  *ngFor="let detail of theDetails; let i = index">{{checkSpecial(detail.title)}}</div>
         </div>
     </div>
-    <div class="col-24 float-left">
-        <div class="col-24 mt-2">
-            <div class="col-24 text-right">
-                Subtotal : {{calcTotal() |currency}}
+    <div class="col-20 col-sm-18 col-md-11 float-right">
+        <div class="col-12  mt-2 button float-right mt-2" [ngClass]="checkColorLogin()" (click)="navToLogIn()">
+            {{displayMember()}}</div>
+        <div class="col-12  mt-2 button beneci-green text-white float-right" [hidden]="!showCartButton"
+            (click)="showCartFunction()"> Cart {{cartTotal | currency}} [ {{theCart.length}} Items ]</div>
+    </div>
+</div>
+<div class="col-22 col-sm-15 col-md-11 cartBox" [hidden]="!showCart">
+    <div id="processCart" [hidden]="checkEmptyProcess()">
+        <div class="col-24 text-center mt-1">Cart Information</div>
+        <div class="col-24 linkFull line-35" (click)="  keepShoppingButton()">
+            <div>Keep Shopping</div>
+        </div>
+        <div class="col-24 cartBottomLine float-left" *ngFor="let cart of theCart; let i = index">
+            <div class="col-24">
+                <div class="col-2">
+                    <div class="small-button bg-danger text-white" (click)="removeItem(i)"><i
+                            class="fas fa-trash-alt"></i>
+                    </div>
+                </div>
+                <div class="col-17 left-box">{{cart.title}} </div>
+                <div class="col-2 small-button bg-dark text-white" (click)="inspectItem(i)" [hidden]="checkExtra(i)">
+                    <i class="fas fa-arrow-circle-down"></i>
+                </div>
+                <div class="col-3 right-box text-right">{{cart.cost | currency}}</div>
+            </div>
+            <div class="col-24 float-left" [hidden]="whatItem !== i">
+                <div class="col-20 float-right extraItems" *ngFor="let detail of theDetails; let i = index">
+                    {{checkSpecial(detail.title)}}</div>
             </div>
         </div>
-        <div class="col-24 mt-2">
-            <div class="col-24 text-right">
-                Taxes : {{calcTax() |currency}}
+        <div class="col-24 float-left">
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Subtotal : {{calcTotal() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Taxes : {{calcTax() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Subtotal : {{calcGrandTotal() |currency}}
+                </div>
             </div>
         </div>
-        <div class="col-24 mt-2">
-            <div class="col-24 text-right">
-                Subtotal : {{calcGrandTotal() |currency}}
+        <div class="col-24 mt-3" [hidden]="!isMember">
+            <div class="col-24 col-md-16 offset-md-4">
+                <div class="col-18 offset-3">
+                    <div class="col-24 btn bg-primary font-small text-white font-small" (click)="startCheckOut()">
+                        Process Cart
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 mt-3" [hidden]="isMember">
+            <div class="col-24">
+                <div class="col-20 offset-2">
+                    <div class="col-24 btn bg-warning font-small" (click)=createAccount()>Login or
+                        Create Account</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-24 linkFull line-35 mt-1" (click)="startCheckOut()" [hidden]="!checkEmptyProcess()">
+        <div>Reset / Start Over</div>
+    </div>
+    <div id="method" class="col-24 mt-2 p-2" [hidden]="checkShow('Method')">
+        <div class="question">Do you want Pickup / Delivery</div>
+        <div class="col-24 mt-3">
+            <div class="col-24 col-md-12" (click)="processStep('Method','Delivery')">
+                <div class="btn btn-secondary col-24">Delivery</div>
+            </div>
+            <div class="col-24 col-md-12" (click)="processStep('Method','Pickup')">
+                <div class="btn btn-secondary col-24">Pickup</div>
+            </div>
+        </div>
+    </div>
+    <div id="Location" class="col-24 mt-2 p-2" [hidden]="checkShow('Location')">
+        <div class="question">From Which Location</div>
+        <div class="col-24 mt-3">
+            <div class="col-24" (click)="processStep('Location','EAST')">
+                <div class="btn btn-secondary col-24">LORRY GREENBERG</div>
+            </div>
+            <div class="col-24 mt-2" (click)="processStep('Location','WEST')">
+                <div class="btn btn-secondary col-24">Cobden Road</div>
+            </div>
+        </div>
+    </div>
+    <div id="Address" class="col-24 mt-2 p-2" [hidden]="checkShow('Address')">
+        <div class="question">Confirm Your Address</div>
+        <div class="col-24 mt-3">
+            <div class="col-24">
+                <div class="address float-left col-8 text-right">Name :</div>
+                <div class="address float-left">{{theClient.first}} {{theClient.last}}</div>
+            </div>
+            <div class="col-24">
+                <div class="address float-left col-8 text-right">Address :</div>
+                <div class="address float-left">{{theClient.address}}</div>
+            </div>
+            <div class="col-24">
+                <div class="address float-left col-8 text-right">appt :</div>
+                <div class="address float-left">{{theClient.appt}}</div>
+            </div>
+            <div class="col-24">
+                <div class="address float-left col-8 text-right">phone :</div>
+                <div class="address float-left">{{theClient.phone}}</div>
+            </div>
+            <div class="col-24">
+                <div class="address float-left col-8 text-right">cross rd :</div>
+                <div class="address float-left">{{theClient.crossRoad}}</div>
+            </div>
+            <div class="col-24 mt-3">
+                <div class="col-24" (click)="processStep('Address','CONFIRM')">
+                    <div class="btn btn-secondary col-24">CONFIRM</div>
+                </div>
+                <div class="col-24 mt-2" (click)="processStep('Address','CHANGE')">
+                    <div class="btn btn-secondary col-24">CHANGE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="payment" class="col-24 mt-2 p-2" [hidden]="checkShow('Payment')">
+        <div class="question">Choose Payment Type</div>
+        <div class="col-24 mt-3">
+            <div class="col-24" (click)="processStep('Payment','Cash')">
+                <div class="btn btn-secondary col-24">Cash</div>
+            </div>
+            <div class="col-24 mt-2" (click)="processStep('Payment','Machine')">
+                <div class="btn btn-secondary col-24">Debit / Credit</div>
+            </div>
+        </div>
+    </div>
+    <div id="confirm" class="col-24 mt-2 p-2" [hidden]="checkShow('AllDone')">
+        <div class="question">Confirm Info</div>
+        <div class="col-24">
+            <div class="address float-left col-8 text-right">Method :</div>
+            <div class="address float-left">{{processData.method}}</div>
+        </div>
+        <div class="col-24">
+            <div class="address float-left col-8 text-right">Location :</div>
+            <div class="address float-left">{{processData.location}}</div>
+        </div>
+        <div class="col-24">
+            <div class="address float-left col-8 text-right">address :</div>
+            <div class="address float-left">{{processData.address}} {{processData.appt}}</div>
+        </div>
+        <div class="col-24">
+            <div class="address float-left col-8 text-right">Phone :</div>
+            <div class="address float-left">{{processData.phone}}</div>
+        </div>
+        <div class="col-24">
+            <div class="address float-left col-8 text-right">Payment :</div>
+            <div class="address float-left">{{processData.payment}}</div>
+        </div>
+        <div class="col-24 float-left">
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Subtotal : {{calcTotal() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2" [hidden]="findDiscount() === 0">
+                <div class="col-24 text-right text-success">
+                    Promotions : - {{findDiscount() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2" [hidden]="deliveryFee() === 0">
+                <div class="col-24 text-right">
+                    Delivery : {{ deliveryFee() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2" [hidden]="processFee() === 0">
+                <div class="col-24 text-right">
+                    Process Fee : {{ processFee() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Taxable : {{ taxable() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Taxes : {{calcTaxNew() |currency}}
+                </div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    total : {{calcGrandTotal() |currency}}
+                </div>
+            </div>
+        </div>
+        <div class="col-24 mt-3">
+            <div class="col-24">
+                <div class="btn btn-success col-24" (click)="placeTheOrder()">Yes, Place Order</div>
+            </div>
+            <div class="col-24 mt-2">
+                <div class="btn btn-danger col-24" (click)="restartOrder()">No, Start Over</div>
             </div>
         </div>
     </div>
 </div>
 <div class="col-24 float-left">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>

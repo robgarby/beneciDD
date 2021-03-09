@@ -1,10 +1,14 @@
 import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+
 
   cartEmitter = new EventEmitter();
   cartTotalEmitter = new EventEmitter();
@@ -12,6 +16,9 @@ export class DataService {
   showNavBarEmitter = new EventEmitter();
   menuEmitter = new EventEmitter();
   memberEmitter = new EventEmitter();
+  clientEmitter = new EventEmitter();
+  orderCompleteEmitter = new EventEmitter();
+  showCartButtonEmitter = new EventEmitter();
   // theCart: any = [
   //   { detail: [{ title: "No Lettuce" }, { title: "No Tomatoes" }, { title: "Add Extra Cheese" }], title: "Turkey Sub", catagory: "SM Turkey Sub", cost: 8.9 },
   // ];
@@ -35,7 +42,10 @@ export class DataService {
   glutenPrices: any = { "SM": "2.95", "MD": "3.95", "LG": "0", "XL": "0" };
   allMods: any = [];
   isLoggedIn:boolean = false;
-
+  backToCart : boolean = false;
+  orderCompleted : boolean = false;
+  adminName : string = 'WEST-ADMIN';
+  showCartButton : boolean = false;
 
   sauceArray: any = [
     { "sauce": 'Regular' },
@@ -131,7 +141,7 @@ export class DataService {
   client : any = [];
   isMember : boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router : Router) { }
 
   changeCart(inval: any) {
     this.theCart = inval;
@@ -152,18 +162,21 @@ export class DataService {
     )
   }
 
-  addToCart(title: string, details: any) {
-    var addTo: number;
-    var wasTotal: number;
-    addTo = details[2];
-    wasTotal = this.theCartTotal;
-    var newTotal: number;
-    newTotal = parseFloat(wasTotal.toString()) + parseFloat(addTo.toString());
-    this.theCart.push(details);
-    this.theCartTotal = newTotal;
-    this.cartEmitter.emit(this.theCart);
-    this.cartTotalEmitter.emit(this.theCartTotal);
-  }
+//   addToCart(title: string, details: any) {
+//     var addTo: number;
+//     var wasTotal: number;
+//     addTo = details[2];
+//     wasTotal = this.theCartTotal;
+//     var newTotal: number;
+//     newTotal = parseFloat(wasTotal.toString()) + parseFloat(addTo.toString());
+//     this.theCart.push(details);
+//     this.theCartTotal = newTotal;
+//     this.cartEmitter.emit(this.theCart);
+//     this.cartTotalEmitter.emit(this.theCartTotal);
+//     this.showCartButton = !this.showCartButton;
+//     this.showCartButtonEmitter.emit(this.showCartButton);
+//     console.log(this.showCartButton);
+//   }
 
   addToCartPrint(title: string, details: any, catagory: string, cost: number) {
     var addTo: number;
@@ -182,6 +195,8 @@ export class DataService {
     this.theCartTotal = newTotal;
     this.cartEmitter.emit(this.theCart);
     this.cartTotalEmitter.emit(this.theCartTotal);
+    this.showCartButton = true;
+    this.showCartButtonEmitter.emit(this.showCartButton);
   }
 
   getAllMods() {
@@ -192,17 +207,34 @@ export class DataService {
     )
   }
 
- printIt(cart:any){
+ printIt(cart:any,order:any,totals:any,client:any){
   let params = new HttpParams;
   params = params.append('data', JSON.stringify(cart));
-  console.log(params);
+  params = params.append('client', JSON.stringify(order));
+  params = params.append('totals', JSON.stringify(totals));
+  params = params.append('clientInfo', JSON.stringify(client));
+  console.log(totals,cart,order);
   this.http.get('https://www.beneci.com/DATA/parse.php',{params : params})
   .subscribe(
     (response) => {
-      console.log(response);
+      var theResponse : any = Object.values(response);
+      var didwork = theResponse[0].worked;
+      if (didwork){
+            this.theCart = [];
+            this.theCartTotal = 0;
+            this.cartTotalEmitter.emit(this.theCartTotal);
+            this.cartEmitter.emit(this.theCart);
+            this.showCartButton = false;
+            this.showCartButtonEmitter.emit(this.showCartButton);
+            this.showCart = false;
+            this.cartShowEmmiter.emit(this.showCart);
+            this.router.navigateByUrl('LOGIN');
+      }
     }
   )
 }
+
+
 
   fullDatabase: any = [];
 
@@ -213,4 +245,6 @@ export class DataService {
       }
     )
   }
+
+
 }

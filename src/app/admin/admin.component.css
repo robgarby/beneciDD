@@ -1,0 +1,100 @@
+.orderLine {
+    line-height: 35px;
+    font-size: x-small;
+    background-color: whitesmoke;
+    height: 35px;
+    border-bottom: 1px solid darkolivegreen;
+}
+
+.font-bold {
+    font-weight: bold;;
+}
+
+.menuPop{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        font-size: small;
+        background-color: whitesmoke;
+        border: 1px solid var(--beneci-border);
+        border-radius: 6px;;
+}
+
+.lineBottom {
+    border-bottom: 1px solid var(--beneci-border);
+    min-height: 10px;
+}
+
+.shiftButton{
+    height: 25px;
+    line-height: 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.colorBox{
+    height: 25px;
+    line-height: 25px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.smallComment{
+    font-size: xx-small;
+    color: darkslategray;
+    text-align: center;
+    padding: 10px;
+}
+
+.delivery {
+    background-color: var(--bootstrap-warning);
+    color: black;
+}
+
+.pickup {
+    background-color: white;
+    color: black;
+}
+
+.menuPop{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    font-size: small;
+    background-color: whitesmoke;
+    border: 1px solid var(--beneci-border);
+    border-radius: 6px;;
+}
+
+.client-box{
+    overflow:scroll;
+    height: calc(100vh - 65px);
+    height: -o-calc(100% - 65px); /* opera */
+    height: -webkit-calc(100% - 65px); /* google, safari */
+    height: -moz-calc(100% - 65px); /* firefox */
+    background-color: var(--bootstrap-light);
+}
+
+.header{
+    text-align: center;
+    font-size: medium;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.cartItem{
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid black;
+}
+
+.cartItem i {
+    font-size: medium;
+    text-align: cen;
+}

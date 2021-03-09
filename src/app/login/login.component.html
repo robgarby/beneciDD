@@ -1,6 +1,9 @@
+<div class="mask" [hidden]="!orderComplete"></div>
+<div class="mask" [hidden]="!menuDetailMask"></div>
+<div class="mask" [hidden]="!logInAttempted"></div>
 <div class="row fullBack">
-    <div class="margin-top-100 text-center scroll-content">
-        <div [hidden]="isMember">
+    <div class="margin-top-100 text-center scroll-content" [hidden]="!hideForgotPop" [hidden] = "logInAttempted">
+        <div [hidden]="isMember" class="">
             <div class="centerScreen col-22 col-sm-14 col-lg-10 alert-info sign-in-box" [hidden]="createAccount">
                 <div class="title">Your Beneci Account</div>
                 <div class="details">By Creating an Account, You Will <strong>speed up</strong> your order process in
@@ -11,35 +14,38 @@
                     <div class="bullets">* Re-Order the Same Order with 1 Button</div>
                     <div class="bullets">* Receive Promotions and Disount Codes</div>
                 </div>
-                <div class="col-24 col-sm-18 offset-sm-3 col-md-14 offset-md-5 mt-3">
-                    <div class="loginTitle">email address</div>
-                    <input type="text" [(ngModel)] = "signIn.email" class="form-control font-xsmall" placeholder="EMAIL ADDRESS">
+                <div class="sign-in-box1 col-18 offset-3 mt-3 mb-3">
+                    <div class="col-24 col-sm-18 offset-sm-3 col-md-14 offset-md-5 mt-3">
+                        <div class="loginTitle">email address</div>
+                        <input type="text" [(ngModel)]="signIn.email" class="form-control font-xsmall"
+                            placeholder="EMAIL ADDRESS">
+                    </div>
+                    <div class="col-24 col-sm-18 offset-sm-3 col-md-14 offset-md-5 mt-1">
+                        <div class="loginTitle">password</div>
+                        <input [(ngModel)]="signIn.thePassword" [hidden]="!showPass" name="password" type="password"
+                            id="password" placeholder="PASSWORD" class="col-21 form-control font-xsmall">
+                        <input [(ngModel)]="signIn.thePassword" [hidden]="showPass" name="password" type="text"
+                            id="password" placeholder="PASSWORD" class="col-21 form-control font-xsmall">
+                        <div class="col-3 pull-right no-gutter formRight " [hidden]="showPass" (click)=showHidePass()>
+                            <div class="eyeButtonHide"><i class="text-red fas fa-eye-slash"></i></div>
+                        </div>
+                        <div class="col-3 pull-right no-gutter formRight" [hidden]="!showPass" (click)=showHidePass()>
+                            <div class="eyeButtonShow"><i class="fas fa-eye"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-24 mt-3">
+                        <div class="col-24">
+                            <div class="col-18 offset-3 col-sm-14 offset-sm-5 text-small beneciButton bg-primary text-white"
+                                (click)="signInButton()">Sign In</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-24 col-sm-18 offset-sm-3 col-md-14 offset-md-5 mt-1">
-                    <div class="loginTitle">password</div>
-                    <input [(ngModel)]="signIn.thePassword" [hidden]="!showPass" name="password" type="password" id="password"
-                        placeholder="PASSWORD" class="col-21 form-control font-xsmall">
-                    <input [(ngModel)]="signIn.thePassword" [hidden]="showPass" name="password" type="text" id="password"
-                        placeholder="PASSWORD" class="col-21 form-control font-xsmall">
-                    <div class="col-3 pull-right no-gutter formRight " [hidden]="showPass" (click)=showHidePass()>
-                        <div class="eyeButtonHide"><i class="text-red fas fa-eye-slash"></i></div>
-                    </div>
-                    <div class="col-3 pull-right no-gutter formRight" [hidden]="!showPass" (click)=showHidePass()>
-                        <div class="eyeButtonShow"><i class="fas fa-eye"></i></div>
-                    </div>
-                </div>
-                <div class="col-24 mt-4">
+                <div class="col-18 offset-3 mt-2 forgotCreate">
                     <div class="col-12">
-                        <div class="col-24 text-small beneciButton bg-light" (click) = "signInButton()">Sign In</div>
+                        <div class="col-24 smallLink" (click)="hideForgotPop = !hideForgotPop">forgot password?</div>
                     </div>
                     <div class="col-12">
-                        <div class="col-24 text-small beneciButton bg-dark text-warning"
-                            (click)="createAccount = !createAccount">Create Account</div>
-                    </div>
-                </div>
-                <div class="col-24 mt-1">
-                    <div class="col-12">
-                        <div class="col-24 smallLink">forgot password?</div>
+                        <div class="col-24 smallLink" (click)="createAccount = !createAccount">Create Account</div>
                     </div>
                 </div>
             </div>
@@ -131,22 +137,33 @@
                 <div class="red-marker-line">* Denotes required fields</div>
                 <div class="col-24 mt-4">
                     <div class="col-12 offset-6">
-                        <div class="col-24 text-small beneciButton text-white" [ngClass]="ReadyToGo()"
+                        <div class="col-18 text-small beneciButton text-white" [ngClass]="ReadyToGo()"
                             (click)="createTheAccount()">Create
                             Account</div>
+                        <div class="col-6 smallLink" (click)="createAccount = !createAccount">Cancel</div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="memberBox" [hidden]="!isMember">
-            <div class="col-24 bg-light">
+        <div id="memberBox" class="col-24" [hidden]="!isMember">
+            <div class="col-24 col-md-18 offset-md-3 bg-light p-3 round-big" [hidden]="orderSearch">
                 <div class="col-24" style="height: 45px;">
-                    <div class="col-6 float-right mt-1">
-                        <div class="col-12 offset-12 beneciButton bg-warning" (click)="signOut()">Sign Out</div>
+                    <div class="col-12 col-md-8 col-lg-6 float-right mt-1 font-small">
+                        <div class="col-24 beneciButton bg-warning" (click)="signOut()">Sign Out</div>
                     </div>
+                    <div class="col-12 col-md-8 col-lg-6 float-right mt-1 font-small">
+                        <div class="col-24">
+                            <div class="beneciButton bg-success text-white" (click)="saveClient()">Save / Update</div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-12 col-md-8 col-lg-6 float-right mt-1 font-small" [hidden] = "adminUser === ''">
+                        <div class="col-24">
+                            <div class="beneciButton bg-primary text-white" (click)="saveClient()">Admin</div>
+                        </div>
+                    </div> -->
                 </div>
-                <div class="container">
-                    <div class="col-24 col-sm-12 offset-sm-6">
+                <div class="col-24 col-sm-22 offset-sm-1 col-lg-14 offset-lg-5">
+                    <div class="col-24 line-25">
                         <div class="col-12 float-left">
                             <div class="label text-left">first name</div>
                         </div>
@@ -154,7 +171,7 @@
                             <div class="label text-left">last name</div>
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6 line-35">
+                    <div class="col-24 line-35">
                         <div class="col-12 float-left">
                             <input type="text" class="form-control" [(ngModel)]="client.first" placeholder="First Name">
                         </div>
@@ -162,18 +179,25 @@
                             <input type="text" class="form-control" [(ngModel)]="client.last" placeholder="Last Name">
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6">
-                        <div class="col-12 float-left">
+                    <div class="col-24 line-25">
+                        <div class="col-18 float-left">
                             <div class="label text-left">Email</div>
                         </div>
+                        <div class="col-6 float-left">
+                            <div class="label text-left">Verified?</div>
+                        </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6 line-35">
+                    <div class="col-24 line-35">
                         <div class="col-18 float-left">
                             <input type="text" class="form-control" readonly [(ngModel)]="client.email"
                                 placeholder="Email Address">
                         </div>
+                        <div class="col-6 float-left">
+                            <div class="btn col-24" [ngClass]="verifiedClassData(client.verified)">{{verifiedValue()}}
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6">
+                    <div class="col-24 line-35">
                         <div class="col-18 float-left">
                             <div class="label text-left">Address</div>
                         </div>
@@ -181,7 +205,7 @@
                             <div class="label text-left">Apt</div>
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6 line-35">
+                    <div class="col-24 line-35">
                         <div class="col-18 float-left">
                             <input type="text" class="form-control" [(ngModel)]="client.address"
                                 placeholder="Email Address">
@@ -190,7 +214,7 @@
                             <input type="text" class="form-control" [(ngModel)]="client.appt">
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6">
+                    <div class="col-24 line-25">
                         <div class="col-18 float-left">
                             <div class="label text-left">Phone</div>
                         </div>
@@ -198,7 +222,7 @@
                             <div class="label text-left">Ext</div>
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6 line-35">
+                    <div class="col-24 line-35">
                         <div class="col-18 float-left">
                             <input type="text" class="form-control" [(ngModel)]="client.phone"
                                 placeholder="Email Address">
@@ -207,7 +231,7 @@
                             <input type="text" class="form-control" [(ngModel)]="client.extension">
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6">
+                    <div class="col-24 line-35">
                         <div class="col-12 float-left">
                             <div class="label text-left">Cross Road</div>
                         </div>
@@ -215,7 +239,7 @@
                             <div class="label text-left">Preferred Location</div>
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6 line-35">
+                    <div class="col-24 line-35">
                         <div class="col-12 float-left">
                             <input type="text" class="form-control" [(ngModel)]="client.crossRoad">
                         </div>
@@ -224,23 +248,214 @@
                                 (click)="pickLocation()">
                         </div>
                         <div class="col-12 float-left" [hidden]="!pickLocationOn">
-                            <select class="form-control font-small" (change) = "setLocation($event)">
+                            <select class="form-control font-small" (change)="setLocation($event)">
                                 <option value="" selected>PICK LOCATION </option>
                                 <option value="WEST">COBDEN RD</option>
                                 <option value="EAST">LORRY GREENBERG</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6 line-35 label">
-                        <p>If you would like to Make changes, Change the Information above and Press Save</p>
+                </div>
+            </div>
+            <div id="ordersBox" class="col-24 mt-3">
+                <div class="col-24 col-md-18 offset-md-3 bg-dark text-warning p-3 round-big mb-3 font-small">When you
+                    Load Current Orders, The Page will Automatically Refresh every Minute</div>
+                <div class="col-24 col-sm-18 offset-sm-3 col-md-14 offset-md-5 col-lg-12 offset-lg-6 line-35">
+                    <div class="col-24 left" [hidden]="orderSearch">
+                        <div class="col-12 float-left">
+                            <div class="col-24 btn btn-primary font-small" (click)="loadOrders('current')">Load Current
+                                Order</div>
+                        </div>
+                        <div class="col-12 float-left">
+                            <div class="col-24 btn btn-warning font-small" (click)="loadOrders('complete')">Load
+                                Completed Orders</div>
+                        </div>
                     </div>
-                    <div class="col-24 col-sm-12 offset-sm-6 line-35 mt-4 mb-5">
-                        <div class="col-12 offset-6">
-                            <div class="beneciButton bg-success text-white" (click) = "saveClient()">Save</div>
+                </div>
+                <div class="col-24 -up" [hidden]="!orderSearch">
+
+                    <div class="col-24 mt-2">
+                        <div class="col-8 float-left">
+                            <div class="col-24 btn btn-primary font-small" (click)="loadOrders('current')">Current
+                            </div>
+                        </div>
+                        <div class="col-8 float-left">
+                            <div class="col-24 btn btn-warning font-small" (click)="loadOrders('complete')">Completed
+                            </div>
+                        </div>
+                        <div class="col-8 float-left">
+                            <div class="col-24 btn btn-success font-small"
+                                (click)="orderSearch = !orderSearch; ngOnDestroy()">
+                                Account</div>
+                        </div>
+                    </div>
+                    <div class="col-24 mt-2">
+                        <div class="col-24 orderLine font-small bg-dark text-white float-left">
+                            <div class="col-3 col-sm-2 text-left">INV</div>
+                            <div class="d-none d-sm-block col-sm-5 text-left">Date/Time</div>
+                            <div class="col-5 d-sm-none col-sm-5 text-left ">Date</div>
+                            <div class="col-4 col-sm-3">Status</div>
+                            <div class="col-3 col-sm-3">Sub</div>
+                            <div class="d-none d-sm-block col-sm-2 text-left">disc.</div>
+                            <div class="d-none d-sm-block col-sm-2 text-left">Fees</div>
+                            <div class="col-3 d-sm-block col-sm-2 text-left">Tax</div>
+                            <div class="col-3 text-left font-bold">Tot</div>
+                            <div class="col-3 col-sm-2 text-left">Loc</div>
+                        </div>
+                        <div class="orderLine col-24 float-left" *ngFor="let item of clientOrders; let i = index"
+                            (click)="detailOrder(i)">
+                            <div class="col-3 col-sm-2 text-left">213{{item.ID}}</div>
+                            <div class="d-none d-sm-block col-sm-5 text-left">{{displayDate(item.theDate) | date :
+                                "short"}}</div>
+                            <div class="col-5 d-sm-none col-sm-5 text-left">{{displayDate(item.theDate) | date}}</div>
+                            <div class="col-4 col-sm-3" [ngClass]="checkStatus(item.status)">{{item.status}}</div>
+                            <div class="col-3 col-sm-3">{{item.orderSubTotal | currency }}</div>
+                            <div class="d-none d-sm-block col-sm-2 text-left">{{item.orderDiscount | currency }}</div>
+                            <div class="d-none d-sm-block col-sm-2 text-left">
+                                {{findFees(item.orderServiceFee,item.deliveryFee) | currency }}</div>
+                            <div class="col-3 d-sm-block col-sm-2 text-left">{{item.taxes | currency }}</div>
+                            <div class="col-3 text-left font-bold">{{item.orderTotal | currency }}</div>
+                            <div class="col-3 col-sm-2 text-left">{{item.location}}</div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="pop-box col-22 col-sm-12 alert-info center-pop" [hidden]="!orderComplete">
+    <div class="heading">Order Submitted to Beneci</div>
+    <div class="importantInfo">You can track your order Progress using the 'Show Current Orders' blue button Below.
+        <strong>Please check
+            back in a few minutes to see if your order has been processed by the store.</strong> You should receive an
+        email that your order has been processed. This Might be in your Spam.
+    </div>
+    <div class="importantInfo heavy"><span class="importantRed"> if you do not receive an email, or your order is not
+            marked as processed within 5 minutes</span>, Please call the Location to ensure there are no problems with
+        your order.</div>
+    <div class="mt-4 col-24 col-md-12 offset-md-6">
+        <div class="col-20 offset-1">
+            <div class="btn btn-primary col-24" (click)="clearOrder()">OK</div>
+        </div>
+    </div>
+</div>
+<div id="cartPop" class="col-22 col-sm-16 col-md-14 col-lg-12 bg-white menuPop" [hidden]="!menuDetail">
+    <div class="col-24 text-center mt-1 mb-2">Order Information</div>
+    <div class="smallComment">New Features Like re-ordering items and expanding Item details will be available shortly
+    </div>
+    <div class="col-24 cartBottomLine float-left" *ngFor="let cart of theCart; let i = index">
+        <div class="col-24">
+            <div class="col-3">M</div>
+            <div class="col-18 left-box">{{cart.title}} </div>
+            <div class="col-3 right-box text-right">{{cart.cost | currency}}</div>
+        </div>
+        <!-- <div class="col-24 float-left" [hidden]="whatItem !== i">
+                <div class="col-20 float-right extraItems" *ngFor="let detail of theDetails; let i = index">
+                    {{checkSpecial(detail.title)}}</div>
+            </div> -->
+    </div>
+    <div class="col-24 float-left">
+        <div class="col-24 lineBottom"></div>
+        <div class="col-24 mt-3">
+            <div class="col-24 text-right">
+                Subtotal : {{priceData.sub |currency}}
+            </div>
+        </div>
+        <div class="col-24 mt-1" [hidden]="priceData.discount === 0">
+            <div class="col-24 text-right text-success">
+                Discount : {{priceData.discount |currency}}
+            </div>
+        </div>
+        <div class="col-24 mt-1" [hidden]="priceData.discount === 0">
+            <div class="col-24 text-right">
+                Adjusted : {{secondSub |currency}}
+            </div>
+        </div>
+        <div class="col-24 mt-1">
+            <div class="col-24 text-right" [hidden]="priceData.processFee === 0">
+                Process Fee : {{priceData.processFee |currency}}
+            </div>
+        </div>
+        <div class="col-24 mt-1" [hidden]="priceData.deliveryFee === 0">
+            <div class="col-24 text-right">
+                Delivery Fee : {{priceData.deliveryFee |currency}}
+            </div>
+        </div>
+        <div class="col-24 mt-1">
+            <div class="col-24 text-right">
+                Taxes : {{orderTax |currency}}
+            </div>
+        </div>
+        <div class="col-24 mt-1">
+            <div class="col-24 text-right">
+                total : {{orderTotal |currency}}
+            </div>
+        </div>
+    </div>
+    <div class="col-24 mt-2 mb-3">
+        <div class="col-12 offset-6">
+            <div class="col-24 btn btn-primary" (click)="closeMenuDetail()">OK</div>
+        </div>
+    </div>
+</div>
+<div id="forgotPassword" [hidden]="hideForgotPop">
+    <div class="centerScreen col-22 col-sm-14 col-lg-10 alert-warning p-3 round6" [hidden]="foundBack">
+        <div class="heading">Recover Password</div>
+        <p>To recover your password, Please enter your email below and press the Send My Password Button.</p>
+        <p>If your email is on file, we will send your password, Please Make sure you check your Spam or Junk Folder if
+            you do not receive it within 3 minutes</p>
+        <div id="whiteBox">
+            <div class="col-24 text-center">Enter Your Email Address</div>
+            <div class="col-18 offset-3 col-md-14 offset-md-5 mb-3">
+                <input type="text" class="form-control font-small" [(ngModel)]="recoverEmail">
+            </div>
+            <div class="col-18 offset-3 col-sm-14 offset-sm-5 col-md-12 offset-md-6">
+                <div class="btn btn-success col-24 font-small" (click)="sendPassword()">Send My Password</div>
+            </div>
+            <div class="col-18 offset-3 col-sm-14 offset-sm-5 col-md-12 offset-md-6 mt-1">
+                <div class="btn btn-warning col-24 font-small" (click)="hideForgotPop=!hideForgotPop">Cancel</div>
+            </div>
+        </div>
+    </div>
+    <div class="centerScreen col-22 col-sm-14 col-lg-10 p-3 round6" [ngClass]="decideSent()" [hidden]="!foundBack">
+        <div id="didNotWork" [hidden]="recoverySent">
+            <div class="heading">
+                No Account Found for
+            </div>
+            <div class="col-24 text-center heading mb-2">{{recoverEmail}}</div>
+            <p>If you feel the email address should be in our system, Press Ok and verify yoru email address</p>
+            <div class="col-24 col-sm-12 offset-sm-6">
+                <div class="btn btn-primary col-24" (click)="foundBack = false">OK</div>
+            </div>
+        </div>
+        <div id="didWork" [hidden]="!recoverySent">
+            <div class="heading">
+                Email has been Sent to
+            </div>
+            <div class="col-24 text-center heading mb-2">{{recoverEmail}}</div>
+            <p>If you do not receive the email within 3 minutes, please check your Spam or Junk Folders</p>
+            <div class="col-24 col-sm-12 offset-sm-6">
+                <div class="btn btn-primary col-24" (click)="foundBack = false; hideForgotPop = !hideForgotPop">OK</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="didLogIn" class="centerScreen col-22 col-sm-14 col-lg-10 p-3 round6"
+    [hidden]="!logInAttempted">
+    <div class="col-24 p-3" [hidden] = "didLogIn" [ngClass]="didLogInColor()">
+        <div class="heading">Log In Failed</div>
+        <p>The information you entered is not on File with us.</p>
+        <p>Please Return and try again, or use the forgot password to have your password sent to you by email</p>
+        <div class="col-24 col-sm-12 offset-sm-6">
+            <div class="btn btn-primary col-24" (click)="logInAttempted = false; didLogIn = !didLogIn">OK</div>
+        </div>
+    </div>
+    <div class="col-24 p-3" [hidden] = "!didLogIn" [ngClass]="didLogInColor()">
+        <div class="heading">Log In Worked</div>
+        <p>You can now order online, view current order Status, view prevous orders</p>
+        <p>When you Press OK, You will be redirected to Your Account</p>
+        <div class="col-24 col-sm-12 offset-sm-6">
+            <div class="btn btn-primary col-24" (click)="goToLogAccount()">OK</div>
         </div>
     </div>
 </div>

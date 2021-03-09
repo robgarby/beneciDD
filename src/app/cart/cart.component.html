@@ -1,44 +1,46 @@
-<div class="col-24 cartBox" [hidden] = "!showCart">
-    <div class="col-24 text-center mt-1">Cart Information</div>
-    <div class="col-24 cartBottomLine float-left" *ngFor="let cart of theCart; let i = index">
-        <div class="col-24">
-            <div class="col-2">
-                <div class="small-button bg-danger text-white" (click)="removeItem(i)"><i class="fas fa-trash-alt"></i>
+<div class="col-24 cartBox" [hidden]="!showCart">
+    <div id="itemStuff">
+        <div class="col-24 text-center mt-1">Cart</div>
+        <div class="col-24 cartBottomLine float-left" *ngFor="let cart of theCart; let i = index">
+            <div class="col-24">
+                <div class="col-2">
+                    <div class="small-button bg-danger text-white" (click)="removeItem(i)"><i
+                            class="fas fa-trash-alt"></i>
+                    </div>
+                </div>
+                <div class="col-17 left-box">{{cart.title}} </div>
+                <div class="col-2 small-button bg-dark text-white" (click)="inspectItem(i)" [hidden]="checkExtra(i)">
+                    <i class="fas fa-arrow-circle-down"></i>
+                </div>
+                <div class="col-3 right-box text-right">{{cart.cost | currency}}</div>
+            </div>
+            <div class="col-24 float-left" [hidden]="whatItem !== i">
+                <div class="col-20 float-right extraItems" *ngFor="let detail of theDetails; let i = index">
+                    {{checkSpecial(detail.title)}}</div>
+            </div>
+        </div>
+        <div class="col-24 float-left">
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Subtotal : {{calcTotal() |currency}}
                 </div>
             </div>
-            <div class="col-17 left-box">{{cart.title}} </div>
-            <div class="col-2 small-button bg-dark text-white" (click)="inspectItem(i)" [hidden] = "checkExtra(i)">
-                <i class="fas fa-arrow-circle-down"></i>
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Taxes : {{calcTax() |currency}}
+                </div>
             </div>
-            <!-- <div class="col-2 small-button bg-success text-white" (click)="inspectItem(i)">
-                <i class="fas fa-arrow-circle-up"></i>
-            </div> -->
-            <div class="col-3 right-box text-right">{{cart.cost | currency}}</div>
-        </div>
-        <div class="col-24 float-left" [hidden] = "whatItem !== i">
-            <div class="col-20 float-right extraItems"  *ngFor="let detail of theDetails; let i = index">{{checkSpecial(detail.title)}}</div>
-        </div>
-    </div>
-    <div class="col-24 float-left">
-        <div class="col-24 mt-2">
-            <div class="col-24 text-right">
-                Subtotal : {{calcTotal() |currency}}
+            <div class="col-24 mt-2">
+                <div class="col-24 text-right">
+                    Subtotal : {{calcGrandTotal() |currency}}
+                </div>
             </div>
         </div>
-        <div class="col-24 mt-2">
-            <div class="col-24 text-right">
-                Taxes : {{calcTax() |currency}}
-            </div>
-        </div>
-        <div class="col-24 mt-2">
-            <div class="col-24 text-right">
-                Subtotal : {{calcGrandTotal() |currency}}
-            </div>
-        </div>
-    </div>
-    <!-- <div class="mt-5 col-24">
+
+        <!-- <div class="mt-5 col-24">
         <div class="col-12 offset-6">
             <div class="btn btn-primary col-24" (click) = 'printIt()'>Print</div>
         </div>
     </div> -->
+    </div>
 </div>

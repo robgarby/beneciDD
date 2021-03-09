@@ -192,7 +192,7 @@ export class PizzaComponent implements OnInit {
     var itemName = this.currentSize + ' '+this.currentPizza.title;
     var theCost = this.itemCost;
     var buildArray: any = this.readyToPrint(this.currentCrust,this.currentSauce);
-    this.global.addToCartPrint(itemName, buildArray, itemName, this.itemCost);
+    this.global.addToCartPrint(itemName, buildArray, 'pizza', this.itemCost);
     this.router.navigateByUrl('MENU');
 
     // extraDetail.push(this.currentSauce);

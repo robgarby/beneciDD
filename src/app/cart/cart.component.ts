@@ -89,8 +89,8 @@ checkExtra(i:number){
   return this.theCart[i].length === 0 ? true : false;
 }
 
-printIt(){
-  this.global.printIt(this.theCart);
-}
+// printIt(){
+//   this.global.printIt(this.theCart,);
+// }
 
 }

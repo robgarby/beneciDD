@@ -371,7 +371,7 @@ export class HalfNhalfComponent implements OnInit {
         theObject.title = "ADD "+element;
         buildArray.push(theObject);
     });
-    this.global.addToCartPrint(itemName, buildArray, itemName, this.itemCost);
+    this.global.addToCartPrint(itemName, buildArray, 'pizza', this.itemCost);
     this.route.navigateByUrl('MENU');
     var itemName = this.currentSize + ' ' + this.currentPizza.title;
   }

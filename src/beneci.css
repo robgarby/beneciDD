@@ -116,3 +116,28 @@
 .text-small{
     font-size: small;
 }
+
+.orderOrdered {
+    color: black;
+    background-color: var(--bootstrap-warning);
+}
+
+.orderAccepted {
+    color: white;
+    background-color: var(--bootstrap-info);
+}
+
+.orderReady {
+    color: white;
+    background-color: var(--bootstrap-success);
+}
+
+.orderDelivery {
+    color: white;
+    background-color: var(--bootstrap-primary);
+}
+
+.orderCompleted {
+    color: white;
+    background-color: var(--bootstrap-dark);
+}

@@ -129,4 +129,53 @@ body, html {
     float: left;
 }
 
+.member{
+    background-color: honeydew;
+}
+
+.notMember {
+    background-color: lightslategray;
+}
+
+.label{
+    font-size: small;
+    color: orange;
+}
+
+.isCursor{
+    cursor: pointer;
+}
+
+.line-35{
+    line-height: 45px;
+    height: 45px;
+    background-color: black;
+}
+
+.linkFull {
+    background-color: black;
+    color: goldenrod;
+    text-align: center;
+    font-size: small;
+    cursor: pointer;
+}
+
+.linkFull:hover{
+    opacity: .7;
+    color: white;
+}
+
+.question{
+    font-size: small;
+    font-weight: bold;
+    color : darkslategray;
+    text-align: left;
+}
+
+.address{
+    font-size: small;
+    color:darkslategray;
+    text-align: left;
+    line-height: 30px;
+}
 

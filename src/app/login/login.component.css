@@ -1,43 +1,41 @@
 .fullBack {
-    background: url("/assets/images/IMG_1246.JPG"); 
-    background-color: rgba(255,255,255,0.5);
+    background: url("/assets/images/IMG_1246.JPG");
+    background-color: rgba(255, 255, 255, 0.5);
     background-blend-mode: lighten;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     height: 100vh;
-  }
-
-  .sign-in-box{
-      min-height: 350px;
-      padding: 10px;
-      border-radius: 6px;
-  }
-
-  .sign-in-box .title{
-      font-size: medium;
-      font-weight: bold;
-      
-  }
-
-  .sign-in-box .details{
-    font-size: small;
-    font-weight:lighter;
 }
 
+.sign-in-box {
+    min-height: 350px;
+    padding: 10px;
+    border-radius: 6px;
+}
 
-.font-xsmall{
+.sign-in-box .title {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.sign-in-box .details {
+    font-size: small;
+    font-weight: lighter;
+}
+
+.font-xsmall {
     font-size: x-small;
 }
 
-.loginTitle{
+.loginTitle {
     font-size: x-small;
     color: blue;
     text-align: left;
 }
 
-.formRight{
+.formRight {
     display: block;
     width: 100%;
     padding: 0.15rem 0.15rem;
@@ -48,45 +46,151 @@
     cursor: pointer;
 }
 
-.eyeButtonHide{
+.eyeButtonHide {
     color: red;
 }
 
-.eyeButtonShow{
+.eyeButtonShow {
     color: green;
 }
 
-.smallLink{
+.smallLink {
     color: blue;
     font-size: xx-small;
     line-height: 35px;
     cursor: pointer;
 }
 
-.text-small{
+.text-small {
     font-size: small;
 }
 
-.label{
+.label {
     font-size: x-small;
     color: darkgreen;
 }
 
-.bg-rose{
+.bg-rose {
     background-color: lightpink;
 }
 
-.red-marker-line{
+.red-marker-line {
     margin-top: 3px;
     font-size: small;
     color: red;
 }
 
-.line-35{
-    line-height: 45px;
-    height: 45px;
+.line-35 {
+    line-height: 35px;
+    height: 35px;
 }
 
 .pointer {
     cursor: pointer;
+}
+
+.sign-in-box1 {
+    background-color: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.forgotCreate {
+    background-color: lightgray;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.forgotCreate:hover {
+    background-color: white;
+}
+
+.heading {
+    text-align: center;
+    font-weight: bold;
+}
+
+.importantInfo {
+    font-size: small;
+    text-align: center;
+    margin-top: 10px;
+    ;
+}
+
+.importantRed {
+    color: darkred;
+    font-weight: bolder;
+}
+
+.line-25 {
+    line-height: 25px;
+    height: 25px;
+}
+
+.round-big {
+    border-radius: 12px;
+}
+
+.-up {
+    top: -50px;
+    ;
+}
+
+.orderLine {
+    line-height: 35px;
+    font-size: x-small;
+    background-color: whitesmoke;
+    height: 35px;
+    border-bottom: 1px solid darkolivegreen;
+    cursor: pointer;
+}
+
+.font-bold {
+    font-weight: bold;
+    ;
+}
+
+.menuPop {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    font-size: small;
+    background-color: whitesmoke;
+    border: 1px solid var(--beneci-border);
+    border-radius: 6px;
+    ;
+}
+
+.lineBottom {
+    border-bottom: 1px solid var(--beneci-border);
+    min-height: 10px;
+}
+
+.smallComment {
+    font-size: xx-small;
+    color: darkslategray;
+    text-align: center;
+    padding: 10px;
+}
+
+#forgotPassword p {
+    font-size: small;
+    text-align: center;
+}
+
+#didLogIn p {
+    font-size: x-small;
+    text-align: center;
+}
+
+.round6 {
+    border-radius: 6px;
+}
+
+#didNotWork .heading{
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
 }

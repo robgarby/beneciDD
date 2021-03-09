@@ -1,0 +1,139 @@
+<div class="mask" [hidden]="!showNewOrder"></div>
+<div class="mask" [hidden]="!StatusPopupVisible"></div>
+<div class="margin-top-100 text-center scroll-content">
+    <div id="ordersBox" class="col-24 mt-3" [hidden]="showAllDetails">
+        <div class="col-24 line-35">
+            <div class="col-24 col-sm-18 offset-sm-3 left">
+                <div class="col-12 float-left">
+                    <div class="col-24 btn btn-primary font-small">Load Current
+                        Order</div>
+                </div>
+                <div class="col-12 float-left">
+                    <div class="col-24 btn btn-warning font-small">Load
+                        Completed Orders</div>
+                </div>
+            </div>
+
+            <div class="col-24 mt-2">
+                <div class="col-24 orderLine font-small bg-dark text-white float-left">
+                    <div class="col-3 col-sm-2 text-left">INV</div>
+                    <div class="d-none d-sm-block col-sm-5 text-left">Date/Time</div>
+                    <div class="col-5 d-sm-none col-sm-5 text-left ">Date</div>
+                    <div class="col-4 col-sm-3">Status</div>
+                    <div class="col-3 col-sm-3">Sub</div>
+                    <div class="d-none d-sm-block col-sm-2 text-left">disc.</div>
+                    <div class="d-none d-sm-block col-sm-2 text-left">Fees</div>
+                    <div class="col-3 d-sm-block col-sm-2 text-left">Tax</div>
+                    <div class="col-3 text-left font-bold">Tot</div>
+                    <div class="col-3 col-sm-2 text-left">Type</div>
+                </div>
+                <div class="orderLine col-24 float-left" *ngFor="let item of clientOrders; let i = index">
+                    <div class="col-3 col-sm-2 text-left shiftButton bg-info text-center text-white"
+                        (click)=showDetails(i)>213{{item.ID}}
+                    </div>
+                    <div class="d-none d-sm-block col-sm-5 text-left">{{displayDate(item.theDate) | date : "short"}}
+                    </div>
+                    <div class="col-5 d-sm-none col-sm-5 text-left">{{displayDate(item.theDate) | date}}</div>
+                    <div class="col-4 col-sm-3">
+                        <div class="shiftButton" [ngClass]="colorOfButton(item.status)" (click)="changeStatus(i)">
+                            {{item.status}}</div>
+                    </div>
+                    <div class="col-3 col-sm-3">{{item.orderSubTotal | currency }}</div>
+                    <div class="d-none d-sm-block col-sm-2 text-left">{{item.orderDiscount | currency }}</div>
+                    <div class="d-none d-sm-block col-sm-2 text-left">
+                        {{findFees(item.orderServiceFee,item.deliveryFee) | currency }}</div>
+                    <div class="col-3 d-sm-block col-sm-2 text-left">{{item.taxes | currency }}</div>
+                    <div class="col-3 text-left font-bold">{{item.orderTotal | currency }}</div>
+                    <div class="col-3 col-sm-2">
+                        <div class="colorBox" [ngClass]="colorOfButton(findDelPick(i))">{{findDelPick(i)}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 center-pop menuPop p-3" [hidden]="!StatusPopupVisible">
+    <div class="col-18 offset-3">
+        <div class="col-24 line-35 mb-1">
+            <div class="btn btn-warning col-24" (click)="saveStatus('Ordered')">Ordered</div>
+        </div>
+        <div class="col-24 line-35 mb-1">
+            <div class="btn btn-info col-24" (click)="saveStatus('Accepted')">Accepted</div>
+        </div>
+        <div class="col-24 line-35 mb-1">
+            <div class="btn btn-success col-24" (click)="saveStatus('Ready')">Ready</div>
+        </div>
+        <div class="col-24 line-35 mb-1">
+            <div class="btn btn-primary col-24" (click)="saveStatus('Delivery')">Delivery</div>
+        </div>
+        <div class="col-24 line-35 mb-1">
+            <div class="btn btn-dark col-24" (click)="saveStatus('Completed')">Completed</div>
+        </div>
+        <!-- <div class="col-18 offset-3 btn btn-success">Accepted</div>
+            <div class="col-18 offset-3 btn btn-primary">Ready</div>
+            <div class="col-18 offset-3 btn btn-info">Delivery</div>
+            <div class="col-18 offset-3 btn btn-secondary">Complete</div> -->
+    </div>
+</div>
+
+<div class="col-12 center-pop alert-warning p-3" [hidden]="!showNewOrder">
+    <div class="col-18 offset-3">
+        <div class="col-24 h3 text-center">New Orders</div>
+        <p class="font-small">There are {{showCountNewOrder}} that have not been processed.</p>
+        <div class="col-24 mt-3">
+            <div class="col-12 offset-6">
+                <div class="btn btn-primary col-24" (click)="showNewOrder = !showNewOrder">OK</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-24 font-small" [hidden] = "!showAllDetails">
+    <div class="col-24 bg-dark">
+        <div class="float-right col-8 col-sm-6 btn btn-success" (click) = "showAllDetails = !showAllDetails" >Close</div>
+    </div>
+    <div class="col-24 col-sm-12 client-box">
+        <div class="header">Client Info</div>
+        <div class="col-24 p-1">
+            <div class="col-8 float-left text-right">Name</div>
+            <div class="col-15 float-left offset-1">{{localClientDetails.first}} {{localClientDetails.last}}</div>
+        </div>
+        <div class="col-24 p-1">
+            <div class="col-8 float-left text-right">Phone / Ext.</div>
+            <div class="col-15 float-left offset-1">{{localClientDetails.phone}} X {{localClientDetails.extension}}</div>
+        </div>
+        <div class="col-24 p-1">
+            <div class="col-8 float-left text-right">Address</div>
+            <div class="col-15 float-left offset-1">{{localClientDetails.address}}</div>
+        </div>
+        <div class="col-24 p-1">
+            <div class="col-8 float-left text-right">Apt / Ring</div>
+            <div class="col-15 float-left offset-1">{{localClientDetails.appt}} Ring {{localClientDetails.extension}}</div>
+        </div>
+        <div class="col-24 p-1">
+            <div class="col-8 float-left text-right">Cross Road</div>
+            <div class="col-15 float-left offset-1">{{localClientDetails.crossRoad}}</div>
+        </div>
+    </div>
+
+    <div class="col-24 col-sm-12 float-right order-box">
+        <div class="header">Order Info</div>
+        <div class="col-24 p-1">
+            <div class="col-24  float-left" *ngFor="let cart of localClientOrder; let i = index">
+                <div class="col-24 cartItem">
+                    <div class="col-17 left-box">{{cart.title}} </div>
+                    <div class="col-3 text-white text-center" (click)="inspectItem(i)" [ngClass] = "checkIsDetail(i)" [hidden]="checkExtra(i)">
+                        <i class="fas fa-arrow-circle-down"></i>
+                    </div>
+                    <div class="col-3 right-box text-right">{{cart.cost | currency}}</div>
+                </div>
+                <div class="col-24 float-left" [hidden]="whatItem !== i">
+                    <div class="col-20 float-right extraItems" *ngFor="let detail of theDetails; let i = index">
+                        {{detail.title}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-24 p-1">
+            <div class="col-12 offset-6 btn btn-primary" (click) = "rePrint(actualOrder)">Re Print</div>
+        </div>
+    </div>
+</div>

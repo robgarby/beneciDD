@@ -12,6 +12,15 @@
      --beneci-alert : rgb(207, 79, 79);
      --beneci-gold :  rgb(204, 175, 48);
      --beneci-gold-over :  rgb(201, 191, 146);
+     --bootstrap-info : #5bc0de;
+     --bootstrap-success : #5cb85c;
+     --bootstrap-warning : #f0ad4e;
+     --bootstrap-primary : #0275d8;
+     --bootstrap-danger : #d9534f;
+     --bootstrap-inverse : #292b2c;
+     --bootstrap-dark : #292b2c;
+     --bootstrap-faded : #f7f7f7;
+     --bootstrap-light : #f7f7f7;
    }
 
 body{

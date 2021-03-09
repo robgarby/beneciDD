@@ -116,6 +116,7 @@ export class SideComponent implements OnInit {
       case '2':
         this.currentSize = 'Small';
         this.toDo.push('SIZE');
+        this.currentTitle = 'SM '+this.currentItem.title;
         this.itemCost = this.calcCost(currentItem, this.currentSize);
         break
     }
@@ -155,6 +156,7 @@ export class SideComponent implements OnInit {
         this.modArray.push(pushObject);
       });
     }
+    console.log(this.currentItem);
     this.activeWindow = this.toDo[0];
   }
 
@@ -209,10 +211,11 @@ export class SideComponent implements OnInit {
     this.holdBaseCost = cost;
     this.detailArray.push(inval);
     switch (inval) {
-      case 'Small': this.currentTitle = 'SM ' + this.currentTitle; break;
-      case 'Large': this.currentTitle = 'LG ' + this.currentTitle; break;
-      default: this.currentTitle = this.currentTitle; break;
+      case 'Small': this.currentTitle = 'SM ' + this.currentItem.title; break;
+      case 'Large': this.currentTitle = 'LG ' + this.currentItem.title; break;
+      default: this.currentTitle = this.currentItem.title; break;
     }
+    console.log(this.currentTitle);
   }
 
   displayModCost(item: any) {
@@ -270,7 +273,7 @@ export class SideComponent implements OnInit {
   addToOrder() {
     var itemName = this.currentTitle;
     var buildArray: any = this.readyToPrint(this.itemsPicked, this.sauceSelected, this.platterSelected);
-    this.global.addToCartPrint(itemName, buildArray, this.currentTitle, this.itemCost);
+    this.global.addToCartPrint(itemName, buildArray, this.currentItem.catagory, this.itemCost);
     this.router.navigateByUrl('MENU');
   }
 

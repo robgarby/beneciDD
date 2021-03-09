@@ -16,6 +16,7 @@ import { MenuComponent } from './menu/menu.component';
 import { OnlineMenuComponent } from './online-menu/online-menu.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { LoginComponent } from './login/login.component';
+import { ADMINComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'BUILD', component: BuildComponent},
   {path: 'HALF', component: HalfNhalfComponent},
   {path: 'LOGIN', component: LoginComponent},
+  {path: 'ADMIN', component: ADMINComponent},
   {path: 'DRINK', component: DrinksComponent},
   {path: 'locations', component: StartComponent},
   {path: 'menu', component: OnlineMenuComponent},

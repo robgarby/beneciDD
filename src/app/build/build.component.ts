@@ -383,7 +383,7 @@ export class BuildComponent implements OnInit {
     this.modTranslated.forEach((element:any) => {
         buildArray.push(element);
     });
-    this.global.addToCartPrint(itemName, buildArray, itemName, this.itemCost);
+    this.global.addToCartPrint(itemName, buildArray, 'pizza', this.itemCost);
     this.router.navigateByUrl('MENU');
     var itemName = this.currentSize + ' ' + this.currentPizza.title;
   }

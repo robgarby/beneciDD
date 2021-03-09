@@ -86,3 +86,10 @@ body, html {
     height: 35px;
     line-height: 35px;
 }
+
+.linkFull {
+    background-color: black;
+    color: goldenrod;
+    text-align: center;
+    font-size: small;
+}

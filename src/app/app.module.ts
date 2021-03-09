@@ -23,6 +23,7 @@ import { OnlineMenuComponent } from './online-menu/online-menu.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { LoginComponent } from './login/login.component';
 import {CookieService} from 'ngx-cookie-service';
+import { ADMINComponent } from './admin/admin.component';
 
 // const appRoutes : Routes = [
 //   {path: 'START', component: StartComponent},
@@ -59,7 +60,8 @@ import {CookieService} from 'ngx-cookie-service';
     DrinksComponent,
     OnlineMenuComponent,
     AboutUsComponent,
-    LoginComponent
+    LoginComponent,
+    ADMINComponent
   ],
   imports: [
     BrowserModule,
